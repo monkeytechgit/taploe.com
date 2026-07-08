@@ -10,15 +10,18 @@
   }
 
   const gallery = document.querySelector('[data-gallery]');
-  if (gallery) {
+  const selectGalleryButton = (button) => {
+    if (!gallery || !button) return;
     const main = gallery.querySelector('[data-gallery-main]');
+    if (!main) return;
+    main.src = button.dataset.galleryImage;
+    main.alt = button.dataset.galleryAlt || '';
+    gallery.querySelectorAll('[data-gallery-image]').forEach((item) => item.setAttribute('aria-current', 'false'));
+    button.setAttribute('aria-current', 'true');
+  };
+  if (gallery) {
     gallery.querySelectorAll('[data-gallery-image]').forEach((button) => {
-      button.addEventListener('click', () => {
-        main.src = button.dataset.galleryImage;
-        main.alt = button.dataset.galleryAlt || '';
-        gallery.querySelectorAll('[data-gallery-image]').forEach((item) => item.setAttribute('aria-current', 'false'));
-        button.setAttribute('aria-current', 'true');
-      });
+      button.addEventListener('click', () => selectGalleryButton(button));
     });
   }
 
@@ -47,6 +50,7 @@
   const updateDesign = () => {
     const custom = selectedValue('design') === 'custom';
     if (uploadPanel) uploadPanel.classList.toggle('is-visible', custom);
+    if (custom) selectGalleryButton(gallery?.querySelector('[data-custom-logo-reference]'));
   };
   designInputs.forEach((input) => input.addEventListener('change', updateDesign));
   if (designInputs.length) updateDesign();
