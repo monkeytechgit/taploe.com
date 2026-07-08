@@ -1,8 +1,0 @@
-# Taploe robots.txt
-# Public site ready for indexing.
-
-User-agent: *
-Allow: /
-
-Sitemap: https://taploe.com/sitemap.xml
-Host: taploe.com
