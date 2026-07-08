@@ -7,9 +7,9 @@
   --color-soft: #f7f8fa;
   --color-white: #ffffff;
   --container: 1440px;
-  --radius-small: 16px;
-  --radius-medium: 24px;
-  --radius-large: 32px;
+  --radius-small: 12px;
+  --radius-medium: 18px;
+  --radius-large: 24px;
   --transition: 180ms ease;
 }
 
@@ -2212,7 +2212,7 @@ a:focus-visible,
 .use-case-tags span {
   padding: 10px 24px;
   border: 1px solid #bdbdbd;
-  border-radius: 999px;
+  border-radius: 12px;
   font-weight: 650;
 }
 
@@ -2885,6 +2885,14 @@ a:focus-visible,
   white-space: nowrap;
 }
 
+.product-configurator__price-note {
+  margin-bottom: 6px;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
 .product-configurator__price strong {
   font-size: clamp(28px, 2.5vw, 38px);
   line-height: 1;
@@ -3202,7 +3210,7 @@ a:focus-visible,
   justify-content: center;
   padding: 0 20px;
   border: 1.5px solid var(--color-line);
-  border-radius: 999px;
+  border-radius: 12px;
   font-weight: 800;
   transition: border-color var(--transition), color var(--transition), background-color var(--transition);
 }
@@ -3247,16 +3255,16 @@ a:focus-visible,
 
 .quantity-control {
   display: grid;
-  grid-template-columns: 48px minmax(56px, 1fr) 48px;
-  max-width: 190px;
+  grid-template-columns: 52px minmax(68px, 1fr) 52px;
+  max-width: 212px;
   overflow: hidden;
   border: 1px solid var(--color-line);
-  border-radius: 999px;
+  border-radius: 14px;
 }
 
 .quantity-control button,
 .quantity-control input {
-  min-height: 48px;
+  min-height: 54px;
   border: 0;
   text-align: center;
   background: transparent;
@@ -3269,6 +3277,7 @@ a:focus-visible,
 
 .quantity-control input {
   width: 100%;
+  font-size: 24px;
   font-weight: 800;
   appearance: textfield;
 }
