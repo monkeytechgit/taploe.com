@@ -820,34 +820,9 @@
     </div>
   </footer>
 
+  <script src="site.js"></script>
   <script>
     (() => {
-      const button = document.querySelector(".menu-toggle");
-      const navigation = document.querySelector("#mobile-navigation");
-
-      if (button && navigation) {
-        const closeMenu = () => {
-          button.setAttribute("aria-expanded", "false");
-          navigation.classList.remove("is-open");
-          document.body.classList.remove("menu-is-open");
-        };
-
-        button.addEventListener("click", () => {
-          const isOpen = button.getAttribute("aria-expanded") === "true";
-          button.setAttribute("aria-expanded", String(!isOpen));
-          navigation.classList.toggle("is-open", !isOpen);
-          document.body.classList.toggle("menu-is-open", !isOpen);
-        });
-
-        navigation.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", closeMenu);
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") closeMenu();
-        });
-      }
-
       const faqItems = document.querySelectorAll(".teams-faq-grid details");
       faqItems.forEach((item) => {
         item.addEventListener("toggle", () => {

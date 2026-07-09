@@ -1,14 +1,4 @@
 (() => {
-  const menuButton = document.querySelector('.menu-toggle');
-  const mobileNav = document.querySelector('.mobile-nav');
-  if (menuButton && mobileNav) {
-    menuButton.addEventListener('click', () => {
-      const expanded = menuButton.getAttribute('aria-expanded') === 'true';
-      menuButton.setAttribute('aria-expanded', String(!expanded));
-      mobileNav.style.display = expanded ? 'none' : 'block';
-    });
-  }
-
   const gallery = document.querySelector('[data-gallery]');
   const selectGalleryButton = (button) => {
     if (!gallery || !button) return;

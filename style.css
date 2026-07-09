@@ -3825,8 +3825,8 @@ body.catalog-page {
 
   .catalog-filters {
     flex-wrap: nowrap;
-    margin: 0 calc(var(--container-padding) * -1);
-    padding: 0 var(--container-padding) 4px;
+    margin: 0 -14px;
+    padding: 0 14px 4px;
     overflow-x: auto;
   }
 
@@ -4658,5 +4658,257 @@ body.catalog-page {
 
   .related-product {
     grid-template-columns: 1fr;
+  }
+}
+
+/* RESPONSIVE HARDENING */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+input,
+select,
+textarea,
+button {
+  max-width: 100%;
+}
+
+.button,
+.button-header,
+.pricing-button {
+  min-width: 0;
+  text-align: center;
+}
+
+.mobile-nav.is-open {
+  display: block;
+}
+
+.mobile-nav__inner {
+  max-height: calc(100dvh - 88px);
+  overflow-y: auto;
+}
+
+.catalog-grid {
+  grid-template-columns: repeat(3, minmax(0, 330px));
+  justify-content: center;
+}
+
+.catalog-card,
+.pricing-card,
+.product-card,
+.step-card,
+.faq-item,
+.related-product,
+.contact-card,
+.contact-form,
+.legal-content {
+  min-width: 0;
+}
+
+.pricing-compare__table-wrap {
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 1180px) {
+  .header-inner {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+
+  .header-actions {
+    justify-self: end;
+  }
+
+  .menu-toggle {
+    display: grid;
+  }
+
+  .mobile-nav.is-open {
+    display: block;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 330px));
+  }
+}
+
+@media (max-width: 900px) {
+  .header-actions {
+    gap: 10px;
+  }
+
+  .header-actions .button-header {
+    display: none;
+  }
+
+  .dropdown-menu {
+    display: none;
+  }
+
+  .product-grid,
+  .steps-grid,
+  .faq-grid,
+  .contact-layout,
+  .pricing-grid,
+  .related-products__grid,
+  .use-cases-grid,
+  .profile-data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card {
+    max-width: 680px;
+  }
+
+  .footer-grid {
+    gap: 34px 24px;
+  }
+}
+
+@media (max-width: 760px) {
+  .catalog-toolbar {
+    gap: 14px;
+  }
+
+  .catalog-filters {
+    margin: 0 -14px;
+    padding: 0 14px 4px;
+    scrollbar-width: none;
+  }
+
+  .catalog-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .catalog-grid {
+    grid-template-columns: minmax(0, 330px);
+  }
+
+  .catalog-card__top {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-price {
+    justify-items: start;
+  }
+
+  .pricing-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-selector button {
+    border-right: 0;
+    border-bottom: 1px solid #e3e8f2;
+  }
+
+  .pricing-selector button:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    position: sticky;
+  }
+
+  .header-inner {
+    min-height: 72px;
+  }
+
+  .brand img {
+    width: 118px;
+  }
+
+  .menu-toggle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .mobile-nav a {
+    padding: 14px 0;
+    font-size: 17px;
+  }
+
+  .button-row,
+  .faq-help,
+  .pricing-price--inline {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .button-row .button,
+  .faq-help .button,
+  .catalog-card__body > .button,
+  .pricing-button,
+  .product-submit {
+    width: 100%;
+  }
+
+  .page-intro h1,
+  .pricing-heading h1,
+  .catalog-heading h1 {
+    font-size: 40px;
+    line-height: 1.05;
+  }
+
+  .page-intro p,
+  .pricing-heading p,
+  .catalog-heading p {
+    font-size: 18px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: minmax(0, 100%);
+  }
+
+  .catalog-card__image {
+    min-height: 200px;
+  }
+
+  .catalog-card__image img {
+    max-height: 190px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-column {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    width: min(calc(100% - 24px), var(--container));
+  }
+
+  .brand img {
+    width: 108px;
+  }
+
+  .section,
+  .pricing-hero,
+  .catalog-section,
+  .product-detail {
+    padding-top: 36px;
+    padding-bottom: 44px;
+  }
+
+  .hero-copy h1,
+  .teams-hero__copy h1 {
+    font-size: 40px;
+  }
+
+  .product-configurator,
+  .contact-card,
+  .contact-form,
+  .legal-content,
+  .pricing-card {
+    padding: 20px;
   }
 }
