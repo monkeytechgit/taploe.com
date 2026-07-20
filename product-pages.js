@@ -30,12 +30,15 @@
   const removeUpload = configurator.querySelector('[data-upload-remove]');
   const quantityInput = configurator.querySelector('[data-quantity]');
   const reviewLinkInput = configurator.querySelector('[data-review-link]');
+  const packageInputs = configurator.querySelectorAll('[data-package-option]');
+  const priceDisplay = configurator.querySelector('[data-product-price-display]');
   const minus = configurator.querySelector('[data-quantity-minus]');
   const plus = configurator.querySelector('[data-quantity-plus]');
   const status = configurator.querySelector('[data-form-status]');
   const submit = configurator.querySelector('.product-submit');
 
   const selectedValue = (name) => form.querySelector(`input[name="${name}"]:checked`)?.value || '';
+  const selectedPackage = () => form.querySelector('[data-package-option]:checked');
 
   const updateDesign = () => {
     const custom = selectedValue('design') === 'custom';
@@ -98,6 +101,14 @@
   if (minus) minus.addEventListener('click', () => { quantityInput.value = clampQuantity(Number(quantityInput.value) - 1); });
   if (plus) plus.addEventListener('click', () => { quantityInput.value = clampQuantity(Number(quantityInput.value) + 1); });
   if (quantityInput) quantityInput.addEventListener('change', () => { quantityInput.value = clampQuantity(quantityInput.value); });
+  const updatePackagePrice = () => {
+    const packageInput = selectedPackage();
+    if (!packageInput || !priceDisplay) return;
+    const price = Number(packageInput.dataset.packagePrice);
+    priceDisplay.textContent = `$${price.toLocaleString('es-MX')} MXN`;
+  };
+  packageInputs.forEach((input) => input.addEventListener('change', updatePackagePrice));
+  updatePackagePrice();
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -112,14 +123,20 @@
       uploadPanel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+    const packageInput = selectedPackage();
+    const packageQuantity = Number(packageInput?.dataset.packageQuantity);
+    const packagePrice = Number(packageInput?.dataset.packagePrice);
+    const packageUnitPrice = Number(packageInput?.dataset.packageUnitPrice);
     const item = {
       product: configurator.dataset.productName,
-      unitPrice: Number(configurator.dataset.productPrice),
-      quantity: clampQuantity(quantityInput?.value),
+      unitPrice: packageUnitPrice || Number(configurator.dataset.productPrice),
+      quantity: packageQuantity || clampQuantity(quantityInput?.value),
       design,
       language: selectedValue('language'),
       color: selectedValue('color'),
       reviewLink: reviewLinkInput?.value || '',
+      package: packageInput?.dataset.packageLabel || '',
+      totalPrice: packagePrice || undefined,
       logoName: fileInput?.files[0]?.name || '',
       addedAt: new Date().toISOString()
     };

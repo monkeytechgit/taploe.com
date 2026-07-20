@@ -110,7 +110,7 @@ svg {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(28px, 4vw, 64px);
+  gap: clamp(18px, 3vw, 48px);
   font-size: 18px;
 }
 
@@ -219,9 +219,9 @@ svg {
   top: calc(100% + 30px);
   left: 50%;
   z-index: 20;
-  width: min(1120px, calc(100vw - 64px));
+  width: min(860px, calc(100vw - 64px));
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   padding: 22px;
   border: 1px solid var(--color-line);
@@ -406,6 +406,10 @@ svg {
   flex-wrap: wrap;
   align-items: center;
   gap: 18px;
+}
+
+.mobile-nav a[aria-current="page"] {
+  color: var(--color-primary);
 }
 
 /* SECTIONS */
@@ -1365,6 +1369,16 @@ a:focus-visible,
 
   .steps-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .google-review-steps .steps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .google-review-steps .step-card:last-child {
+    grid-column: 1 / -1;
+    width: min(100%, 520px);
+    justify-self: center;
   }
 
   .step-card {
@@ -2953,7 +2967,7 @@ a:focus-visible,
 /* ================================================================
    PÁGINAS DE PRODUCTO TAPLOE
    Estructura compartida por tarjeta-nfc.html,
-   tarjeta-nfc-metalica.html y perfil-digital.html.
+   tarjeta-nfc-metalica.html.
    ================================================================ */
 
 .product-page .site-header {
@@ -3163,6 +3177,316 @@ a:focus-visible,
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* TARJETA DIGITAL */
+
+.digital-card-page {
+  background: #fff;
+}
+
+.digital-card-page .section {
+  padding: 58px 0;
+}
+
+.digital-card-page .section-heading {
+  margin-bottom: 34px;
+}
+
+.digital-hero {
+  padding: 44px 0 58px;
+}
+
+.digital-hero__grid,
+.digital-split__grid,
+.digital-showcase__grid,
+.digital-final__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(42px, 6vw, 96px);
+}
+
+.digital-hero__copy {
+  display: grid;
+  gap: 20px;
+}
+
+.section-kicker {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.digital-hero h1,
+.digital-split h2,
+.digital-showcase h2,
+.digital-final h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(42px, 5.9vw, 82px);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.digital-hero p,
+.digital-split p,
+.digital-showcase p,
+.digital-final p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.45;
+}
+
+.digital-hero__note {
+  color: var(--color-text) !important;
+  font-size: 15px !important;
+  font-weight: 800;
+}
+
+.digital-showcase figure,
+.digital-final__grid > img {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-large);
+  background: #fbfbfc;
+}
+
+.digital-hero__media {
+  display: grid;
+  place-items: center;
+}
+
+.digital-hero__media img,
+.digital-section-image,
+.digital-showcase img,
+.digital-final__grid > img {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+}
+
+.digital-hero__media img {
+  max-height: 590px;
+  border-radius: var(--radius-large);
+}
+
+.digital-section-image {
+  max-height: 430px;
+  margin-top: 10px;
+}
+
+.digital-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.digital-feature-grid article,
+.digital-process__grid article,
+.digital-product-card {
+  min-width: 0;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-large);
+  background: var(--color-white);
+}
+
+.digital-feature-grid article {
+  display: grid;
+  gap: 12px;
+  min-height: 205px;
+  padding: 24px;
+}
+
+.digital-feature-grid span,
+.digital-process__grid span {
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.digital-feature-grid h3,
+.digital-process__grid h3,
+.digital-product-card h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.digital-feature-grid p,
+.digital-process__grid p,
+.digital-product-card p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 16px;
+  line-height: 1.42;
+}
+
+.digital-showcase figure {
+  display: grid;
+  min-height: 440px;
+  place-items: center;
+  padding: clamp(24px, 4vw, 46px);
+}
+
+.digital-showcase__grid > div,
+.digital-final__grid > div {
+  display: grid;
+  gap: 22px;
+}
+
+.digital-check-list {
+  display: grid;
+  gap: 16px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.digital-check-list li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  align-items: start;
+  color: #30343b;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.digital-check-list span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid #c9d9ff;
+  border-radius: 50%;
+  color: var(--color-primary);
+  font-weight: 900;
+}
+
+.digital-process__grid,
+.digital-products__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.digital-process__grid article {
+  display: grid;
+  gap: 16px;
+  min-height: 220px;
+  padding: 26px;
+}
+
+.digital-process__grid--compact {
+  grid-template-columns: 1fr;
+}
+
+.digital-process__grid--compact article {
+  min-height: 0;
+}
+
+.digital-products__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.digital-product-card {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.9fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  padding: 22px;
+}
+
+.digital-product-card > a {
+  display: grid;
+  min-height: 260px;
+  place-items: center;
+  border-radius: calc(var(--radius-large) - 8px);
+  background: #fbfbfc;
+}
+
+.digital-product-card img {
+  width: 100%;
+  max-height: 245px;
+  object-fit: contain;
+}
+
+.digital-product-card > div {
+  display: grid;
+  gap: 14px;
+}
+
+.digital-product-card strong {
+  color: var(--color-text);
+}
+
+.digital-pro-card {
+  background: #f8fbff;
+}
+
+.digital-final__grid > img {
+  max-height: 540px;
+  padding: clamp(24px, 4vw, 46px);
+}
+
+.digital-faq {
+  padding-top: 58px;
+}
+
+.digital-final-cta {
+  padding-bottom: 82px;
+}
+
+.digital-final-cta__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(38px, 6vw, 88px);
+  overflow: hidden;
+  padding: clamp(30px, 5vw, 62px);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-large);
+  background: var(--color-white);
+}
+
+.digital-final-cta__grid > div {
+  display: grid;
+  gap: 24px;
+  align-content: center;
+}
+
+.digital-final-cta h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(42px, 5.5vw, 78px);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.digital-final-cta p {
+  max-width: 560px;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.45;
+}
+
+.digital-final-cta img {
+  display: block;
+  width: 100%;
+  max-height: 560px;
+  object-fit: contain;
+  border-radius: var(--radius-large);
 }
 
 .pricing-page {
@@ -4039,10 +4363,99 @@ body.catalog-page {
 }
 
 .config-choice input:focus-visible + .config-choice__box,
+.review-package-option input:focus-visible + .review-package-card,
 .finish-option input:focus-visible + span,
 .color-option input:focus-visible + span {
   outline: 3px solid rgba(21, 82, 248, .22);
   outline-offset: 3px;
+}
+
+.review-package-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.review-package-option {
+  position: relative;
+  min-width: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.review-package-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.review-package-card {
+  height: 100%;
+  min-height: 150px;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 17px 46px 17px 18px;
+  border: 1.5px solid var(--color-line);
+  border-radius: 17px;
+  background: var(--color-white);
+  transition: border-color var(--transition), background-color var(--transition);
+}
+
+.review-package-card strong {
+  font-size: 20px;
+  line-height: 1.05;
+}
+
+.review-package-card small {
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.review-package-card b {
+  margin-top: 2px;
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.review-package-card em {
+  width: fit-content;
+  margin-top: 2px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: var(--color-primary);
+  background: rgba(21, 82, 248, .08);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.review-package-check {
+  position: absolute;
+  top: 16px;
+  right: 15px;
+  width: 23px;
+  height: 23px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid #cfcfcf;
+  border-radius: 50%;
+  color: transparent;
+  background: var(--color-white);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.review-package-option input:checked + .review-package-card {
+  border-color: var(--color-primary);
+  background: #fbfcff;
+}
+
+.review-package-option input:checked ~ .review-package-check {
+  color: var(--color-white);
+  border-color: var(--color-primary);
+  background: var(--color-primary);
 }
 
 .logo-upload-panel {
@@ -4483,6 +4896,12 @@ body.catalog-page {
   min-height: 480px;
 }
 
+.google-review-steps .steps-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
 .product-faq .faq-container {
   max-width: 1160px;
 }
@@ -4756,8 +5175,19 @@ button {
   .pricing-grid,
   .related-products__grid,
   .use-cases-grid,
-  .profile-data-grid {
+  .profile-data-grid,
+  .digital-hero__grid,
+  .digital-split__grid,
+  .digital-showcase__grid,
+  .digital-final__grid,
+  .digital-final-cta__grid,
+  .digital-products__grid {
     grid-template-columns: 1fr;
+  }
+
+  .digital-process__grid,
+  .digital-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .pricing-card {
@@ -4766,6 +5196,32 @@ button {
 
   .footer-grid {
     gap: 34px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .digital-hero {
+    padding-top: 34px;
+  }
+
+  .digital-showcase figure {
+    min-height: 360px;
+  }
+
+  .digital-feature-grid,
+  .digital-process__grid,
+  .digital-product-card,
+  .review-package-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .digital-product-card > a {
+    min-height: 220px;
+  }
+
+  .google-review-steps .step-card:last-child {
+    grid-column: auto;
+    width: 100%;
   }
 }
 
