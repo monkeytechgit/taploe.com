@@ -18,6 +18,33 @@
   const configurator = document.querySelector('[data-product-configurator]');
   if (!configurator) return;
 
+  const ecommerce = window.TaploeEcommerce || {};
+  const market = ecommerce.market || document.documentElement.dataset.market || (window.location.pathname.toLowerCase().startsWith('/us/') ? 'us' : 'mx');
+  const locale = ecommerce.locale || document.documentElement.dataset.locale || (market === 'us' ? 'en-US' : 'es-MX');
+  const currency = ecommerce.currency || (market === 'us' ? 'USD' : 'MXN');
+  const productCatalog = ecommerce.products || {};
+  const cartKey = ecommerce.cartStorageKey || `taploeCart:${market}`;
+  const labels = market === 'us'
+    ? {
+        added: 'Added to cart ✓',
+        fileTooLarge: 'The file is larger than 10 MB.',
+        logoRequired: 'Upload your logo to continue with the custom design.',
+        selectedFileAlt: 'Selected logo file',
+        cartStatus: (product) => `${product} was added to your cart.`
+      }
+    : {
+        added: 'Agregado al carrito ✓',
+        fileTooLarge: 'El archivo supera el máximo de 10 MB.',
+        logoRequired: 'Carga tu logotipo para continuar con el diseño personalizado.',
+        selectedFileAlt: 'Archivo de logotipo seleccionado',
+        cartStatus: (product) => `${product} se agregó al carrito.`
+      };
+  const money = (value) => new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: currency === 'USD' ? 2 : 0,
+    maximumFractionDigits: currency === 'USD' ? 2 : 0
+  }).format(Number(value || 0));
   const form = configurator.querySelector('[data-product-form]');
   const uploadPanel = configurator.querySelector('[data-upload-panel]');
   const designInputs = configurator.querySelectorAll('input[name="design"]');
@@ -36,9 +63,34 @@
   const plus = configurator.querySelector('[data-quantity-plus]');
   const status = configurator.querySelector('[data-form-status]');
   const submit = configurator.querySelector('.product-submit');
+  const mainImage = configurator.closest('.product-detail')?.querySelector('[data-gallery-main]');
 
   const selectedValue = (name) => form.querySelector(`input[name="${name}"]:checked`)?.value || '';
   const selectedPackage = () => form.querySelector('[data-package-option]:checked');
+  const productCode = configurator.dataset.productCode;
+  const productConfig = productCatalog[productCode] || {};
+  const openLogoDb = () => new Promise((resolve, reject) => {
+    const request = indexedDB.open('taploe-ecommerce', 1);
+    request.onupgradeneeded = () => request.result.createObjectStore('logos');
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+  const saveLogoFile = async (id, file) => {
+    if (!file) return;
+    const db = await openLogoDb();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction('logos', 'readwrite');
+      tx.objectStore('logos').put(file, id);
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+    });
+    db.close();
+  };
+
+  const parseReviewLinks = (value) => (value || '')
+    .split(',')
+    .map((link) => link.trim())
+    .filter(Boolean);
 
   const updateDesign = () => {
     const custom = selectedValue('design') === 'custom';
@@ -57,7 +109,7 @@
   const handleFile = (file) => {
     if (!file) return;
     if (file.size > 10 * 1024 * 1024) {
-      if (status) status.textContent = 'El archivo supera el máximo de 10 MB.';
+      if (status) status.textContent = labels.fileTooLarge;
       clearFile();
       return;
     }
@@ -70,18 +122,18 @@
       reader.readAsDataURL(file);
     } else if (previewImage) {
       previewImage.removeAttribute('src');
-      previewImage.alt = 'Archivo de logotipo seleccionado';
+      previewImage.alt = labels.selectedFileAlt;
     }
     if (status) status.textContent = '';
   };
 
   if (fileInput) fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
   if (dropzone) {
-    ['dragenter','dragover'].forEach((eventName) => dropzone.addEventListener(eventName, (event) => {
+    ['dragenter', 'dragover'].forEach((eventName) => dropzone.addEventListener(eventName, (event) => {
       event.preventDefault();
       dropzone.classList.add('is-dragover');
     }));
-    ['dragleave','drop'].forEach((eventName) => dropzone.addEventListener(eventName, (event) => {
+    ['dragleave', 'drop'].forEach((eventName) => dropzone.addEventListener(eventName, (event) => {
       event.preventDefault();
       dropzone.classList.remove('is-dragover');
     }));
@@ -101,16 +153,41 @@
   if (minus) minus.addEventListener('click', () => { quantityInput.value = clampQuantity(Number(quantityInput.value) - 1); });
   if (plus) plus.addEventListener('click', () => { quantityInput.value = clampQuantity(Number(quantityInput.value) + 1); });
   if (quantityInput) quantityInput.addEventListener('change', () => { quantityInput.value = clampQuantity(quantityInput.value); });
+
+  const getPackageConfig = () => {
+    const input = selectedPackage();
+    if (!input) return null;
+    const key = input.value;
+    const catalogPackage = productConfig.packages?.[key] || {};
+    return {
+      key,
+      label: input.dataset.packageLabel || '',
+      quantity: Number(catalogPackage.quantity || input.dataset.packageQuantity),
+      unitPrice: Number(catalogPackage.unitPrice || input.dataset.packageUnitPrice),
+      totalPrice: Number(catalogPackage.totalPrice || input.dataset.packagePrice),
+      stripePriceId: catalogPackage.priceId || input.dataset.stripePriceId || '',
+    };
+  };
+
   const updatePackagePrice = () => {
-    const packageInput = selectedPackage();
-    if (!packageInput || !priceDisplay) return;
-    const price = Number(packageInput.dataset.packagePrice);
-    priceDisplay.textContent = `$${price.toLocaleString('es-MX')} MXN`;
+    const pack = getPackageConfig();
+    if (!pack || !priceDisplay) return;
+    priceDisplay.textContent = money(pack.totalPrice);
   };
   packageInputs.forEach((input) => input.addEventListener('change', updatePackagePrice));
   updatePackagePrice();
 
-  form.addEventListener('submit', (event) => {
+  const logoPayload = () => {
+    const file = fileInput?.files?.[0];
+    if (!file) return null;
+    return {
+      name: file.name,
+      size: file.size,
+      type: file.type
+    };
+  };
+
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (!form.checkValidity()) {
       form.reportValidity();
@@ -119,34 +196,51 @@
     const design = selectedValue('design') || 'profile';
     const logoRequired = fileInput?.hasAttribute('data-logo-required');
     if ((design === 'custom' || logoRequired) && fileInput && !fileInput.files.length) {
-      status.textContent = 'Carga tu logotipo para continuar con el diseño personalizado.';
+      status.textContent = labels.logoRequired;
       uploadPanel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
-    const packageInput = selectedPackage();
-    const packageQuantity = Number(packageInput?.dataset.packageQuantity);
-    const packagePrice = Number(packageInput?.dataset.packagePrice);
-    const packageUnitPrice = Number(packageInput?.dataset.packageUnitPrice);
+
+    const pack = getPackageConfig();
+    const quantity = pack?.quantity || clampQuantity(quantityInput?.value);
+    const unitPrice = pack?.unitPrice || Number(productConfig.unitPrice || configurator.dataset.productPrice);
+    const totalPrice = pack?.totalPrice || unitPrice * quantity;
+    const reviewLink = reviewLinkInput?.value || '';
+    const itemId = window.crypto?.randomUUID ? window.crypto.randomUUID() : `item-${Date.now()}-${Math.random().toString(16).slice(2)}`;
     const item = {
+      id: itemId,
       product: configurator.dataset.productName,
-      unitPrice: packageUnitPrice || Number(configurator.dataset.productPrice),
-      quantity: packageQuantity || clampQuantity(quantityInput?.value),
+      productCode,
+      market,
+      locale,
+      currency,
+      stripeProductId: productConfig.productId || configurator.dataset.stripeProductId || '',
+      stripePriceId: pack?.stripePriceId || productConfig.priceId || configurator.dataset.stripePriceId || '',
+      unitPrice,
+      quantity,
+      totalPrice,
+      package: pack?.label || '',
+      packageKey: pack?.key || '',
       design,
       language: selectedValue('language'),
       color: selectedValue('color'),
-      reviewLink: reviewLinkInput?.value || '',
-      package: packageInput?.dataset.packageLabel || '',
-      totalPrice: packagePrice || undefined,
-      logoName: fileInput?.files[0]?.name || '',
+      reviewLink,
+      reviewLinks: parseReviewLinks(reviewLink),
+      logo: logoPayload(),
+      imageUrl: mainImage?.getAttribute('src') || '',
+      productUrl: window.location.href,
       addedAt: new Date().toISOString()
     };
-    const cart = JSON.parse(localStorage.getItem('taploeCart') || '[]');
+    await saveLogoFile(item.id, fileInput?.files?.[0]);
+    const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
     cart.push(item);
-    localStorage.setItem('taploeCart', JSON.stringify(cart));
-    status.textContent = `${item.product} se agregó al carrito.`;
+    localStorage.setItem(cartKey, JSON.stringify(cart));
+    window.dispatchEvent(new CustomEvent('taploe:cart-updated', { detail: { open: true, item } }));
+    window.dispatchEvent(new CustomEvent('taploe:cart-open'));
+    status.textContent = labels.cartStatus(item.product);
     submit.classList.add('is-added');
     const original = submit.textContent;
-    submit.textContent = 'Agregado al carrito ✓';
+    submit.textContent = labels.added;
     setTimeout(() => { submit.classList.remove('is-added'); submit.textContent = original; }, 2200);
   });
 })();
