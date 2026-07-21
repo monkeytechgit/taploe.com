@@ -103,6 +103,8 @@
   `;
   };
 
+  const headingIconMarkup = `<span class="quote-dialog__icon" aria-label="${copy.icon}" role="img"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>`;
+
   const buildDialog = () => {
     if (document.querySelector('[data-quote-dialog]')) return;
     const dialog = document.createElement('div');
@@ -116,9 +118,7 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
         </button>
         <div class="quote-dialog__heading">
-          <span class="quote-dialog__icon" aria-label="${copy.icon}">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 14.6 8.7 21 9.4l-4.8 4.2 1.4 6.2L12 16.6 6.4 19.8l1.4-6.2L3 9.4l6.4-.7L12 3Z"/><path d="M12 8.3v5.2M9.4 10.9h5.2"/></svg>
-          </span>
+          ${headingIconMarkup}
           <div>
             <h2 id="quote-dialog-title">${copy.title}</h2>
             <p>${copy.intro}</p>
@@ -235,9 +235,7 @@
       mount.innerHTML = `
         <section class="quote-inline-card">
           <div class="quote-dialog__heading">
-            <span class="quote-dialog__icon" aria-label="${copy.icon}">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 14.6 8.7 21 9.4l-4.8 4.2 1.4 6.2L12 16.6 6.4 19.8l1.4-6.2L3 9.4l6.4-.7L12 3Z"/><path d="M12 8.3v5.2M9.4 10.9h5.2"/></svg>
-            </span>
+            ${headingIconMarkup}
             <div>
               <h2>${copy.inlineTitle}</h2>
               <p>${copy.intro}</p>
