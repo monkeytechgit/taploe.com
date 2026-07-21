@@ -115,10 +115,6 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
           </button>
         </div>
-        <div class="cart-drawer__progress" aria-hidden="true">
-          <span></span>
-          <b></b>
-        </div>
         <p class="cart-empty" data-cart-empty>${copy.empty}</p>
         <div class="cart-list cart-drawer__list" data-cart-items></div>
         <div class="cart-drawer__footer">
@@ -175,14 +171,10 @@
           <h3>${item.product}</h3>
           <strong>${money(itemTotal)}</strong>
         </div>
-        <p>${money(item.unitPrice)} ${copy.each}</p>
+        <p>${item.quantity} ${copy.pieces(item.quantity)} · ${money(item.unitPrice)} ${copy.each}</p>
         <div class="cart-item__meta">${packageText}${language}${linksText}${logo}${design}</div>
         <div class="cart-item__actions">
-          <div class="cart-quantity" aria-label="${item.quantity} ${copy.pieces(item.quantity)}">
-            <button type="button" data-quantity-index="${index}" data-quantity-change="-1" aria-label="-">−</button>
-            <strong>${item.quantity}</strong>
-            <button type="button" data-quantity-index="${index}" data-quantity-change="1" aria-label="+">+</button>
-          </div>
+          <span class="cart-item__quantity">${item.quantity} ${copy.pieces(item.quantity)}</span>
           <button class="cart-item__remove" type="button" data-remove-index="${index}" aria-label="${copy.remove}">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/></svg>
             <span>${copy.remove}</span>
@@ -337,18 +329,6 @@
     if (remove) {
       const cart = getCart();
       cart.splice(Number(remove.dataset.removeIndex), 1);
-      setCart(cart);
-      render();
-      return;
-    }
-    const quantity = event.target.closest('[data-quantity-index]');
-    if (quantity) {
-      const cart = getCart();
-      const item = cart[Number(quantity.dataset.quantityIndex)];
-      if (!item) return;
-      const nextQuantity = Math.max(1, Number(item.quantity || 1) + Number(quantity.dataset.quantityChange || 0));
-      item.quantity = nextQuantity;
-      item.totalPrice = Number(item.unitPrice || 0) * nextQuantity;
       setCart(cart);
       render();
       return;
