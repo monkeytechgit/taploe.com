@@ -27,6 +27,7 @@
   const labels = market === 'us'
     ? {
         added: 'Added to cart ✓',
+        adding: 'Adding...',
         fileTooLarge: 'The file is larger than 10 MB.',
         logoRequired: 'Upload your logo to continue with the custom design.',
         selectedFileAlt: 'Selected logo file',
@@ -34,6 +35,7 @@
       }
     : {
         added: 'Agregado al carrito ✓',
+        adding: 'Agregando...',
         fileTooLarge: 'El archivo supera el máximo de 10 MB.',
         logoRequired: 'Carga tu logotipo para continuar con el diseño personalizado.',
         selectedFileAlt: 'Archivo de logotipo seleccionado',
@@ -64,6 +66,32 @@
   const status = configurator.querySelector('[data-form-status]');
   const submit = configurator.querySelector('.product-submit');
   const mainImage = configurator.closest('.product-detail')?.querySelector('[data-gallery-main]');
+  const showCartLoading = () => {
+    let loader = document.querySelector('[data-cart-loading]');
+    if (!loader) {
+      loader = document.createElement('div');
+      loader.className = 'cart-loading';
+      loader.setAttribute('data-cart-loading', '');
+      loader.setAttribute('role', 'status');
+      loader.setAttribute('aria-live', 'polite');
+      loader.innerHTML = `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 8h12l1 13H5L6 8Z"/>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+        </svg>
+        <span class="sr-only">${labels.adding}</span>
+        <i></i><i></i><i></i>
+      `;
+      document.body.appendChild(loader);
+    }
+    requestAnimationFrame(() => loader.classList.add('is-visible'));
+    return () => {
+      loader.classList.remove('is-visible');
+      setTimeout(() => {
+        if (!loader.classList.contains('is-visible')) loader.remove();
+      }, 260);
+    };
+  };
 
   const selectedValue = (name) => form.querySelector(`input[name="${name}"]:checked`)?.value || '';
   const selectedPackage = () => form.querySelector('[data-package-option]:checked');
@@ -201,6 +229,13 @@
       return;
     }
 
+    const original = submit.textContent;
+    submit.disabled = true;
+    submit.classList.add('is-loading');
+    submit.textContent = labels.adding;
+    if (status) status.textContent = '';
+    const hideCartLoading = showCartLoading();
+
     const pack = getPackageConfig();
     const quantity = pack?.quantity || clampQuantity(quantityInput?.value);
     const unitPrice = pack?.unitPrice || Number(productConfig.unitPrice || configurator.dataset.productPrice);
@@ -231,16 +266,24 @@
       productUrl: window.location.href,
       addedAt: new Date().toISOString()
     };
-    await saveLogoFile(item.id, fileInput?.files?.[0]);
+    await Promise.all([
+      saveLogoFile(item.id, fileInput?.files?.[0]).catch(() => {}),
+      new Promise((resolve) => setTimeout(resolve, 650))
+    ]);
     const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
     cart.push(item);
     localStorage.setItem(cartKey, JSON.stringify(cart));
     window.dispatchEvent(new CustomEvent('taploe:cart-updated', { detail: { open: true, item } }));
     window.dispatchEvent(new CustomEvent('taploe:cart-open'));
+    hideCartLoading();
     status.textContent = labels.cartStatus(item.product);
+    submit.classList.remove('is-loading');
     submit.classList.add('is-added');
-    const original = submit.textContent;
     submit.textContent = labels.added;
-    setTimeout(() => { submit.classList.remove('is-added'); submit.textContent = original; }, 2200);
+    setTimeout(() => {
+      submit.disabled = false;
+      submit.classList.remove('is-added');
+      submit.textContent = original;
+    }, 2200);
   });
 })();

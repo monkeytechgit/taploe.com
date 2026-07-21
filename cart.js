@@ -12,10 +12,15 @@
         title: 'Cart',
         close: 'Close cart',
         empty: 'Your cart is empty.',
+        subtotal: 'Subtotal',
+        shipping: 'Shipping',
+        shippingNote: 'Calculated at checkout',
         total: 'Total',
-        buy: 'Buy now',
+        buy: 'Checkout',
+        viewCart: 'View cart',
         continue: 'Continue shopping',
         secure: 'Secure payment. Shipping details are collected in the next step.',
+        drawerTitle: 'Your shopping cart',
         logoUploadError: (product) => `Could not upload the logo for ${product}.`,
         orderError: 'Could not create the Supabase order.',
         itemsError: 'Could not save the order products.',
@@ -36,10 +41,15 @@
         title: 'Carrito',
         close: 'Cerrar carrito',
         empty: 'Tu carrito está vacío.',
+        subtotal: 'Subtotal',
+        shipping: 'Envío',
+        shippingNote: 'Se calcula en checkout',
         total: 'Total',
-        buy: 'Comprar ahora',
+        buy: 'Checkout',
+        viewCart: 'Ver carrito',
         continue: 'Seguir comprando',
         secure: 'Pago seguro. Los datos de envío se solicitan en el siguiente paso.',
+        drawerTitle: 'Tu carrito',
         logoUploadError: (product) => `No se pudo subir el logo de ${product}.`,
         orderError: 'No se pudo crear la orden en Supabase.',
         itemsError: 'No se pudieron guardar los productos de la orden.',
@@ -76,6 +86,16 @@
   };
   const cartCount = (cart = getCart()) => cart.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
   const cartTotal = (cart = getCart()) => cart.reduce((sum, item) => sum + Number(item.totalPrice || item.unitPrice * item.quantity), 0);
+  const cartPageUrl = `${pathPrefix || ''}/cart.html`;
+  const fallbackImage = `${pathPrefix ? '..' : '.'}/assets/images/taploe-logo.png`;
+  const normalizeImageUrl = (url) => {
+    if (!url) return fallbackImage;
+    if (/^(https?:|data:|blob:)/.test(url)) return url;
+    if (url.startsWith('/assets/')) return `${pathPrefix ? '..' : ''}${url}`;
+    if (url.startsWith('../assets/')) return url;
+    if (url.startsWith('assets/')) return `${pathPrefix ? '../' : ''}${url}`;
+    return url;
+  };
 
   const supabaseReady = () => config.supabaseUrl && config.supabaseAnonKey && !config.supabaseUrl.includes('REEMPLAZA_') && !config.supabaseAnonKey.includes('REEMPLAZA_');
   const supabaseBaseUrl = () => (config.supabaseUrl || '').replace(/\/rest\/v1\/?$/, '').replace(/\/$/, '');
@@ -90,15 +110,22 @@
       <button class="cart-drawer__backdrop" type="button" data-cart-close tabindex="-1" aria-label="${copy.close}"></button>
       <aside class="cart-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title">
         <div class="cart-drawer__header">
-          <h2 id="cart-drawer-title">${copy.title}</h2>
+          <h2 id="cart-drawer-title">${copy.drawerTitle}</h2>
           <button class="cart-drawer__close" type="button" data-cart-close aria-label="${copy.close}">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
           </button>
         </div>
+        <div class="cart-drawer__progress" aria-hidden="true">
+          <span></span>
+          <b></b>
+        </div>
         <p class="cart-empty" data-cart-empty>${copy.empty}</p>
         <div class="cart-list cart-drawer__list" data-cart-items></div>
         <div class="cart-drawer__footer">
+          <div class="cart-summary__row"><span>${copy.subtotal}</span><strong data-cart-subtotal>${money(0)}</strong></div>
+          <div class="cart-summary__row"><span>${copy.shipping}</span><strong>${copy.shippingNote}</strong></div>
           <div class="cart-summary__total"><span>${copy.total}</span><strong data-cart-total>${money(0)}</strong></div>
+          <a class="cart-drawer__view" href="${cartPageUrl}">${copy.viewCart}</a>
           <button class="product-submit" type="button" data-cart-checkout>${copy.buy}</button>
           <button class="cart-drawer__continue" type="button" data-cart-close>${copy.continue}</button>
           <p class="product-form__status" role="status" aria-live="polite" data-cart-status></p>
@@ -132,69 +159,127 @@
     });
   };
 
-  const render = () => {
-    buildDrawer();
+  const itemMarkup = (item, index) => {
+    const itemTotal = Number(item.totalPrice || item.unitPrice * item.quantity);
+    const imageUrl = normalizeImageUrl(item.imageUrl);
+    const links = (item.reviewLinks || []).filter(Boolean);
+    const logo = item.logo?.name ? `<span>${copy.logo}: ${item.logo.name}</span>` : '';
+    const packageText = item.package ? `<span>${copy.package}: ${item.package}</span>` : '';
+    const linksText = links.length ? `<span>${copy.links}: ${links.join(', ')}</span>` : '';
+    const language = item.language ? `<span>${copy.language}: ${item.language.toUpperCase()}</span>` : '';
+    const design = item.design && item.design !== 'profile' ? `<span>${copy.design}: ${item.design}</span>` : '';
+    return `
+      <img src="${imageUrl}" alt="">
+      <div class="cart-item__body">
+        <div class="cart-item__top">
+          <h3>${item.product}</h3>
+          <strong>${money(itemTotal)}</strong>
+        </div>
+        <p>${money(item.unitPrice)} ${copy.each}</p>
+        <div class="cart-item__meta">${packageText}${language}${linksText}${logo}${design}</div>
+        <div class="cart-item__actions">
+          <div class="cart-quantity" aria-label="${item.quantity} ${copy.pieces(item.quantity)}">
+            <button type="button" data-quantity-index="${index}" data-quantity-change="-1" aria-label="-">−</button>
+            <strong>${item.quantity}</strong>
+            <button type="button" data-quantity-index="${index}" data-quantity-change="1" aria-label="+">+</button>
+          </div>
+          <button class="cart-item__remove" type="button" data-remove-index="${index}" aria-label="${copy.remove}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/></svg>
+            <span>${copy.remove}</span>
+          </button>
+        </div>
+      </div>
+    `;
+  };
+
+  const renderInto = (root, options = {}) => {
     const cart = getCart();
-    const root = drawer();
     const list = root.querySelector('[data-cart-items]');
     const empty = root.querySelector('[data-cart-empty]');
     const total = root.querySelector('[data-cart-total]');
+    const subtotal = root.querySelector('[data-cart-subtotal]');
     const checkout = root.querySelector('[data-cart-checkout]');
     const status = root.querySelector('[data-cart-status]');
+    if (!list || !total || !checkout) return;
     list.innerHTML = '';
-    empty.hidden = cart.length > 0;
+    if (empty) empty.hidden = cart.length > 0;
     checkout.disabled = cart.length === 0;
+    if (subtotal) subtotal.textContent = money(cartTotal(cart));
     total.textContent = money(cartTotal(cart));
     if (status) status.textContent = '';
 
     cart.forEach((item, index) => {
-      const itemTotal = Number(item.totalPrice || item.unitPrice * item.quantity);
-      const imageUrl = (item.imageUrl || 'assets/images/taploe-logo.png')
-        .replace(/^\.\.\/assets\//, 'assets/')
-        .replace(/^\/assets\//, 'assets/');
-      const links = (item.reviewLinks || []).filter(Boolean);
-      const logo = item.logo?.name ? `<span>${copy.logo}: ${item.logo.name}</span>` : '';
-      const packageText = item.package ? `<span>${copy.package}: ${item.package}</span>` : '';
-      const linksText = links.length ? `<span>${copy.links}: ${links.join(', ')}</span>` : '';
-      const language = item.language ? `<span>${copy.language}: ${item.language.toUpperCase()}</span>` : '';
-      const design = item.design && item.design !== 'profile' ? `<span>${copy.design}: ${item.design}</span>` : '';
       const article = document.createElement('article');
       article.className = 'cart-item';
-      article.innerHTML = `
-        <img src="${imageUrl}" alt="">
-        <div class="cart-item__body">
-          <div class="cart-item__top">
-            <h3>${item.product}</h3>
-            <strong>${money(itemTotal)}</strong>
-          </div>
-          <p>${item.quantity} ${copy.pieces(item.quantity)} · ${money(item.unitPrice)} ${copy.each}</p>
-          <div class="cart-item__meta">${packageText}${language}${linksText}${logo}${design}</div>
-          <button class="cart-item__remove" type="button" data-remove-index="${index}">${copy.remove}</button>
-        </div>
-      `;
+      if (options.page) article.classList.add('cart-item--page');
+      article.innerHTML = itemMarkup(item, index);
       list.appendChild(article);
     });
     syncBadges();
   };
 
-  const checkout = async () => {
+  const buildCartPage = () => {
+    const page = document.querySelector('[data-cart-page]');
+    if (!page || page.querySelector('[data-cart-page-layout]')) return;
+    page.innerHTML = `
+      <section class="cart-shell">
+        <div class="container">
+          <div class="cart-heading">
+            <h1>${copy.title}</h1>
+            <p>${copy.secure}</p>
+          </div>
+          <div class="cart-grid" data-cart-page-layout>
+            <section class="cart-page-card">
+              <h2>${copy.drawerTitle}</h2>
+              <p class="cart-empty" data-cart-empty>${copy.empty}</p>
+              <div class="cart-list" data-cart-items></div>
+            </section>
+            <aside class="cart-summary">
+              <h2>${copy.total}</h2>
+              <div class="cart-summary__row"><span>${copy.subtotal}</span><strong data-cart-subtotal>${money(0)}</strong></div>
+              <div class="cart-summary__row"><span>${copy.shipping}</span><strong>${copy.shippingNote}</strong></div>
+              <div class="cart-summary__total"><span>${copy.total}</span><strong data-cart-total>${money(0)}</strong></div>
+              <button class="product-submit" type="button" data-cart-checkout>${copy.buy}</button>
+              <a class="cart-drawer__continue" href="index.html">${copy.continue}</a>
+              <p class="product-form__status" role="status" aria-live="polite" data-cart-status></p>
+              <p class="cart-summary__note">${copy.secure}</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+    `;
+  };
+
+  const renderPage = () => {
+    buildCartPage();
+    const page = document.querySelector('[data-cart-page]');
+    if (page) renderInto(page, { page: true });
+  };
+
+  const render = () => {
+    buildDrawer();
+    renderInto(drawer());
+    renderPage();
+  };
+
+  const checkout = async (event) => {
     const cart = getCart();
     if (!cart.length) return;
-    const root = drawer();
+    const root = event?.target?.closest('[data-cart-page], [data-cart-drawer]') || drawer() || document;
     const status = root.querySelector('[data-cart-status]');
     const checkoutButton = root.querySelector('[data-cart-checkout]');
     if (!supabaseReady()) {
-      status.textContent = copy.supabaseConfig;
+      if (status) status.textContent = copy.supabaseConfig;
       return;
     }
     const missingPrice = cart.find((item) => !item.stripePriceId);
     if (missingPrice) {
-      status.textContent = copy.missingPrice(missingPrice.product);
+      if (status) status.textContent = copy.missingPrice(missingPrice.product);
       return;
     }
 
     checkoutButton.disabled = true;
-    status.textContent = copy.preparing;
+    if (status) status.textContent = copy.preparing;
     try {
       const checkoutRef = window.crypto?.randomUUID ? window.crypto.randomUUID() : `taploe-${Date.now()}-${Math.random().toString(16).slice(2)}`;
       localStorage.setItem(pendingCheckoutKey, JSON.stringify({
@@ -235,7 +320,7 @@
       window.location.href = result.url;
     } catch (error) {
       checkoutButton.disabled = false;
-      status.textContent = error.message || copy.stripeLoad;
+      if (status) status.textContent = error.message || copy.stripeLoad;
     }
   };
 
@@ -256,8 +341,20 @@
       render();
       return;
     }
+    const quantity = event.target.closest('[data-quantity-index]');
+    if (quantity) {
+      const cart = getCart();
+      const item = cart[Number(quantity.dataset.quantityIndex)];
+      if (!item) return;
+      const nextQuantity = Math.max(1, Number(item.quantity || 1) + Number(quantity.dataset.quantityChange || 0));
+      item.quantity = nextQuantity;
+      item.totalPrice = Number(item.unitPrice || 0) * nextQuantity;
+      setCart(cart);
+      render();
+      return;
+    }
     if (event.target.closest('[data-cart-checkout]')) {
-      checkout();
+      checkout(event);
     }
   });
 
@@ -278,12 +375,12 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       buildDrawer();
+      buildCartPage();
       render();
-      if (document.querySelector('[data-cart-page]')) openCart();
     });
   } else {
     buildDrawer();
+    buildCartPage();
     render();
-    if (document.querySelector('[data-cart-page]')) openCart();
   }
 })();
