@@ -879,6 +879,30 @@ body.quote-is-open {
   text-align: center;
 }
 
+.quote-dialog__feedback-close {
+  position: absolute;
+  top: clamp(18px, 2.4vw, 30px);
+  right: clamp(18px, 2.4vw, 30px);
+  width: 40px;
+  height: 40px;
+  display: none;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  color: var(--color-text);
+  background: transparent;
+  cursor: pointer;
+}
+
+.quote-dialog__feedback-close svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
 .quote-form__feedback-icon {
   width: 62px;
   height: 62px;
@@ -896,9 +920,22 @@ body.quote-is-open {
   letter-spacing: -0.025em;
 }
 
+.quote-dialog__feedback-exit {
+  display: none;
+  min-width: 180px;
+  margin-top: 4px;
+}
+
 .quote-dialog__panel.is-sending .quote-dialog__feedback,
 .quote-dialog__panel.is-success .quote-dialog__feedback,
 .quote-dialog__panel.is-error .quote-dialog__feedback {
+  display: grid;
+}
+
+.quote-dialog__panel.is-success .quote-dialog__feedback-close,
+.quote-dialog__panel.is-error .quote-dialog__feedback-close,
+.quote-dialog__panel.is-success .quote-dialog__feedback-exit,
+.quote-dialog__panel.is-error .quote-dialog__feedback-exit {
   display: grid;
 }
 
@@ -6465,6 +6502,17 @@ button {
     font-size: clamp(20px, 5.6vw, 26px);
   }
 
+  .quote-dialog__feedback-close {
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .quote-dialog__feedback-exit {
+    min-width: min(220px, 70vw);
+  }
+
   .quote-form__actions {
     position: sticky;
     bottom: 0;
@@ -6613,6 +6661,17 @@ button {
 
   .quote-form__feedback-box p {
     font-size: clamp(19px, 5.6vw, 24px);
+  }
+
+  .quote-dialog__feedback-close {
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .quote-dialog__feedback-exit {
+    min-width: min(210px, 74vw);
   }
 
   .quote-form__actions {

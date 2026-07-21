@@ -24,6 +24,7 @@
         success: 'Request sent. We will contact you in 5-10 minutes.',
         error: 'We could not send your request. Please try again or email info@taploe.com.',
         close: 'Close quote form',
+        exit: 'Exit',
         icon: 'Quote request',
         options: {
           digital_profile: 'Digital profile',
@@ -52,6 +53,7 @@
         success: 'Solicitud enviada. Te contactaremos en 5-10 minutos.',
         error: 'No pudimos enviar tu solicitud. Intenta de nuevo o escribe a info@taploe.com.',
         close: 'Cerrar formulario de cotización',
+        exit: 'Salir',
         icon: 'Solicitud de cotización',
         options: {
           digital_profile: 'Perfil digital',
@@ -132,9 +134,13 @@
         </div>
         ${formMarkup('dialog')}
         <div class="quote-dialog__feedback" aria-hidden="true">
+          <button class="quote-dialog__feedback-close" type="button" data-quote-close aria-label="${copy.close}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+          </button>
           <div class="quote-form__feedback-box">
             <span class="quote-form__feedback-icon" aria-hidden="true"></span>
             <p data-quote-panel-feedback-text></p>
+            <button class="quote-button quote-button--primary quote-dialog__feedback-exit" type="button" data-quote-close>${copy.exit}</button>
           </div>
         </div>
       </section>
