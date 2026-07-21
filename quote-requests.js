@@ -21,7 +21,7 @@
         cancel: 'Cancel',
         submit: 'Send request',
         sending: 'Sending...',
-        success: 'Request sent. We will contact you soon.',
+        success: 'Request sent. We will contact you in 5-10 minutes.',
         error: 'We could not send your request. Please try again or email info@taploe.com.',
         close: 'Close quote form',
         icon: 'Quote request',
@@ -49,7 +49,7 @@
         cancel: 'Cancelar',
         submit: 'Enviar solicitud',
         sending: 'Enviando...',
-        success: 'Solicitud enviada. Te contactaremos pronto.',
+        success: 'Solicitud enviada. Te contactaremos en 5-10 minutos.',
         error: 'No pudimos enviar tu solicitud. Intenta de nuevo o escribe a info@taploe.com.',
         close: 'Cerrar formulario de cotización',
         icon: 'Solicitud de cotización',
@@ -152,9 +152,13 @@
     if (!form) return;
     const solution = form.querySelector('[name="solution_type"]');
     const quantity = form.querySelector('[name="approximate_quantity"]');
+    const status = form.querySelector('[data-quote-status]');
     if (solution && source.solutionType) solution.value = source.solutionType;
     if (quantity) quantity.value = source.quantity || (source.solutionType === 'team_solution' ? 10 : 1);
     form.dataset.quoteSource = source.source || 'quote_button';
+    form.classList.remove('is-sending', 'is-success', 'is-error');
+    form.removeAttribute('aria-busy');
+    if (status) status.textContent = '';
   };
 
   const sourceFromTrigger = (trigger) => {
@@ -211,6 +215,9 @@
     };
     if (!supabaseReady()) throw new Error('Supabase is not configured.');
     submit.disabled = true;
+    form.classList.remove('is-success', 'is-error');
+    form.classList.add('is-sending');
+    form.setAttribute('aria-busy', 'true');
     if (status) status.textContent = copy.sending;
     const response = await fetch(`${supabaseBaseUrl()}/rest/v1/quote_requests`, {
       method: 'POST',
@@ -225,6 +232,9 @@
     if (!response.ok) throw new Error(await response.text());
     form.reset();
     hydrateDefaults(form, { solutionType: 'team_solution', source: form.dataset.quoteSource });
+    form.classList.remove('is-sending', 'is-error');
+    form.classList.add('is-success');
+    form.setAttribute('aria-busy', 'false');
     if (status) status.textContent = copy.success;
     submit.disabled = false;
   };
@@ -278,6 +288,9 @@
     } catch (error) {
       const status = form.querySelector('[data-quote-status]');
       const submit = form.querySelector('[type="submit"]');
+      form.classList.remove('is-sending', 'is-success');
+      form.classList.add('is-error');
+      form.setAttribute('aria-busy', 'false');
       if (status) status.textContent = copy.error;
       if (submit) submit.disabled = false;
       console.error(error);

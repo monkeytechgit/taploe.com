@@ -590,15 +590,12 @@ svg {
 }
 
 .contact-quote-panel__eyebrow {
-  display: inline-flex;
-  min-height: 34px;
-  align-items: center;
-  padding: 0 14px;
-  border-radius: 999px;
+  display: inline-block;
+  padding: 0;
   color: var(--color-primary);
-  background: rgba(21, 82, 248, .08);
   font-size: 14px;
   font-weight: 900;
+  letter-spacing: .04em;
   text-transform: uppercase;
 }
 
@@ -858,6 +855,78 @@ body.quote-is-open {
   margin: -4px 0 0;
   color: var(--color-muted);
   font-weight: 750;
+}
+
+.quote-form.is-sending .quote-form__status,
+.quote-form.is-success .quote-form__status,
+.quote-form.is-error .quote-form__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  margin-top: 0;
+  padding: 10px 14px;
+  border-radius: 14px;
+}
+
+.quote-form.is-sending .quote-form__status {
+  color: var(--color-text);
+  background: rgba(21, 82, 248, .08);
+}
+
+.quote-form.is-sending .quote-form__status::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  border: 2.5px solid rgba(21, 82, 248, .24);
+  border-top-color: var(--color-primary);
+  border-radius: 999px;
+  animation: quote-spin .75s linear infinite;
+}
+
+.quote-form.is-success .quote-form__status {
+  color: #087443;
+  background: rgba(8, 116, 67, .09);
+}
+
+.quote-form.is-success .quote-form__status::before {
+  content: "✓";
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--color-white);
+  background: #087443;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.quote-form.is-error .quote-form__status {
+  color: #b42318;
+  background: rgba(180, 35, 24, .09);
+}
+
+.quote-form.is-error .quote-form__status::before {
+  content: "!";
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--color-white);
+  background: #b42318;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+@keyframes quote-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .quote-form__actions {
