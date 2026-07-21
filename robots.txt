@@ -1,5 +1,6 @@
 # Taploe robots.txt
 # Public site ready for indexing.
+# Cart and checkout result pages are noindex in-page and intentionally excluded from XML sitemaps.
 
 User-agent: *
 Allow: /

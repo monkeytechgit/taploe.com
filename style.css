@@ -519,6 +519,10 @@ svg {
   align-items: start;
 }
 
+.contact-layout--quote {
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, .7fr);
+}
+
 .contact-card,
 .contact-form,
 .legal-content {
@@ -611,6 +615,251 @@ svg {
   outline: 0;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(21, 82, 248, .14);
+}
+
+body.quote-is-open {
+  overflow: hidden;
+}
+
+.quote-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 2200;
+  display: grid;
+  place-items: center;
+  padding: clamp(14px, 3vw, 42px);
+  pointer-events: none;
+}
+
+.quote-dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, .54);
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+
+.quote-dialog__panel {
+  position: relative;
+  width: min(100%, 1180px);
+  max-height: calc(100dvh - clamp(28px, 6vw, 84px));
+  overflow-y: auto;
+  padding: clamp(28px, 4.2vw, 56px);
+  border-radius: clamp(26px, 4vw, 44px);
+  background: var(--color-white);
+  opacity: 0;
+  transform: translateY(18px) scale(.98);
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.quote-dialog.is-open {
+  pointer-events: auto;
+}
+
+.quote-dialog.is-open .quote-dialog__backdrop {
+  opacity: 1;
+}
+
+.quote-dialog.is-open .quote-dialog__panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.quote-dialog__close {
+  position: absolute;
+  top: clamp(22px, 3vw, 42px);
+  right: clamp(22px, 3vw, 42px);
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  color: var(--color-text);
+  background: transparent;
+  cursor: pointer;
+}
+
+.quote-dialog__close svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.quote-dialog__heading {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding-right: 54px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.quote-dialog__icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+}
+
+.quote-dialog__icon svg {
+  width: 42px;
+  height: 42px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.quote-dialog__heading h2 {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.quote-dialog__heading p {
+  margin: 16px 0 0;
+  color: #767d8b;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.35;
+}
+
+.quote-form {
+  display: grid;
+  gap: 22px;
+}
+
+.quote-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 24px;
+}
+
+.quote-field {
+  display: grid;
+  gap: 12px;
+  color: var(--color-text);
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 850;
+  line-height: 1.1;
+}
+
+.quote-field input,
+.quote-field select,
+.quote-field textarea {
+  width: 100%;
+  min-height: 66px;
+  padding: 0 28px;
+  border: 1.5px solid #dde2ea;
+  border-radius: 22px;
+  color: #545b68;
+  background: var(--color-white);
+  font: inherit;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 500;
+  outline: 0;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.quote-field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #5b6068 50%), linear-gradient(135deg, #5b6068 50%, transparent 50%);
+  background-position: calc(100% - 34px) 50%, calc(100% - 24px) 50%;
+  background-size: 10px 10px, 10px 10px;
+  background-repeat: no-repeat;
+  padding-right: 58px;
+}
+
+.quote-field textarea {
+  min-height: 154px;
+  padding-top: 22px;
+  line-height: 1.35;
+  resize: vertical;
+}
+
+.quote-field input:focus,
+.quote-field select:focus,
+.quote-field textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(21, 82, 248, .14);
+}
+
+.quote-form__status {
+  min-height: 24px;
+  margin: -4px 0 0;
+  color: var(--color-muted);
+  font-weight: 750;
+}
+
+.quote-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.quote-button {
+  min-height: 68px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 0 34px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform var(--transition), background-color var(--transition), border-color var(--transition);
+}
+
+.quote-button:hover {
+  transform: translateY(-1px);
+}
+
+.quote-button--secondary {
+  min-width: 160px;
+  border: 1.5px solid #c9ccd2;
+  color: var(--color-text);
+  background: var(--color-white);
+}
+
+.quote-button--primary {
+  min-width: 300px;
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-white);
+  background: var(--color-primary);
+}
+
+.quote-button--primary svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.quote-button:disabled {
+  cursor: wait;
+  opacity: .72;
+  transform: none;
+}
+
+.quote-inline-card {
+  padding: clamp(28px, 4vw, 56px);
+  border: 1px solid var(--color-line);
+  border-radius: clamp(26px, 4vw, 44px);
+  background: var(--color-white);
 }
 
 .legal-content {
@@ -1518,6 +1767,14 @@ a:focus-visible,
 
   .contact-layout {
     grid-template-columns: 1fr;
+  }
+
+  .quote-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-dialog__panel {
+    width: min(100%, 860px);
   }
 
   .product-image-link {
@@ -5915,5 +6172,53 @@ button {
   .legal-content,
   .pricing-card {
     padding: 20px;
+  }
+
+  .quote-dialog {
+    padding: 0;
+    align-items: end;
+  }
+
+  .quote-dialog__panel {
+    width: 100%;
+    max-height: 94dvh;
+    padding: 24px;
+    border-radius: 28px 28px 0 0;
+  }
+
+  .quote-dialog__heading {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+    padding-right: 42px;
+  }
+
+  .quote-dialog__close {
+    top: 20px;
+    right: 20px;
+  }
+
+  .quote-field input,
+  .quote-field select,
+  .quote-field textarea {
+    min-height: 58px;
+    padding-inline: 18px;
+    border-radius: 18px;
+  }
+
+  .quote-form__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .quote-button,
+  .quote-button--primary,
+  .quote-button--secondary {
+    width: 100%;
+    min-width: 0;
+    min-height: 58px;
+  }
+
+  .quote-inline-card {
+    padding: 24px;
   }
 }
