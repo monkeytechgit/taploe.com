@@ -780,6 +780,7 @@ body.quote-is-open {
 }
 
 .quote-form {
+  position: relative;
   display: grid;
   gap: 16px;
 }
@@ -857,6 +858,82 @@ body.quote-is-open {
   font-weight: 750;
 }
 
+.quote-form__feedback,
+.quote-dialog__feedback {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .88);
+  backdrop-filter: blur(2px);
+}
+
+.quote-form__feedback-box {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  max-width: 520px;
+  text-align: center;
+}
+
+.quote-form__feedback-icon {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.quote-form__feedback-box p {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.quote-dialog__panel.is-sending .quote-dialog__feedback,
+.quote-dialog__panel.is-success .quote-dialog__feedback,
+.quote-dialog__panel.is-error .quote-dialog__feedback {
+  display: grid;
+}
+
+.quote-dialog__panel.is-sending .quote-form__feedback-icon {
+  border: 4px solid rgba(21, 82, 248, .18);
+  border-top-color: var(--color-primary);
+  animation: quote-spin .75s linear infinite;
+}
+
+.quote-dialog__panel.is-success .quote-form__feedback-icon {
+  color: var(--color-white);
+  background: #087443;
+}
+
+.quote-dialog__panel.is-success .quote-form__feedback-icon::before {
+  content: "✓";
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.quote-dialog__panel.is-error .quote-form__feedback-icon {
+  color: var(--color-white);
+  background: #b42318;
+}
+
+.quote-dialog__panel.is-error .quote-form__feedback-icon::before {
+  content: "!";
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.quote-dialog__panel.is-error .quote-form__feedback-box p {
+  color: #b42318;
+}
+
 .quote-form.is-sending .quote-form__status,
 .quote-form.is-success .quote-form__status,
 .quote-form.is-error .quote-form__status {
@@ -883,6 +960,26 @@ body.quote-is-open {
   border-top-color: var(--color-primary);
   border-radius: 999px;
   animation: quote-spin .75s linear infinite;
+}
+
+.quote-form[data-quote-mode="dialog"].is-sending .quote-form__status,
+.quote-form[data-quote-mode="dialog"].is-success .quote-form__status,
+.quote-form[data-quote-mode="dialog"].is-error .quote-form__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.quote-form[data-quote-mode="dialog"].is-sending .quote-form__status::before,
+.quote-form[data-quote-mode="dialog"].is-success .quote-form__status::before,
+.quote-form[data-quote-mode="dialog"].is-error .quote-form__status::before {
+  content: none;
 }
 
 .quote-form.is-success .quote-form__status {
@@ -6354,6 +6451,20 @@ button {
     scrollbar-width: thin;
   }
 
+  .quote-form__feedback {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .quote-form__feedback-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .quote-form__feedback-box p {
+    font-size: clamp(20px, 5.6vw, 26px);
+  }
+
   .quote-form__actions {
     position: sticky;
     bottom: 0;
@@ -6488,6 +6599,20 @@ button {
     overflow-y: auto;
     padding: 0 2px 2px;
     scrollbar-width: thin;
+  }
+
+  .quote-form__feedback {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .quote-form__feedback-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .quote-form__feedback-box p {
+    font-size: clamp(19px, 5.6vw, 24px);
   }
 
   .quote-form__actions {

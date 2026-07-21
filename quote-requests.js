@@ -92,6 +92,12 @@
       </div>
       ${field(`${prefix}-message`, copy.message, `<textarea id="${prefix}-message" name="message" placeholder="${copy.messagePlaceholder}"></textarea>`)}
       <p class="quote-form__status" role="status" aria-live="polite" data-quote-status></p>
+      <div class="quote-form__feedback" aria-hidden="true">
+        <div class="quote-form__feedback-box">
+          <span class="quote-form__feedback-icon" aria-hidden="true"></span>
+          <p data-quote-feedback-text></p>
+        </div>
+      </div>
       <div class="quote-form__actions">
         <button class="quote-button quote-button--secondary" type="button" data-quote-close>${copy.cancel}</button>
         <button class="quote-button quote-button--primary" type="submit">
@@ -125,6 +131,12 @@
           </div>
         </div>
         ${formMarkup('dialog')}
+        <div class="quote-dialog__feedback" aria-hidden="true">
+          <div class="quote-form__feedback-box">
+            <span class="quote-form__feedback-icon" aria-hidden="true"></span>
+            <p data-quote-panel-feedback-text></p>
+          </div>
+        </div>
       </section>
     `;
     document.body.appendChild(dialog);
@@ -153,12 +165,18 @@
     const solution = form.querySelector('[name="solution_type"]');
     const quantity = form.querySelector('[name="approximate_quantity"]');
     const status = form.querySelector('[data-quote-status]');
+    const feedback = form.querySelector('[data-quote-feedback-text]');
+    const panel = form.closest('.quote-dialog__panel');
+    const panelFeedback = panel?.querySelector('[data-quote-panel-feedback-text]');
     if (solution && source.solutionType) solution.value = source.solutionType;
     if (quantity) quantity.value = source.quantity || (source.solutionType === 'team_solution' ? 10 : 1);
     form.dataset.quoteSource = source.source || 'quote_button';
     form.classList.remove('is-sending', 'is-success', 'is-error');
+    panel?.classList.remove('is-sending', 'is-success', 'is-error');
     form.removeAttribute('aria-busy');
     if (status) status.textContent = '';
+    if (feedback) feedback.textContent = '';
+    if (panelFeedback) panelFeedback.textContent = '';
   };
 
   const sourceFromTrigger = (trigger) => {
@@ -192,6 +210,9 @@
   const submitQuote = async (form) => {
     const status = form.querySelector('[data-quote-status]');
     const submit = form.querySelector('[type="submit"]');
+    const feedback = form.querySelector('[data-quote-feedback-text]');
+    const panel = form.closest('.quote-dialog__panel');
+    const panelFeedback = panel?.querySelector('[data-quote-panel-feedback-text]');
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
@@ -216,9 +237,13 @@
     if (!supabaseReady()) throw new Error('Supabase is not configured.');
     submit.disabled = true;
     form.classList.remove('is-success', 'is-error');
+    panel?.classList.remove('is-success', 'is-error');
     form.classList.add('is-sending');
+    panel?.classList.add('is-sending');
     form.setAttribute('aria-busy', 'true');
     if (status) status.textContent = copy.sending;
+    if (feedback) feedback.textContent = copy.sending;
+    if (panelFeedback) panelFeedback.textContent = copy.sending;
     const response = await fetch(`${supabaseBaseUrl()}/rest/v1/quote_requests`, {
       method: 'POST',
       headers: {
@@ -233,9 +258,13 @@
     form.reset();
     hydrateDefaults(form, { solutionType: 'team_solution', source: form.dataset.quoteSource });
     form.classList.remove('is-sending', 'is-error');
+    panel?.classList.remove('is-sending', 'is-error');
     form.classList.add('is-success');
+    panel?.classList.add('is-success');
     form.setAttribute('aria-busy', 'false');
     if (status) status.textContent = copy.success;
+    if (feedback) feedback.textContent = copy.success;
+    if (panelFeedback) panelFeedback.textContent = copy.success;
     submit.disabled = false;
   };
 
@@ -288,10 +317,17 @@
     } catch (error) {
       const status = form.querySelector('[data-quote-status]');
       const submit = form.querySelector('[type="submit"]');
+      const feedback = form.querySelector('[data-quote-feedback-text]');
+      const panel = form.closest('.quote-dialog__panel');
+      const panelFeedback = panel?.querySelector('[data-quote-panel-feedback-text]');
       form.classList.remove('is-sending', 'is-success');
+      panel?.classList.remove('is-sending', 'is-success');
       form.classList.add('is-error');
+      panel?.classList.add('is-error');
       form.setAttribute('aria-busy', 'false');
       if (status) status.textContent = copy.error;
+      if (feedback) feedback.textContent = copy.error;
+      if (panelFeedback) panelFeedback.textContent = copy.error;
       if (submit) submit.disabled = false;
       console.error(error);
     }
