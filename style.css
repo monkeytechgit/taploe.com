@@ -5585,6 +5585,10 @@ body.cart-is-open {
   background: var(--color-white);
 }
 
+.cart-page-card .cart-list .cart-item:first-child {
+  border-top: 0;
+}
+
 .cart-item img {
   width: 112px;
   height: 112px;
