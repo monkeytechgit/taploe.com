@@ -2,15 +2,54 @@
   const gallery = document.querySelector('[data-gallery]');
   const selectGalleryButton = (button) => {
     if (!gallery || !button) return;
-    const main = gallery.querySelector('[data-gallery-main]');
-    if (!main) return;
-    main.src = button.dataset.galleryImage;
-    main.alt = button.dataset.galleryAlt || '';
-    gallery.querySelectorAll('[data-gallery-image]').forEach((item) => item.setAttribute('aria-current', 'false'));
+    const stage = gallery.querySelector('[data-gallery-stage]');
+    if (!stage) return;
+    const current = gallery.querySelector('[data-gallery-main]');
+    const source = button.dataset.galleryVideo || button.dataset.galleryImage;
+    if (!source) return;
+
+    if (button.dataset.galleryVideo) {
+      const video = document.createElement('video');
+      video.className = 'product-gallery__main product-gallery__video';
+      video.setAttribute('data-gallery-main', '');
+      video.src = source;
+      video.autoplay = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.controls = true;
+      video.preload = 'auto';
+      video.volume = 1;
+      video.setAttribute('aria-label', button.dataset.galleryAlt || '');
+      if (current) {
+        current.replaceWith(video);
+      } else {
+        stage.appendChild(video);
+      }
+      const playAttempt = video.play();
+      if (playAttempt) {
+        playAttempt.catch(() => {
+          video.muted = true;
+          video.play().catch(() => {});
+        });
+      }
+    } else {
+      const image = document.createElement('img');
+      image.className = 'product-gallery__main';
+      image.setAttribute('data-gallery-main', '');
+      image.src = source;
+      image.alt = button.dataset.galleryAlt || '';
+      if (current) {
+        current.replaceWith(image);
+      } else {
+        stage.appendChild(image);
+      }
+    }
+
+    gallery.querySelectorAll('[data-gallery-image], [data-gallery-video]').forEach((item) => item.setAttribute('aria-current', 'false'));
     button.setAttribute('aria-current', 'true');
   };
   if (gallery) {
-    gallery.querySelectorAll('[data-gallery-image]').forEach((button) => {
+    gallery.querySelectorAll('[data-gallery-image], [data-gallery-video]').forEach((button) => {
       button.addEventListener('click', () => selectGalleryButton(button));
     });
   }

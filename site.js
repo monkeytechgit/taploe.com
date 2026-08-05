@@ -58,6 +58,17 @@
   window.addEventListener('storage', updateCartBadges);
   window.addEventListener('taploe:cart-updated', updateCartBadges);
 
+  document.querySelectorAll('[data-autoplay-video]').forEach((video) => {
+    video.volume = Number(video.dataset.volume || 0.85);
+    const playAttempt = video.play();
+    if (playAttempt) {
+      playAttempt.catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
+  });
+
   const menuButton = document.querySelector(".menu-toggle");
   const mobileNav = document.querySelector("#mobile-navigation, .mobile-nav");
 
