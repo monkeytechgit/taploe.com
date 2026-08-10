@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-market="global" data-locale="x-default">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="index, follow">
-  <meta name="description" content="Taploe México crea tarjetas NFC, perfiles digitales y soluciones para compartir contacto, enlaces, WhatsApp, redes y reseñas de Google en segundos.">
-  <link rel="canonical" href="https://taploe.com/mx/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="description" content="Choose your Taploe region. Compra tarjetas NFC en México o NFC business cards in the USA.">
+  <link rel="canonical" href="https://taploe.com/">
+  <link rel="alternate" hreflang="es-MX" href="https://taploe.com/mx/">
+  <link rel="alternate" hreflang="en-US" href="https://taploe.com/us/">
+  <link rel="alternate" hreflang="x-default" href="https://taploe.com/">
   <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
-  <title>Taploe México | Tarjetas NFC y perfiles digitales</title>
-  <script>
-    const language = navigator.language || navigator.userLanguage || "";
-    const target = language.toLowerCase().startsWith("en") ? "/us/" : "/mx/";
-    window.location.replace(target);
-  </script>
+  <link rel="stylesheet" href="style.css">
+  <title>Taploe | NFC cards and digital profiles</title>
 </head>
 <body>
-  <p>Redirigiendo a Taploe...</p>
-  <p><a href="/mx/">Continuar en espanol</a> | <a href="/us/">Continue in English</a></p>
+  <main class="section">
+    <div class="container page-intro">
+      <img src="assets/images/taploe-logo.webp" alt="Taploe" style="width: 150px; height: auto; margin-bottom: 32px;">
+      <h1>Taploe<span class="accent">.</span></h1>
+      <p>Elige tu región para comprar tarjetas NFC y perfiles digitales.</p>
+      <div class="button-row" style="justify-content: center;">
+        <a class="button button-primary" href="/mx/">México</a>
+        <a class="button button-secondary" href="/us/">United States</a>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
