@@ -1,7 +1,7 @@
 import Stripe from 'https://esm.sh/stripe@14.25.0?target=deno';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
-const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
+const stripe = new Stripe(Deno.env.get('STRIPE_US_SECRET_KEY') || '', {
   apiVersion: '2024-06-20',
 });
 
@@ -59,9 +59,9 @@ Deno.serve(async (request) => {
     const sessionId = String(payload.session_id || '');
     const checkoutRef = String(payload.checkout_ref || '');
     const cart = Array.isArray(payload.cart) ? payload.cart as CartItem[] : [];
-    const market = payload.market === 'us' ? 'us' : 'mx';
-    const locale = String(payload.locale || (market === 'us' ? 'en-US' : 'es-MX'));
-    const currency = String(payload.currency || (market === 'us' ? 'USD' : 'MXN')).toUpperCase();
+    const market = 'us';
+    const locale = String(payload.locale || 'en-US');
+    const currency = String(payload.currency || 'USD').toUpperCase();
 
     if (!sessionId || !checkoutRef || !cart.length) {
       return json({ error: 'Missing session, reference or cart' }, 400);
@@ -103,7 +103,7 @@ Deno.serve(async (request) => {
         currency,
         subtotal_amount: subtotal,
         total_amount: total || subtotal,
-        notes: market === 'us' ? 'Paid order created after Stripe checkout' : 'Orden pagada creada después de Stripe Checkout',
+        notes: 'Paid order created after Stripe checkout',
         ecommerce_source: 'web_cart',
         market,
         locale,
@@ -200,8 +200,7 @@ Deno.serve(async (request) => {
     });
 
     return json({ ok: true, order_id: orderRows.id });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unexpected error';
-    return json({ error: message }, 500);
+  } catch {
+    return json({ error: 'We could not confirm the order right now.' }, 500);
   }
 });

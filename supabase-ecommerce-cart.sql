@@ -1,6 +1,6 @@
 -- Taploe ecommerce cart + Stripe checkout support
--- Ejecutar en Supabase SQL Editor.
--- Los productos físicos se guardan en tablas ecommerce separadas de las tablas de la plataforma.
+-- Run in the Supabase SQL Editor.
+-- Physical products are stored in ecommerce tables separate from the platform tables.
 
 create extension if not exists pgcrypto;
 
@@ -51,7 +51,7 @@ create table if not exists public.orders (
   customer_phone text,
   status text not null default 'draft',
   payment_status text not null default 'pending',
-  currency text not null default 'MXN',
+  currency text not null default 'USD',
   subtotal_amount numeric not null default 0,
   total_amount numeric not null default 0,
   notes text,
@@ -76,7 +76,7 @@ alter table public.orders
   add column if not exists customer_phone text,
   add column if not exists status text not null default 'draft',
   add column if not exists payment_status text not null default 'pending',
-  add column if not exists currency text not null default 'MXN',
+  add column if not exists currency text not null default 'USD',
   add column if not exists subtotal_amount numeric not null default 0,
   add column if not exists total_amount numeric not null default 0,
   add column if not exists notes text,
@@ -110,7 +110,7 @@ create table if not exists public.order_checkout_events (
   event_type text not null,
   payment_status text,
   amount_total numeric,
-  currency text default 'MXN',
+  currency text default 'USD',
   payload jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now()
 );
@@ -135,18 +135,12 @@ create unique index if not exists ux_orders_checkout_client_reference_id
 insert into public.ecommerce_products
   (code, market, locale, name, description, product_kind, material, stripe_product_id, default_stripe_price_id, image_url, metadata)
 values
-  ('nfc', 'mx', 'es-MX', 'Tarjeta NFC', 'Tarjeta NFC personalizada con perfil digital incluido.', 'nfc_card', 'PVC', 'prod_UuyXhL5QkSZkRJ', 'price_1Tv8aVE9Iq6fzuQIrnSLA26U', '/assets/images/producto-tarjeta-nfc.png', '{"ecommerce": true}'::jsonb),
-  ('nfc_metalica', 'mx', 'es-MX', 'Tarjeta NFC metálica', 'Tarjeta NFC metálica premium con perfil digital incluido.', 'nfc_card', 'Metal', 'prod_UuyZSsgUWN0n2r', 'price_1Tv8cjE9Iq6fzuQImmCpQDVC', '/assets/images/producto-tarjeta-nfc-metalica.png', '{"ecommerce": true}'::jsonb),
-  ('google_reviews', 'mx', 'es-MX', 'Tarjeta NFC para reseñas de Google', 'Tarjeta NFC y QR para recibir reseñas de Google.', 'review_card', 'PVC', 'prod_UuycU9tgMrzSL8', 'price_1Tv8fRE9Iq6fzuQIeLlp1AEP', '/assets/images/producto-google-reviews.png', '{"ecommerce": true}'::jsonb),
-  ('instagram', 'mx', 'es-MX', 'Tarjeta NFC para Instagram', 'Tarjeta NFC y QR para compartir un perfil de Instagram.', 'qr_card', 'PVC', 'prod_Uuym0smGzmhmMU', 'price_1Tv8oZE9Iq6fzuQIVFkJLzt4', '/assets/images/producto-instagram.png', '{"ecommerce": true}'::jsonb),
-  ('facebook', 'mx', 'es-MX', 'Tarjeta NFC para Facebook', 'Tarjeta NFC y QR para compartir una página de Facebook.', 'qr_card', 'PVC', 'prod_UuyrOo4m4obgIn', 'price_1Tv8u3E9Iq6fzuQI0CVCM67A', '/assets/images/producto-facebook.png', '{"ecommerce": true}'::jsonb),
-  ('tripadvisor', 'mx', 'es-MX', 'Tarjeta NFC para TripAdvisor', 'Tarjeta NFC y QR para recibir reseñas en TripAdvisor.', 'review_card', 'PVC', 'prod_UuyuzeTlZF00Qc', 'price_1Tv8wFE9Iq6fzuQIT2IjZscx', '/assets/images/producto-trip.png', '{"ecommerce": true}'::jsonb),
-  ('nfc', 'us', 'en-US', 'NFC Business Card', 'A lightweight, customizable card that opens your digital profile via NFC or QR code.', 'nfc_card', 'PVC', 'prod_UuzQf85msB47Bj', 'price_1Tv9RhE9Iq6fzuQISRcT7yKM', '/assets/images/producto-tarjeta-nfc.png', '{"ecommerce": true}'::jsonb),
-  ('nfc_metalica', 'us', 'en-US', 'Metal NFC Business Card', 'A premium black metal card with built-in NFC and an included digital profile.', 'nfc_card', 'Metal', 'prod_UuzTvMZDTC8Nxk', 'price_1Tv9UeE9Iq6fzuQILhFX58f2', '/assets/images/producto-tarjeta-nfc-metalica.png', '{"ecommerce": true}'::jsonb),
-  ('google_reviews', 'us', 'en-US', 'Google Reviews NFC Card', 'A custom NFC card that opens your business Google review link via NFC or QR code.', 'review_card', 'PVC', 'prod_UuzdpJxHUziUpY', 'price_1Tv9eVE9Iq6fzuQIKkZtocFw', '/assets/images/producto-google-reviews.png', '{"ecommerce": true}'::jsonb),
-  ('instagram', 'us', 'en-US', 'Instagram Profile NFC Card', 'A personalized NFC card that opens your Instagram profile via NFC or QR code.', 'qr_card', 'PVC', 'prod_UuzkQabA8Lm91F', 'price_1Tv9lTE9Iq6fzuQIwium9ZhC', '/assets/images/producto-instagram.png', '{"ecommerce": true}'::jsonb),
-  ('facebook', 'us', 'en-US', 'Facebook NFC Card', 'A personalized NFC card that opens your Facebook page via NFC or QR code.', 'qr_card', 'PVC', 'prod_UuzofGeuoBOXox', 'price_1Tv9ofE9Iq6fzuQIHBQKU8zL', '/assets/images/producto-facebook.png', '{"ecommerce": true}'::jsonb),
-  ('tripadvisor', 'us', 'en-US', 'TripAdvisor NFC Card', 'A personalized NFC card that opens your TripAdvisor review link via NFC or QR code.', 'review_card', 'PVC', 'prod_UuztzDNvWLmCMA', 'price_1Tv9uAE9Iq6fzuQIluaOlXJA', '/assets/images/producto-trip.png', '{"ecommerce": true}'::jsonb)
+  ('nfc', 'us', 'en-US', 'NFC Business Card', 'A lightweight, customizable card that opens your digital profile via NFC or QR code.', 'nfc_card', 'PVC', 'prod_V5o0MjNQkWGr8u', 'price_1U5cO2CYqBesDVNn7vyKC7z8', '/assets/images/product-nfc-business-card.webp', '{"ecommerce": true}'::jsonb),
+  ('nfc_metalica', 'us', 'en-US', 'Metal NFC Business Card', 'A premium black metal card with built-in NFC and an included digital profile.', 'nfc_card', 'Metal', 'prod_V5nw7Hi1qhMHAT', 'price_1U5cKCCYqBesDVNniGjy9CAa', '/assets/images/product-metal-nfc-business-card.webp', '{"ecommerce": true}'::jsonb),
+  ('google_reviews', 'us', 'en-US', 'Google Reviews NFC Card', 'A custom NFC card that opens your business Google review link via NFC or QR code.', 'review_card', 'PVC', 'prod_V5o9lNsKaIyuCf', 'price_1U5cWnCYqBesDVNnEfju1Nez', '/assets/images/product-google-reviews-nfc-card.webp', '{"ecommerce": true}'::jsonb),
+  ('instagram', 'us', 'en-US', 'Instagram Profile NFC Card', 'A personalized NFC card that opens your Instagram profile via NFC or QR code.', 'qr_card', 'PVC', 'prod_V5oDgZ9AEISKtq', 'price_1U5cb1CYqBesDVNnnhrx79Qj', '/assets/images/product-instagram-nfc-card.webp', '{"ecommerce": true}'::jsonb),
+  ('facebook', 'us', 'en-US', 'Facebook NFC Card', 'A personalized NFC card that opens your Facebook page via NFC or QR code.', 'qr_card', 'PVC', 'prod_V5oBRHsDEGUXL2', 'price_1U5cYsCYqBesDVNnIwX53lOD', '/assets/images/product-facebook-nfc-card.webp', '{"ecommerce": true}'::jsonb),
+  ('tripadvisor', 'us', 'en-US', 'TripAdvisor NFC Card', 'A personalized NFC card that opens your TripAdvisor review link via NFC or QR code.', 'review_card', 'PVC', 'prod_V5oFgBe2iIiA06', 'price_1U5cdLCYqBesDVNnsOgoyAtu', '/assets/images/product-tripadvisor-nfc-card.webp', '{"ecommerce": true}'::jsonb)
 on conflict (market, code) do update set
   locale = excluded.locale,
   name = excluded.name,
@@ -161,47 +155,56 @@ on conflict (market, code) do update set
   metadata = public.ecommerce_products.metadata || excluded.metadata,
   updated_at = now();
 
+update public.ecommerce_product_prices prices
+set package_key = updates.package_key,
+    updated_at = now()
+from (
+  values
+    ('price_1U5cO2CYqBesDVNn7vyKC7z8', 'unit'),
+    ('price_1U5cKCCYqBesDVNniGjy9CAa', 'unit'),
+    ('price_1U5cWnCYqBesDVNnEfju1Nez', 'single'),
+    ('price_1U5cWnCYqBesDVNnNApHtHAC', 'double'),
+    ('price_1U5cWnCYqBesDVNngDEj99vR', 'pack'),
+    ('price_1U5cWnCYqBesDVNnfu5s4jEb', 'mega-pack'),
+    ('price_1U5cb1CYqBesDVNnnhrx79Qj', 'single'),
+    ('price_1U5cblCYqBesDVNn8RW8zaL5', 'double'),
+    ('price_1U5cblCYqBesDVNnQdYtb8XK', 'pack'),
+    ('price_1U5cblCYqBesDVNnTaHdtikG', 'mega-pack'),
+    ('price_1U5cYsCYqBesDVNnIwX53lOD', 'single'),
+    ('price_1U5cZMCYqBesDVNnU7XQNseB', 'double'),
+    ('price_1U5cZMCYqBesDVNnEtFlExvM', 'pack'),
+    ('price_1U5cZMCYqBesDVNn7gU8HgWK', 'mega-pack'),
+    ('price_1U5cdLCYqBesDVNnsOgoyAtu', 'single'),
+    ('price_1U5ce6CYqBesDVNnRWAdd9mU', 'double'),
+    ('price_1U5ce6CYqBesDVNnpE8vN6Dx', 'pack'),
+    ('price_1U5ce5CYqBesDVNnoltXVDB2', 'mega-pack')
+) as updates(stripe_price_id, package_key)
+where prices.market = 'us'
+  and prices.stripe_price_id = updates.stripe_price_id;
+
 insert into public.ecommerce_product_prices
   (ecommerce_product_id, market, package_key, package_label, stripe_price_id, currency, unit_amount, total_amount, quantity, is_default, metadata)
 select p.id, v.market, v.package_key, v.package_label, v.stripe_price_id, v.currency, v.unit_amount, v.total_amount, v.quantity, v.is_default, v.metadata
 from (
   values
-    ('mx', 'nfc', 'unit', 'Tarjeta NFC', 'price_1Tv8aVE9Iq6fzuQIrnSLA26U', 'MXN', 520::numeric, 520::numeric, 1, true, '{}'::jsonb),
-    ('mx', 'nfc_metalica', 'unit', 'Tarjeta NFC metálica', 'price_1Tv8cjE9Iq6fzuQImmCpQDVC', 'MXN', 850::numeric, 850::numeric, 1, true, '{}'::jsonb),
-    ('mx', 'google_reviews', 'sencilla', 'Sencilla', 'price_1Tv8fRE9Iq6fzuQIeLlp1AEP', 'MXN', 420::numeric, 420::numeric, 1, true, '{}'::jsonb),
-    ('mx', 'google_reviews', 'doble', 'Doble', 'price_1Tv8nbE9Iq6fzuQIRR2g8MJC', 'MXN', 320::numeric, 640::numeric, 2, false, '{"discount": "-24%"}'::jsonb),
-    ('mx', 'google_reviews', 'paquete', 'Paquete', 'price_1Tv8nbE9Iq6fzuQIKDjj9BEG', 'MXN', 250::numeric, 1250::numeric, 5, false, '{"discount": "-40%"}'::jsonb),
-    ('mx', 'google_reviews', 'mega-pack', 'Mega pack', 'price_1Tv8nbE9Iq6fzuQIPHpTe5Fs', 'MXN', 220::numeric, 2200::numeric, 10, false, '{"discount": "-48%", "badge": "Super oferta"}'::jsonb),
-    ('mx', 'instagram', 'sencilla', 'Sencilla', 'price_1Tv8oZE9Iq6fzuQIVFkJLzt4', 'MXN', 420::numeric, 420::numeric, 1, true, '{}'::jsonb),
-    ('mx', 'instagram', 'doble', 'Doble', 'price_1Tv8pfE9Iq6fzuQIp2KKni8h', 'MXN', 320::numeric, 640::numeric, 2, false, '{"discount": "-24%"}'::jsonb),
-    ('mx', 'instagram', 'paquete', 'Paquete', 'price_1Tv8pfE9Iq6fzuQICX9128t0', 'MXN', 250::numeric, 1250::numeric, 5, false, '{"discount": "-40%"}'::jsonb),
-    ('mx', 'instagram', 'mega-pack', 'Mega pack', 'price_1Tv8pfE9Iq6fzuQIM1YbsB6N', 'MXN', 220::numeric, 2200::numeric, 10, false, '{"discount": "-48%", "badge": "Super oferta"}'::jsonb),
-    ('mx', 'facebook', 'sencilla', 'Sencilla', 'price_1Tv8u3E9Iq6fzuQI0CVCM67A', 'MXN', 420::numeric, 420::numeric, 1, true, '{}'::jsonb),
-    ('mx', 'facebook', 'doble', 'Doble', 'price_1Tv8vEE9Iq6fzuQIEi0Nbatp', 'MXN', 320::numeric, 640::numeric, 2, false, '{"discount": "-24%"}'::jsonb),
-    ('mx', 'facebook', 'paquete', 'Paquete', 'price_1Tv8vEE9Iq6fzuQIWKieXjgM', 'MXN', 250::numeric, 1250::numeric, 5, false, '{"discount": "-40%"}'::jsonb),
-    ('mx', 'facebook', 'mega-pack', 'Mega pack', 'price_1Tv8vEE9Iq6fzuQIJ63X9Ws9', 'MXN', 220::numeric, 2200::numeric, 10, false, '{"discount": "-48%", "badge": "Super oferta"}'::jsonb),
-    ('mx', 'tripadvisor', 'sencilla', 'Sencilla', 'price_1Tv8wFE9Iq6fzuQIT2IjZscx', 'MXN', 420::numeric, 420::numeric, 1, true, '{}'::jsonb),
-    ('mx', 'tripadvisor', 'doble', 'Doble', 'price_1Tv8xEE9Iq6fzuQI6QKpZGF0', 'MXN', 320::numeric, 640::numeric, 2, false, '{"discount": "-24%"}'::jsonb),
-    ('mx', 'tripadvisor', 'paquete', 'Paquete', 'price_1Tv8xEE9Iq6fzuQIrdHlzYPV', 'MXN', 250::numeric, 1250::numeric, 5, false, '{"discount": "-40%"}'::jsonb),
-    ('mx', 'tripadvisor', 'mega-pack', 'Mega pack', 'price_1Tv8xEE9Iq6fzuQIdkhLKYH9', 'MXN', 220::numeric, 2200::numeric, 10, false, '{"discount": "-48%", "badge": "Super oferta"}'::jsonb),
-    ('us', 'nfc', 'unit', 'NFC Business Card', 'price_1Tv9RhE9Iq6fzuQISRcT7yKM', 'USD', 29.99::numeric, 29.99::numeric, 1, true, '{}'::jsonb),
-    ('us', 'nfc_metalica', 'unit', 'Metal NFC Business Card', 'price_1Tv9UeE9Iq6fzuQILhFX58f2', 'USD', 49.99::numeric, 49.99::numeric, 1, true, '{}'::jsonb),
-    ('us', 'google_reviews', 'sencilla', 'Single', 'price_1Tv9eVE9Iq6fzuQIKkZtocFw', 'USD', 23.99::numeric, 23.99::numeric, 1, true, '{}'::jsonb),
-    ('us', 'google_reviews', 'doble', 'Double', 'price_1Tv9gxE9Iq6fzuQI2ubobZ2t', 'USD', 18.28::numeric, 36.56::numeric, 2, false, '{"discount": "-24%"}'::jsonb),
-    ('us', 'google_reviews', 'paquete', 'Pack', 'price_1Tv9gxE9Iq6fzuQIZyLG9i58', 'USD', 14.28::numeric, 71.40::numeric, 5, false, '{"discount": "-40%"}'::jsonb),
-    ('us', 'google_reviews', 'mega-pack', 'Mega pack', 'price_1Tv9gxE9Iq6fzuQIlan5WVaq', 'USD', 12.57::numeric, 125.66::numeric, 10, false, '{"discount": "-48%", "badge": "Super offer"}'::jsonb),
-    ('us', 'instagram', 'sencilla', 'Single', 'price_1Tv9lTE9Iq6fzuQIwium9ZhC', 'USD', 23.99::numeric, 23.99::numeric, 1, true, '{}'::jsonb),
-    ('us', 'instagram', 'doble', 'Double', 'price_1Tv9nbE9Iq6fzuQIrjXzVPD0', 'USD', 18.28::numeric, 36.56::numeric, 2, false, '{"discount": "-24%"}'::jsonb),
-    ('us', 'instagram', 'paquete', 'Pack', 'price_1Tv9nbE9Iq6fzuQItuSYdNtP', 'USD', 14.28::numeric, 71.40::numeric, 5, false, '{"discount": "-40%"}'::jsonb),
-    ('us', 'instagram', 'mega-pack', 'Mega pack', 'price_1Tv9nbE9Iq6fzuQIcxk00fnl', 'USD', 12.57::numeric, 125.66::numeric, 10, false, '{"discount": "-48%", "badge": "Super offer"}'::jsonb),
-    ('us', 'facebook', 'sencilla', 'Single', 'price_1Tv9ofE9Iq6fzuQIHBQKU8zL', 'USD', 23.99::numeric, 23.99::numeric, 1, true, '{}'::jsonb),
-    ('us', 'facebook', 'doble', 'Double', 'price_1Tv9plE9Iq6fzuQIt0gjf7Im', 'USD', 18.28::numeric, 36.56::numeric, 2, false, '{"discount": "-24%"}'::jsonb),
-    ('us', 'facebook', 'paquete', 'Pack', 'price_1Tv9plE9Iq6fzuQIPU1eNKqe', 'USD', 14.28::numeric, 71.40::numeric, 5, false, '{"discount": "-40%"}'::jsonb),
-    ('us', 'facebook', 'mega-pack', 'Mega pack', 'price_1Tv9plE9Iq6fzuQIAAQJILuo', 'USD', 12.57::numeric, 125.66::numeric, 10, false, '{"discount": "-48%", "badge": "Super offer"}'::jsonb),
-    ('us', 'tripadvisor', 'sencilla', 'Single', 'price_1Tv9uAE9Iq6fzuQIluaOlXJA', 'USD', 23.99::numeric, 23.99::numeric, 1, true, '{}'::jsonb),
-    ('us', 'tripadvisor', 'doble', 'Double', 'price_1Tv9wDE9Iq6fzuQIIj1sctRQ', 'USD', 18.28::numeric, 36.56::numeric, 2, false, '{"discount": "-24%"}'::jsonb),
-    ('us', 'tripadvisor', 'paquete', 'Pack', 'price_1Tv9wDE9Iq6fzuQIPRfifuJw', 'USD', 14.28::numeric, 71.40::numeric, 5, false, '{"discount": "-40%"}'::jsonb),
-    ('us', 'tripadvisor', 'mega-pack', 'Mega pack', 'price_1Tv9wDE9Iq6fzuQIIm62pTKP', 'USD', 12.57::numeric, 125.66::numeric, 10, false, '{"discount": "-48%", "badge": "Super offer"}'::jsonb)
+    ('us', 'nfc', 'unit', 'NFC Business Card', 'price_1U5cO2CYqBesDVNn7vyKC7z8', 'USD', 44.99::numeric, 44.99::numeric, 1, true, '{}'::jsonb),
+    ('us', 'nfc_metalica', 'unit', 'Metal NFC Business Card', 'price_1U5cKCCYqBesDVNniGjy9CAa', 'USD', 64.99::numeric, 64.99::numeric, 1, true, '{}'::jsonb),
+    ('us', 'google_reviews', 'single', 'Single', 'price_1U5cWnCYqBesDVNnEfju1Nez', 'USD', 34.99::numeric, 34.99::numeric, 1, true, '{}'::jsonb),
+    ('us', 'google_reviews', 'double', 'Double', 'price_1U5cWnCYqBesDVNnNApHtHAC', 'USD', 25.00::numeric, 49.99::numeric, 2, false, '{"discount": "-29%"}'::jsonb),
+    ('us', 'google_reviews', 'pack', 'Pack', 'price_1U5cWnCYqBesDVNngDEj99vR', 'USD', 16.00::numeric, 79.99::numeric, 5, false, '{"discount": "-54%"}'::jsonb),
+    ('us', 'google_reviews', 'mega-pack', 'Mega pack', 'price_1U5cWnCYqBesDVNnfu5s4jEb', 'USD', 13.00::numeric, 129.99::numeric, 10, false, '{"discount": "-63%", "badge": "Best value"}'::jsonb),
+    ('us', 'instagram', 'single', 'Single', 'price_1U5cb1CYqBesDVNnnhrx79Qj', 'USD', 34.99::numeric, 34.99::numeric, 1, true, '{}'::jsonb),
+    ('us', 'instagram', 'double', 'Double', 'price_1U5cblCYqBesDVNn8RW8zaL5', 'USD', 25.00::numeric, 49.99::numeric, 2, false, '{"discount": "-29%"}'::jsonb),
+    ('us', 'instagram', 'pack', 'Pack', 'price_1U5cblCYqBesDVNnQdYtb8XK', 'USD', 16.00::numeric, 79.99::numeric, 5, false, '{"discount": "-54%"}'::jsonb),
+    ('us', 'instagram', 'mega-pack', 'Mega pack', 'price_1U5cblCYqBesDVNnTaHdtikG', 'USD', 13.00::numeric, 129.99::numeric, 10, false, '{"discount": "-63%", "badge": "Best value"}'::jsonb),
+    ('us', 'facebook', 'single', 'Single', 'price_1U5cYsCYqBesDVNnIwX53lOD', 'USD', 34.99::numeric, 34.99::numeric, 1, true, '{}'::jsonb),
+    ('us', 'facebook', 'double', 'Double', 'price_1U5cZMCYqBesDVNnU7XQNseB', 'USD', 25.00::numeric, 49.99::numeric, 2, false, '{"discount": "-29%"}'::jsonb),
+    ('us', 'facebook', 'pack', 'Pack', 'price_1U5cZMCYqBesDVNnEtFlExvM', 'USD', 16.00::numeric, 79.99::numeric, 5, false, '{"discount": "-54%"}'::jsonb),
+    ('us', 'facebook', 'mega-pack', 'Mega pack', 'price_1U5cZMCYqBesDVNn7gU8HgWK', 'USD', 13.00::numeric, 129.99::numeric, 10, false, '{"discount": "-63%", "badge": "Best value"}'::jsonb),
+    ('us', 'tripadvisor', 'single', 'Single', 'price_1U5cdLCYqBesDVNnsOgoyAtu', 'USD', 34.99::numeric, 34.99::numeric, 1, true, '{}'::jsonb),
+    ('us', 'tripadvisor', 'double', 'Double', 'price_1U5ce6CYqBesDVNnRWAdd9mU', 'USD', 25.00::numeric, 49.99::numeric, 2, false, '{"discount": "-29%"}'::jsonb),
+    ('us', 'tripadvisor', 'pack', 'Pack', 'price_1U5ce6CYqBesDVNnpE8vN6Dx', 'USD', 16.00::numeric, 79.99::numeric, 5, false, '{"discount": "-54%"}'::jsonb),
+    ('us', 'tripadvisor', 'mega-pack', 'Mega pack', 'price_1U5ce5CYqBesDVNnoltXVDB2', 'USD', 13.00::numeric, 129.99::numeric, 10, false, '{"discount": "-63%", "badge": "Best value"}'::jsonb)
 ) as v(market, code, package_key, package_label, stripe_price_id, currency, unit_amount, total_amount, quantity, is_default, metadata)
 join public.ecommerce_products p
   on p.market = v.market and p.code = v.code
@@ -217,6 +220,41 @@ on conflict (ecommerce_product_id, package_key) do update set
   is_active = excluded.is_active,
   metadata = public.ecommerce_product_prices.metadata || excluded.metadata,
   updated_at = now();
+
+update public.ecommerce_product_prices prices
+set is_active = false, updated_at = now()
+from public.ecommerce_products products
+where prices.ecommerce_product_id = products.id
+  and products.market = 'us'
+  and products.code in ('nfc', 'nfc_metalica', 'google_reviews', 'instagram', 'facebook', 'tripadvisor')
+  and prices.stripe_price_id not in (
+    'price_1U5cO2CYqBesDVNn7vyKC7z8',
+    'price_1U5cKCCYqBesDVNniGjy9CAa',
+    'price_1U5cWnCYqBesDVNnEfju1Nez',
+    'price_1U5cWnCYqBesDVNnNApHtHAC',
+    'price_1U5cWnCYqBesDVNngDEj99vR',
+    'price_1U5cWnCYqBesDVNnfu5s4jEb',
+    'price_1U5cb1CYqBesDVNnnhrx79Qj',
+    'price_1U5cblCYqBesDVNn8RW8zaL5',
+    'price_1U5cblCYqBesDVNnQdYtb8XK',
+    'price_1U5cblCYqBesDVNnTaHdtikG',
+    'price_1U5cYsCYqBesDVNnIwX53lOD',
+    'price_1U5cZMCYqBesDVNnU7XQNseB',
+    'price_1U5cZMCYqBesDVNnEtFlExvM',
+    'price_1U5cZMCYqBesDVNn7gU8HgWK',
+    'price_1U5cdLCYqBesDVNnsOgoyAtu',
+    'price_1U5ce6CYqBesDVNnRWAdd9mU',
+    'price_1U5ce6CYqBesDVNnpE8vN6Dx',
+    'price_1U5ce5CYqBesDVNnoltXVDB2'
+  );
+
+update public.ecommerce_products
+set is_active = false, updated_at = now()
+where market <> 'us';
+
+update public.ecommerce_product_prices
+set is_active = false, updated_at = now()
+where market <> 'us';
 
 insert into storage.buckets (id, name, public)
 values ('order-assets', 'order-assets', true)
@@ -263,8 +301,8 @@ begin
 end $$;
 
 -- Las órdenes y sus items se crean después del pago desde la Edge Function
--- complete-checkout-order usando service_role. No permitas inserts anónimos
--- directos a orders/order_items desde el carrito.
+-- complete-checkout-order uses the service role. Do not allow direct anonymous
+-- inserts into orders/order_items from the cart.
 do $$
 begin
   drop policy if exists "Web cart can create draft ecommerce orders" on public.orders;
@@ -282,15 +320,14 @@ begin
   end if;
 end $$;
 
--- Webhooks recomendados en Stripe:
--- 1. checkout.session.completed -> apunta a la Edge Function existente stripe-webhook
---    (o a supabase/functions/stripe-checkout-webhook si usas el nombre de este repo).
---    El carrito web crea sesiones con create-web-cart-checkout-session y la inserción
---    completa de orders/order_items ocurre en complete-checkout-order después del
---    redirect exitoso, verificando la sesión con STRIPE_SECRET_KEY.
--- 2. checkout.session.async_payment_succeeded -> opcional si habilitas métodos de pago
---    asíncronos.
--- 3. checkout.session.async_payment_failed -> opcional para registrar intentos fallidos
---    si habilitas métodos de pago asíncronos.
--- No necesitas webhooks separados por producto; todos los productos y packs pasan por
--- los price_id de Stripe en una sola sesión de Checkout.
+-- Recommended Stripe webhooks:
+-- 1. checkout.session.completed -> point it to the existing stripe-webhook Edge Function
+--    or to supabase/functions/stripe-checkout-webhook if you use this repo name.
+--    The web cart creates sessions with create-web-cart-checkout-session, then the full
+--    orders/order_items insert happens in complete-checkout-order after the successful
+--    redirect, verifying the session with STRIPE_US_SECRET_KEY.
+-- 2. checkout.session.async_payment_succeeded -> optional if async payment methods are enabled.
+-- 3. checkout.session.async_payment_failed -> optional for logging failed attempts when
+--    async payment methods are enabled.
+-- Separate product webhooks are not needed; every product and pack goes through Stripe
+-- price_id values in one Checkout session.

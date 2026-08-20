@@ -1,10 +1,7 @@
 (() => {
-  const pathname = window.location.pathname.toLowerCase();
-  const market = document.documentElement.dataset.market || window.TaploeEcommerce?.market || (pathname.startsWith('/us/') ? 'us' : 'mx');
-  const locale = document.documentElement.dataset.locale || window.TaploeEcommerce?.locale || (market === 'us' ? 'en-US' : 'es-MX');
-  const labels = market === 'us'
-    ? { viewCart: 'Open cart' }
-    : { viewCart: 'Abrir carrito' };
+  const market = document.documentElement.dataset.market || window.TaploeEcommerce?.market || 'us';
+  const locale = document.documentElement.dataset.locale || window.TaploeEcommerce?.locale || 'en-US';
+  const labels = { viewCart: 'Open cart' };
   const cartKey = window.TaploeEcommerce?.cartStorageKey || `taploeCart:${market}`;
   const appLoginUrl = window.TaploeEcommerce?.appLoginUrl || `https://app.taploe.com/login?locale=${locale}`;
 
@@ -58,16 +55,165 @@
   window.addEventListener('storage', updateCartBadges);
   window.addEventListener('taploe:cart-updated', updateCartBadges);
 
-  document.querySelectorAll('[data-autoplay-video]').forEach((video) => {
-    video.volume = Number(video.dataset.volume || 0.85);
+  const muteAutoplayVideo = (video) => {
+    if (!(video instanceof HTMLVideoElement)) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+    if (!video.hasAttribute('preload') || video.preload === 'auto') {
+      video.preload = 'metadata';
+    }
+    if (!video.autoplay && !video.hasAttribute('data-autoplay-video')) return;
     const playAttempt = video.play();
     if (playAttempt) {
-      playAttempt.catch(() => {
-        video.muted = true;
-        video.play().catch(() => {});
+      playAttempt.catch(() => {});
+    }
+  };
+
+  document.querySelectorAll('video').forEach(muteAutoplayVideo);
+
+  const videoObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node instanceof HTMLVideoElement) {
+          muteAutoplayVideo(node);
+          return;
+        }
+        if (node instanceof Element) {
+          node.querySelectorAll('video').forEach(muteAutoplayVideo);
+        }
       });
+    });
+  });
+
+  videoObserver.observe(document.body, { childList: true, subtree: true });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') {
+      document.body.classList.add('is-keyboard-navigation');
     }
   });
+
+  document.addEventListener('pointerdown', () => {
+    document.body.classList.remove('is-keyboard-navigation');
+  });
+
+  document.querySelectorAll('.nav-dropdown').forEach((dropdown) => {
+    const trigger = dropdown.querySelector('.nav-trigger');
+    if (!trigger) return;
+    trigger.setAttribute('aria-expanded', 'false');
+
+    dropdown.addEventListener('mouseenter', () => {
+      trigger.setAttribute('aria-expanded', 'true');
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      trigger.setAttribute('aria-expanded', 'false');
+    });
+
+    dropdown.addEventListener('focusin', () => {
+      if (document.body.classList.contains('is-keyboard-navigation')) {
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    dropdown.addEventListener('focusout', (event) => {
+      if (!dropdown.contains(event.relatedTarget)) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const setupScrollReveal = () => {
+    const blockedTags = new Set(['SCRIPT', 'STYLE', 'TEMPLATE', 'NOSCRIPT']);
+    const blockedSelectors = '.site-header, .mobile-nav, .dropdown-menu, .quote-dialog, .cart-drawer, .cart-loading';
+    let revealOrder = 0;
+
+    document.documentElement.classList.add('taploe-motion-ready');
+
+    const shouldPrepare = (element) => (
+      element instanceof Element
+      && !blockedTags.has(element.tagName)
+      && !element.closest(blockedSelectors)
+      && !element.hasAttribute('data-taploe-reveal')
+    );
+
+    const prepareElement = (element, observer) => {
+      element.dataset.taploeReveal = '';
+      element.style.setProperty('--taploe-reveal-delay', `${Math.min(revealOrder * 8, 220)}ms`);
+      revealOrder += 1;
+      if (observer) {
+        observer.observe(element);
+      } else {
+        element.classList.add('is-revealed');
+      }
+    };
+
+    const elements = Array.from(document.body.querySelectorAll('*')).filter(shouldPrepare);
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach((element) => prepareElement(element, null));
+      return;
+    }
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      });
+    }, {
+      rootMargin: '0px 0px -6% 0px',
+      threshold: 0.01
+    });
+
+    elements.forEach((element) => prepareElement(element, revealObserver));
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return;
+          [node, ...node.querySelectorAll('*')]
+            .filter(shouldPrepare)
+            .forEach((element) => prepareElement(element, revealObserver));
+        });
+      });
+    });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+  };
+
+  const setupPageTransitions = () => {
+    window.addEventListener('pageshow', () => {
+      document.body.classList.remove('is-page-leaving');
+    });
+
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href]');
+      if (!link || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (link.target && link.target !== '_self') return;
+      if (link.hasAttribute('download')) return;
+
+      const url = new URL(link.href, window.location.href);
+      const samePageHash = url.pathname === window.location.pathname && url.search === window.location.search && url.hash;
+      const sameOrigin = url.origin === window.location.origin || (window.location.protocol === 'file:' && url.protocol === 'file:');
+      const isHttpNavigation = url.protocol === 'http:' || url.protocol === 'https:' || url.protocol === 'file:';
+      if (!sameOrigin || !isHttpNavigation || samePageHash) return;
+
+      event.preventDefault();
+      document.body.classList.add('is-page-leaving');
+      window.setTimeout(() => {
+        window.location.href = url.href;
+      }, 190);
+    });
+  };
+
+  if (!reduceMotion) {
+    setupScrollReveal();
+    setupPageTransitions();
+  }
 
   const menuButton = document.querySelector(".menu-toggle");
   const mobileNav = document.querySelector("#mobile-navigation, .mobile-nav");
@@ -92,6 +238,9 @@
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeMenu();
+    if (event.key === "Escape") {
+      closeMenu();
+      document.querySelectorAll('.nav-dropdown .nav-trigger').forEach((trigger) => trigger.setAttribute('aria-expanded', 'false'));
+    }
   });
 })();

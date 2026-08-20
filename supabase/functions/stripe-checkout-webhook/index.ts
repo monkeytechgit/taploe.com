@@ -1,7 +1,7 @@
 import Stripe from 'https://esm.sh/stripe@14.25.0?target=deno';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
-const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
+const stripe = new Stripe(Deno.env.get('STRIPE_US_SECRET_KEY') || '', {
   apiVersion: '2024-06-20',
 });
 
@@ -13,8 +13,8 @@ const supabase = createClient(
 Deno.serve(async (request) => {
   const signature = request.headers.get('stripe-signature');
   const webhookSecret =
-    Deno.env.get('STRIPE_WEB_CART_WEBHOOK_SECRET') ||
-    Deno.env.get('STRIPE_WEBHOOK_SECRET');
+    Deno.env.get('STRIPE_US_WEB_CART_WEBHOOK_SECRET') ||
+    Deno.env.get('STRIPE_US_WEBHOOK_SECRET');
   const body = await request.text();
 
   if (!signature || !webhookSecret) {
@@ -24,9 +24,8 @@ Deno.serve(async (request) => {
   let event: Stripe.Event;
   try {
     event = await stripe.webhooks.constructEventAsync(body, signature, webhookSecret);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Invalid webhook signature';
-    return new Response(`Webhook signature error: ${message}`, { status: 400 });
+  } catch {
+    return new Response('Invalid webhook signature', { status: 400 });
   }
 
   if (event.type === 'checkout.session.completed') {
@@ -51,7 +50,7 @@ Deno.serve(async (request) => {
           stripe_payment_intent_id: typeof session.payment_intent === 'string' ? session.payment_intent : null,
           checkout_client_reference_id: checkoutRef,
           total_amount: (session.amount_total || 0) / 100,
-          currency: (session.currency || 'mxn').toUpperCase(),
+          currency: (session.currency || 'usd').toUpperCase(),
           updated_at: new Date().toISOString(),
           metadata: {
             stripe_customer: session.customer,
@@ -68,7 +67,7 @@ Deno.serve(async (request) => {
       event_type: event.type,
       payment_status: session.payment_status,
       amount_total: (session.amount_total || 0) / 100,
-      currency: (session.currency || 'mxn').toUpperCase(),
+      currency: (session.currency || 'usd').toUpperCase(),
       payload: session,
     });
   }

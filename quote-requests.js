@@ -1,69 +1,37 @@
 (() => {
   const config = window.TaploeEcommerce || {};
-  const pathname = window.location.pathname.toLowerCase();
-  const market = config.market || document.documentElement.dataset.market || (pathname.startsWith('/us/') ? 'us' : 'mx');
-  const locale = config.locale || document.documentElement.dataset.locale || (market === 'us' ? 'en-US' : 'es-MX');
-  const isUs = market === 'us';
+  const market = config.market || document.documentElement.dataset.market || 'us';
+  const locale = config.locale || document.documentElement.dataset.locale || 'en-US';
 
-  const copy = isUs
-    ? {
-        title: 'Request a team plan',
-        inlineTitle: 'Request a Taploe quote',
-        intro: 'Tell us what your team needs and Taploe will help with a quote.',
-        solution: 'Solution type *',
-        quantity: 'Approximate quantity *',
-        name: 'Full name *',
-        company: 'Company optional',
-        phone: 'Phone optional',
-        email: 'Email *',
-        message: 'Briefly tell us what you have in mind optional',
-        messagePlaceholder: 'Example: We need 15 cards for the sales team, customized with the logo and each advisor’s details.',
-        cancel: 'Cancel',
-        submit: 'Send request',
-        sending: 'Sending...',
-        success: 'Request sent. We will contact you in 5-10 minutes.',
-        error: 'We could not send your request. Please try again or email info@taploe.com.',
-        close: 'Close quote form',
-        exit: 'Exit',
-        icon: 'Quote request',
-        options: {
-          digital_profile: 'Digital profile',
-          nfc_card: 'NFC card + digital profile',
-          metal_card: 'Metal NFC card',
-          google_review_card: 'Google review card',
-          team_solution: 'Team solution',
-          custom: 'Custom project'
-        }
-      }
-    : {
-        title: 'Solicitar plan para equipo',
-        inlineTitle: 'Solicitar cotización Taploe',
-        intro: 'Cuéntanos qué necesita tu equipo y Taploe te ayuda con una cotización.',
-        solution: 'Tipo de solución *',
-        quantity: 'Cantidad aproximada *',
-        name: 'Nombre completo *',
-        company: 'Empresa opcional',
-        phone: 'Teléfono opcional',
-        email: 'Correo electrónico *',
-        message: 'Cuéntanos brevemente qué tienes en mente opcional',
-        messagePlaceholder: 'Ejemplo: Necesitamos 15 tarjetas para el equipo comercial, personalizadas con el logo y los datos de cada asesor.',
-        cancel: 'Cancelar',
-        submit: 'Enviar solicitud',
-        sending: 'Enviando...',
-        success: 'Solicitud enviada. Te contactaremos en 5-10 minutos.',
-        error: 'No pudimos enviar tu solicitud. Intenta de nuevo o escribe a info@taploe.com.',
-        close: 'Cerrar formulario de cotización',
-        exit: 'Salir',
-        icon: 'Solicitud de cotización',
-        options: {
-          digital_profile: 'Perfil digital',
-          nfc_card: 'Tarjeta NFC + perfil digital',
-          metal_card: 'Tarjeta NFC metálica',
-          google_review_card: 'Tarjeta para reseñas de Google',
-          team_solution: 'Solución para equipo',
-          custom: 'Proyecto personalizado'
-        }
-      };
+  const copy = {
+    title: 'Request a team plan',
+    inlineTitle: 'Request a Taploe quote',
+    intro: 'Tell us what your team needs and Taploe will help with a quote.',
+    solution: 'Solution type *',
+    quantity: 'Approximate quantity *',
+    name: 'Full name *',
+    company: 'Company optional',
+    phone: 'Phone optional',
+    email: 'Email *',
+    message: 'Briefly tell us what you have in mind optional',
+    messagePlaceholder: 'Example: We need 15 cards for the sales team, customized with the logo and each advisor details.',
+    cancel: 'Cancel',
+    submit: 'Send request',
+    sending: 'Sending...',
+    success: 'Request sent. We will contact you in 5-10 minutes.',
+    error: 'We could not send your request. Please try again or email info@taploe.com.',
+    close: 'Close quote form',
+    exit: 'Exit',
+    icon: 'Quote request',
+    options: {
+      digital_profile: 'Digital profile',
+      nfc_card: 'NFC card + digital profile',
+      metal_card: 'Metal NFC card',
+      google_review_card: 'Google review card',
+      team_solution: 'Team solution',
+      custom: 'Custom project'
+    }
+  };
 
   const solutionValues = ['digital_profile', 'nfc_card', 'metal_card', 'google_review_card', 'team_solution', 'custom'];
   const supabaseBaseUrl = () => (config.supabaseUrl || '').replace(/\/rest\/v1\/?$/, '').replace(/\/$/, '');
@@ -188,10 +156,9 @@
   const sourceFromTrigger = (trigger) => {
     const text = (trigger.textContent || '').toLowerCase();
     let solutionType = trigger.dataset.quoteSolution || 'team_solution';
-    if (text.includes('nfc') && !text.includes('team') && !text.includes('equipo')) solutionType = 'nfc_card';
+    if (text.includes('nfc') && !text.includes('team')) solutionType = 'nfc_card';
     if (trigger.classList.contains('pricing-button--purple') ||
       text.includes('custom quote') ||
-      text.includes('cotización personalizada') ||
       text.includes('pro')) {
       solutionType = 'custom';
     }
@@ -207,9 +174,7 @@
     if (element.matches('[data-quote-open]')) return true;
     const href = element.getAttribute('href') || '';
     const text = (element.textContent || '').toLowerCase();
-    return href.includes('contact.html#cotizacion') ||
-      text.includes('solicitar cotización') ||
-      text.includes('cotizar para') ||
+    return href.includes('contact.html#quote') ||
       text.includes('request quote');
   };
 
@@ -240,7 +205,7 @@
         source: form.dataset.quoteSource || form.dataset.quoteMode || 'quote_form'
       }
     };
-    if (!supabaseReady()) throw new Error('Supabase is not configured.');
+    if (!supabaseReady()) throw new Error(copy.error);
     submit.disabled = true;
     form.classList.remove('is-success', 'is-error');
     panel?.classList.remove('is-success', 'is-error');
@@ -260,7 +225,7 @@
       },
       body: JSON.stringify(payload)
     });
-    if (!response.ok) throw new Error(await response.text());
+    if (!response.ok) throw new Error(copy.error);
     form.reset();
     hydrateDefaults(form, { solutionType: 'team_solution', source: form.dataset.quoteSource });
     form.classList.remove('is-sending', 'is-error');
@@ -320,7 +285,7 @@
     event.preventDefault();
     try {
       await submitQuote(form);
-    } catch (error) {
+    } catch {
       const status = form.querySelector('[data-quote-status]');
       const submit = form.querySelector('[type="submit"]');
       const feedback = form.querySelector('[data-quote-feedback-text]');
@@ -335,7 +300,6 @@
       if (feedback) feedback.textContent = copy.error;
       if (panelFeedback) panelFeedback.textContent = copy.error;
       if (submit) submit.disabled = false;
-      console.error(error);
     }
   });
 
@@ -347,14 +311,14 @@
     document.addEventListener('DOMContentLoaded', () => {
       buildDialog();
       mountInlineForms();
-      if (window.location.hash === '#cotizacion' && !document.querySelector('[data-quote-inline]')) {
+      if (window.location.hash === '#quote' && !document.querySelector('[data-quote-inline]')) {
         openDialog({ solutionType: 'team_solution', source: 'hash' });
       }
     });
   } else {
     buildDialog();
     mountInlineForms();
-    if (window.location.hash === '#cotizacion' && !document.querySelector('[data-quote-inline]')) {
+    if (window.location.hash === '#quote' && !document.querySelector('[data-quote-inline]')) {
       openDialog({ solutionType: 'team_solution', source: 'hash' });
     }
   }

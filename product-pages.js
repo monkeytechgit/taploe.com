@@ -17,8 +17,10 @@
       video.loop = true;
       video.playsInline = true;
       video.controls = true;
-      video.preload = 'auto';
-      video.volume = 1;
+      video.muted = true;
+      video.defaultMuted = true;
+      video.preload = 'metadata';
+      video.volume = 0;
       video.setAttribute('aria-label', button.dataset.galleryAlt || '');
       if (current) {
         current.replaceWith(video);
@@ -27,10 +29,7 @@
       }
       const playAttempt = video.play();
       if (playAttempt) {
-        playAttempt.catch(() => {
-          video.muted = true;
-          video.play().catch(() => {});
-        });
+        playAttempt.catch(() => {});
       }
     } else {
       const image = document.createElement('img');
@@ -58,28 +57,19 @@
   if (!configurator) return;
 
   const ecommerce = window.TaploeEcommerce || {};
-  const market = ecommerce.market || document.documentElement.dataset.market || (window.location.pathname.toLowerCase().startsWith('/us/') ? 'us' : 'mx');
-  const locale = ecommerce.locale || document.documentElement.dataset.locale || (market === 'us' ? 'en-US' : 'es-MX');
-  const currency = ecommerce.currency || (market === 'us' ? 'USD' : 'MXN');
+  const market = ecommerce.market || document.documentElement.dataset.market || 'us';
+  const locale = ecommerce.locale || document.documentElement.dataset.locale || 'en-US';
+  const currency = ecommerce.currency || 'USD';
   const productCatalog = ecommerce.products || {};
   const cartKey = ecommerce.cartStorageKey || `taploeCart:${market}`;
-  const labels = market === 'us'
-    ? {
-        added: 'Added to cart ✓',
-        adding: 'Adding...',
-        fileTooLarge: 'The file is larger than 10 MB.',
-        logoRequired: 'Upload your logo to continue with the custom design.',
-        selectedFileAlt: 'Selected logo file',
-        cartStatus: (product) => `${product} was added to your cart.`
-      }
-    : {
-        added: 'Agregado al carrito ✓',
-        adding: 'Agregando...',
-        fileTooLarge: 'El archivo supera el máximo de 10 MB.',
-        logoRequired: 'Carga tu logotipo para continuar con el diseño personalizado.',
-        selectedFileAlt: 'Archivo de logotipo seleccionado',
-        cartStatus: (product) => `${product} se agregó al carrito.`
-      };
+  const labels = {
+    added: 'Added to cart',
+    adding: 'Adding...',
+    fileTooLarge: 'The file is larger than 10 MB.',
+    logoRequired: 'Upload your logo to continue with the custom design.',
+    selectedFileAlt: 'Selected logo file',
+    cartStatus: (product) => `${product} was added to your cart.`
+  };
   const money = (value) => new Intl.NumberFormat(locale, {
     style: 'currency',
     currency,
@@ -162,7 +152,10 @@
   const updateDesign = () => {
     const custom = selectedValue('design') === 'custom';
     if (uploadPanel) uploadPanel.classList.toggle('is-visible', custom);
-    if (custom) selectGalleryButton(gallery?.querySelector('[data-custom-logo-reference]'));
+    const targetThumb = custom
+      ? gallery?.querySelector('[data-custom-logo-reference]')
+      : gallery?.querySelector('[data-gallery-image]:not([data-custom-logo-reference])');
+    selectGalleryButton(targetThumb);
   };
   designInputs.forEach((input) => input.addEventListener('change', updateDesign));
   if (designInputs.length) updateDesign();
@@ -292,6 +285,9 @@
       stripePriceId: pack?.stripePriceId || productConfig.priceId || configurator.dataset.stripePriceId || '',
       unitPrice,
       quantity,
+      cartUnits: pack ? 1 : quantity,
+      packagePieces: pack?.quantity || '',
+      packageTotalPrice: pack?.totalPrice || '',
       totalPrice,
       package: pack?.label || '',
       packageKey: pack?.key || '',

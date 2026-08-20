@@ -1,71 +1,39 @@
 (() => {
   const config = window.TaploeEcommerce || {};
-  const pathname = window.location.pathname.toLowerCase();
-  const market = config.market || document.documentElement.dataset.market || (pathname.includes('/us/') ? 'us' : 'mx');
-  const locale = config.locale || document.documentElement.dataset.locale || (market === 'us' ? 'en-US' : 'es-MX');
-  const currency = config.currency || (market === 'us' ? 'USD' : 'MXN');
+  const market = config.market || document.documentElement.dataset.market || 'us';
+  const locale = config.locale || document.documentElement.dataset.locale || 'en-US';
+  const currency = config.currency || 'USD';
   const cartKey = config.cartStorageKey || `taploeCart:${market}`;
   const pendingCheckoutKey = config.pendingCheckoutStorageKey || `taploePendingCheckout:${market}`;
-  const pathPrefix = pathname.includes('/us/') ? '/us' : (pathname.includes('/mx/') ? '/mx' : '');
-  const copy = market === 'us'
-    ? {
-        title: 'Cart',
-        close: 'Close cart',
-        empty: 'Your cart is empty.',
-        subtotal: 'Subtotal',
-        shipping: 'Shipping',
-        shippingNote: 'Calculated at checkout',
-        total: 'Total',
-        buy: 'Checkout',
-        viewCart: 'View cart',
-        continue: 'Continue shopping',
-        secure: 'Secure payment. Shipping details are collected in the next step.',
-        drawerTitle: 'Your shopping cart',
-        logoUploadError: (product) => `Could not upload the logo for ${product}.`,
-        orderError: 'Could not create the Supabase order.',
-        itemsError: 'Could not save the order products.',
-        pieces: (quantity) => quantity === 1 ? 'piece' : 'pieces',
-        each: 'each',
-        remove: 'Remove',
-        logo: 'Logo',
-        package: 'Pack',
-        links: 'Links',
-        language: 'Language',
-        design: 'Design',
-        stripeLoad: 'Payment could not load. Check your connection.',
-        supabaseConfig: 'Supabase is not configured correctly in ecommerce-config.js.',
-        missingPrice: (product) => `Missing price_id for ${product}.`,
-        preparing: 'Preparing payment...'
-      }
-    : {
-        title: 'Carrito',
-        close: 'Cerrar carrito',
-        empty: 'Tu carrito está vacío.',
-        subtotal: 'Subtotal',
-        shipping: 'Envío',
-        shippingNote: 'Se calcula en checkout',
-        total: 'Total',
-        buy: 'Checkout',
-        viewCart: 'Ver carrito',
-        continue: 'Seguir comprando',
-        secure: 'Pago seguro. Los datos de envío se solicitan en el siguiente paso.',
-        drawerTitle: 'Tu carrito',
-        logoUploadError: (product) => `No se pudo subir el logo de ${product}.`,
-        orderError: 'No se pudo crear la orden en Supabase.',
-        itemsError: 'No se pudieron guardar los productos de la orden.',
-        pieces: (quantity) => quantity === 1 ? 'pieza' : 'piezas',
-        each: 'c/u',
-        remove: 'Quitar',
-        logo: 'Logo',
-        package: 'Paquete',
-        links: 'Enlaces',
-        language: 'Idioma',
-        design: 'Diseño',
-        stripeLoad: 'No se pudo cargar el pago. Revisa tu conexión.',
-        supabaseConfig: 'Supabase no está configurado correctamente en ecommerce-config.js.',
-        missingPrice: (product) => `Falta price_id para ${product}.`,
-        preparing: 'Preparando pago...'
-      };
+  const copy = {
+    title: 'Cart',
+    close: 'Close cart',
+    empty: 'Your cart is empty.',
+    subtotal: 'Subtotal',
+    shipping: 'Shipping',
+    shippingNote: 'Free shipping',
+    total: 'Total',
+    buy: 'Checkout',
+    viewCart: 'View cart',
+    continue: 'Continue shopping',
+    secure: 'Secure payment. Shipping details are collected in the next step.',
+    drawerTitle: 'Your shopping cart',
+    logoUploadError: (product) => `Could not upload the logo for ${product}.`,
+    orderError: 'Could not create the Supabase order.',
+    itemsError: 'Could not save the order products.',
+    pieces: (quantity) => quantity === 1 ? 'piece' : 'pieces',
+    each: 'each',
+    remove: 'Remove',
+    logo: 'Logo',
+    package: 'Pack',
+    links: 'Links',
+    language: 'Language',
+    design: 'Design',
+    stripeLoad: 'We could not start checkout right now. Please try again in a moment.',
+    supabaseConfig: 'Checkout is temporarily unavailable. Please try again in a moment.',
+    missingPrice: () => 'This product is temporarily unavailable. Please try again later.',
+    preparing: 'Preparing payment...'
+  };
   const money = (value) => new Intl.NumberFormat(locale, {
     style: 'currency',
     currency,
@@ -86,14 +54,17 @@
   };
   const cartCount = (cart = getCart()) => cart.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
   const cartTotal = (cart = getCart()) => cart.reduce((sum, item) => sum + Number(item.totalPrice || item.unitPrice * item.quantity), 0);
-  const cartPageUrl = `${pathPrefix || ''}/cart.html`;
-  const fallbackImage = `${pathPrefix ? '..' : '.'}/assets/images/taploe-logo.webp`;
+  const cartPageUrl = 'cart.html';
+  const pathPrefix = config.pathPrefix || '';
+  const fallbackImage = 'assets/images/taploe-logo.webp';
+  const shippingIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg>';
+  const shippingMarkup = `<strong class="cart-summary__shipping">${shippingIcon}<span>${copy.shippingNote}</span></strong>`;
   const normalizeImageUrl = (url) => {
     if (!url) return fallbackImage;
     if (/^(https?:|data:|blob:)/.test(url)) return url;
-    if (url.startsWith('/assets/')) return `${pathPrefix ? '..' : ''}${url}`;
-    if (url.startsWith('../assets/')) return url;
-    if (url.startsWith('assets/')) return `${pathPrefix ? '../' : ''}${url}`;
+    if (url.startsWith('/assets/')) return url;
+    if (url.startsWith('../assets/')) return url.replace('../assets/', 'assets/');
+    if (url.startsWith('assets/')) return url;
     return url;
   };
 
@@ -119,7 +90,7 @@
         <div class="cart-list cart-drawer__list" data-cart-items></div>
         <div class="cart-drawer__footer">
           <div class="cart-summary__row"><span>${copy.subtotal}</span><strong data-cart-subtotal>${money(0)}</strong></div>
-          <div class="cart-summary__row"><span>${copy.shipping}</span><strong>${copy.shippingNote}</strong></div>
+          <div class="cart-summary__row"><span>${copy.shipping}</span>${shippingMarkup}</div>
           <div class="cart-summary__total"><span>${copy.total}</span><strong data-cart-total>${money(0)}</strong></div>
           <a class="cart-drawer__view" href="${cartPageUrl}">${copy.viewCart}</a>
           <button class="product-submit" type="button" data-cart-checkout>${copy.buy}</button>
@@ -154,9 +125,35 @@
       badge.hidden = count === 0;
     });
   };
+  const clampCartQuantity = (value) => Math.min(99, Math.max(1, Number(value) || 1));
+  const packagePieces = (item) => Math.max(1, Number(item.packagePieces || item.packageQuantity || item.packageBaseQuantity || item.quantity || 1));
+  const packageTotal = (item) => Math.max(0, Number(item.packageTotalPrice || item.packagePrice || item.totalPrice || Number(item.unitPrice || 0) * packagePieces(item)));
+  const cartUnits = (item) => Math.max(1, Number(item.cartUnits || (item.packageKey ? Math.round(Number(item.quantity || 1) / packagePieces(item)) : item.quantity) || 1));
+  const updateCartItemQuantity = (index, delta) => {
+    const cart = getCart();
+    const item = cart[index];
+    if (!item) return;
+    if (item.packageKey) {
+      const piecesPerPackage = packagePieces(item);
+      const totalPerPackage = packageTotal(item);
+      const nextUnits = clampCartQuantity(cartUnits(item) + delta);
+      item.cartUnits = nextUnits;
+      item.packagePieces = piecesPerPackage;
+      item.packageTotalPrice = totalPerPackage;
+      item.quantity = piecesPerPackage * nextUnits;
+      item.totalPrice = totalPerPackage * nextUnits;
+    } else {
+      const nextQuantity = clampCartQuantity(Number(item.quantity || 1) + delta);
+      item.quantity = nextQuantity;
+      item.totalPrice = Number(item.unitPrice || 0) * nextQuantity;
+    }
+    setCart(cart);
+    render();
+  };
 
   const itemMarkup = (item, index) => {
-    const itemTotal = Number(item.totalPrice || item.unitPrice * item.quantity);
+    const quantity = Number(item.quantity || 1);
+    const itemTotal = Number(item.totalPrice || item.unitPrice * quantity);
     const imageUrl = normalizeImageUrl(item.imageUrl);
     const links = (item.reviewLinks || []).filter(Boolean);
     const logo = item.logo?.name ? `<span>${copy.logo}: ${item.logo.name}</span>` : '';
@@ -164,6 +161,7 @@
     const linksText = links.length ? `<span>${copy.links}: ${links.join(', ')}</span>` : '';
     const language = item.language ? `<span>${copy.language}: ${item.language.toUpperCase()}</span>` : '';
     const design = item.design && item.design !== 'profile' ? `<span>${copy.design}: ${item.design}</span>` : '';
+    const minQuantity = item.packageKey ? packagePieces(item) : 1;
     return `
       <img src="${imageUrl}" alt="">
       <div class="cart-item__body">
@@ -171,10 +169,14 @@
           <h3>${item.product}</h3>
           <strong>${money(itemTotal)}</strong>
         </div>
-        <p>${item.quantity} ${copy.pieces(item.quantity)} · ${money(item.unitPrice)} ${copy.each}</p>
+        <p>${quantity} ${copy.pieces(quantity)} · ${money(item.unitPrice)} ${copy.each}</p>
         <div class="cart-item__meta">${packageText}${language}${linksText}${logo}${design}</div>
         <div class="cart-item__actions">
-          <span class="cart-item__quantity">${item.quantity} ${copy.pieces(item.quantity)}</span>
+          <div class="cart-item__stepper" aria-label="Quantity">
+            <button type="button" data-cart-quantity-change="-1" data-cart-item-index="${index}" aria-label="Decrease quantity" ${quantity <= minQuantity ? 'disabled' : ''}>−</button>
+            <span>${quantity}</span>
+            <button type="button" data-cart-quantity-change="1" data-cart-item-index="${index}" aria-label="Increase quantity">+</button>
+          </div>
           <button class="cart-item__remove" type="button" data-remove-index="${index}" aria-label="${copy.remove}">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/></svg>
             <span>${copy.remove}</span>
@@ -229,7 +231,7 @@
             <aside class="cart-summary">
               <h2>${copy.total}</h2>
               <div class="cart-summary__row"><span>${copy.subtotal}</span><strong data-cart-subtotal>${money(0)}</strong></div>
-              <div class="cart-summary__row"><span>${copy.shipping}</span><strong>${copy.shippingNote}</strong></div>
+              <div class="cart-summary__row"><span>${copy.shipping}</span>${shippingMarkup}</div>
               <div class="cart-summary__total"><span>${copy.total}</span><strong data-cart-total>${money(0)}</strong></div>
               <button class="product-submit" type="button" data-cart-checkout>${copy.buy}</button>
               <a class="cart-drawer__continue" href="index.html">${copy.continue}</a>
@@ -283,7 +285,10 @@
         createdAt: new Date().toISOString(),
         sourceUrl: window.location.href
       }));
-      const origin = window.location.origin && window.location.origin !== 'null' ? window.location.origin : 'https://taploe.com';
+      const siteUrl = (config.siteUrl || 'https://taploe.com').replace(/\/+$/, '');
+      const origin = /^https?:$/.test(window.location.protocol) && window.location.origin !== 'null'
+        ? window.location.origin
+        : siteUrl;
       const response = await fetch(`${supabaseBaseUrl()}/functions/v1/${config.webCartCheckoutFunction || 'create-web-cart-checkout-session'}`, {
         method: 'POST',
         headers: {
@@ -296,23 +301,24 @@
           market,
           locale,
           currency,
-          page_url: `${origin}${pathPrefix}/cart.html`,
+          page_url: `${origin.replace(/\/+$/, '')}${pathPrefix}/cart.html`,
           cart: cart.map((item) => ({
             id: item.id,
             product: item.product,
             productCode: item.productCode,
             stripePriceId: item.stripePriceId,
             quantity: item.quantity,
+            cartUnits: item.cartUnits,
             packageKey: item.packageKey
           }))
         })
       });
       const result = await response.json().catch(() => ({}));
-      if (!response.ok || !result.url) throw new Error(result.error || copy.stripeLoad);
+      if (!response.ok || !result.url) throw new Error(copy.stripeLoad);
       window.location.href = result.url;
     } catch (error) {
       checkoutButton.disabled = false;
-      if (status) status.textContent = error.message || copy.stripeLoad;
+      if (status) status.textContent = copy.stripeLoad;
     }
   };
 
@@ -331,6 +337,11 @@
       cart.splice(Number(remove.dataset.removeIndex), 1);
       setCart(cart);
       render();
+      return;
+    }
+    const quantityChange = event.target.closest('[data-cart-quantity-change]');
+    if (quantityChange) {
+      updateCartItemQuantity(Number(quantityChange.dataset.cartItemIndex), Number(quantityChange.dataset.cartQuantityChange));
       return;
     }
     if (event.target.closest('[data-cart-checkout]')) {

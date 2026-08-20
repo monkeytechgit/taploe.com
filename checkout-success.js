@@ -1,24 +1,16 @@
 (() => {
   const config = window.TaploeEcommerce || {};
-  const pathname = window.location.pathname.toLowerCase();
-  const market = config.market || document.documentElement.dataset.market || (pathname.includes('/us/') ? 'us' : 'mx');
-  const locale = config.locale || document.documentElement.dataset.locale || (market === 'us' ? 'en-US' : 'es-MX');
-  const currency = config.currency || (market === 'us' ? 'USD' : 'MXN');
+  const market = config.market || document.documentElement.dataset.market || 'us';
+  const locale = config.locale || document.documentElement.dataset.locale || 'en-US';
+  const currency = config.currency || 'USD';
   const cartKey = config.cartStorageKey || `taploeCart:${market}`;
   const pendingCheckoutKey = config.pendingCheckoutStorageKey || `taploePendingCheckout:${market}`;
-  const copy = market === 'us'
-    ? {
-        processing: 'Confirming payment and saving your order...',
-        saved: 'Order saved. We received your purchase and will continue with production.',
-        missing: 'Payment was received, but this browser no longer has the cart configuration. Contact Taploe with your Stripe receipt.',
-        error: 'Payment was received, but we could not save the order configuration. Contact Taploe with your Stripe receipt.'
-      }
-    : {
-        processing: 'Confirmando pago y guardando tu orden...',
-        saved: 'Orden guardada. Recibimos tu compra y continuaremos con la producción.',
-        missing: 'El pago fue recibido, pero este navegador ya no tiene la configuración del carrito. Contacta a Taploe con tu recibo de Stripe.',
-        error: 'El pago fue recibido, pero no pudimos guardar la configuración de la orden. Contacta a Taploe con tu recibo de Stripe.'
-      };
+  const copy = {
+    processing: 'Confirming payment and saving your order...',
+    saved: 'Order saved. We received your purchase and will continue with production.',
+    missing: 'Payment was received, but this browser no longer has the cart configuration. Contact Taploe with your Stripe receipt.',
+    error: 'Payment was received, but we could not save the order configuration. Contact Taploe with your Stripe receipt.'
+  };
   const status = document.querySelector('[data-checkout-save-status]');
   const setStatus = (message) => {
     if (status) status.textContent = message;
@@ -104,7 +96,7 @@
           source_url: pending.sourceUrl || ''
         })
       });
-      if (!response.ok) throw new Error(await response.text());
+      if (!response.ok) throw new Error(copy.error);
       localStorage.removeItem(cartKey);
       localStorage.removeItem(pendingCheckoutKey);
       window.dispatchEvent(new CustomEvent('taploe:cart-updated'));
