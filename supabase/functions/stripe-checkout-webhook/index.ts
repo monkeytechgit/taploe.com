@@ -4,10 +4,18 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 const stripe = new Stripe(Deno.env.get('STRIPE_US_SECRET_KEY') || '', {
   apiVersion: '2024-06-20',
 });
+const readSupabaseSecretKey = () => {
+  try {
+    const secretKeys = JSON.parse(Deno.env.get('SUPABASE_SECRET_KEYS') || '{}');
+    return secretKeys.default || Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
+  } catch {
+    return Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
+  }
+};
 
 const supabase = createClient(
   Deno.env.get('SUPABASE_URL') || '',
-  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '',
+  readSupabaseSecretKey(),
 );
 
 Deno.serve(async (request) => {
