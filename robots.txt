@@ -1,5 +1,5 @@
 # Taploe robots.txt
-# Single English storefront: https://taploe.com/
+# Single English storefront: https://www.taploe.com/
 
 User-agent: *
 Allow: /
@@ -10,4 +10,4 @@ Disallow: /.git/
 Disallow: /.DS_Store
 Disallow: /*.sql$
 
-Sitemap: https://taploe.com/sitemap.xml
+Sitemap: https://www.taploe.com/sitemap.xml

@@ -2,135 +2,135 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://taploe.com/</loc>
+    <loc>https://www.taploe.com/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-nfc-business-card.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-nfc-business-card.webp</image:loc>
       <image:title>NFC business cards and digital profiles by Taploe</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-metal-nfc-business-card.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-metal-nfc-business-card.webp</image:loc>
       <image:title>Metal NFC Business Card</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-google-reviews-nfc-card.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-google-reviews-nfc-card.webp</image:loc>
       <image:title>Google Reviews NFC Card</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://taploe.com/nfc-card.html</loc>
+    <loc>https://www.taploe.com/nfc-card.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-nfc-business-card.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-nfc-business-card.webp</image:loc>
       <image:title>NFC Business Card with editable digital profile</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://taploe.com/metal-nfc-card.html</loc>
+    <loc>https://www.taploe.com/metal-nfc-card.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-metal-nfc-business-card.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-metal-nfc-business-card.webp</image:loc>
       <image:title>Premium Metal NFC Business Card</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://taploe.com/google-reviews-nfc-card.html</loc>
+    <loc>https://www.taploe.com/google-reviews-nfc-card.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-google-reviews-nfc-card.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-google-reviews-nfc-card.webp</image:loc>
       <image:title>Google Reviews NFC Card for collecting customer reviews</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://taploe.com/facebook-nfc-card.html</loc>
+    <loc>https://www.taploe.com/facebook-nfc-card.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-facebook-nfc-card.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-facebook-nfc-card.webp</image:loc>
       <image:title>Facebook NFC Card for sharing a business page</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://taploe.com/instagram-nfc-card.html</loc>
+    <loc>https://www.taploe.com/instagram-nfc-card.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-instagram-nfc-card.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-instagram-nfc-card.webp</image:loc>
       <image:title>Instagram Profile NFC Card</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://taploe.com/tripadvisor-nfc-card.html</loc>
+    <loc>https://www.taploe.com/tripadvisor-nfc-card.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-tripadvisor-nfc-card.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-tripadvisor-nfc-card.webp</image:loc>
       <image:title>TripAdvisor NFC Card for review requests</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://taploe.com/digital-card.html</loc>
+    <loc>https://www.taploe.com/digital-card.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/product-digital-profile.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/product-digital-profile.webp</image:loc>
       <image:title>Taploe digital business card profile</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://taploe.com/catalog.html</loc>
+    <loc>https://www.taploe.com/catalog.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taploe.com/pricing.html</loc>
+    <loc>https://www.taploe.com/pricing.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taploe.com/for-teams.html</loc>
+    <loc>https://www.taploe.com/for-teams.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://taploe.com/assets/images/taploe-for-teams.webp</image:loc>
+      <image:loc>https://www.taploe.com/assets/images/taploe-for-teams.webp</image:loc>
       <image:title>Taploe NFC business cards for teams</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://taploe.com/faq.html</loc>
+    <loc>https://www.taploe.com/faq.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://taploe.com/contact.html</loc>
+    <loc>https://www.taploe.com/contact.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://taploe.com/privacy.html</loc>
+    <loc>https://www.taploe.com/privacy.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://taploe.com/terms.html</loc>
+    <loc>https://www.taploe.com/terms.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

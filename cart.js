@@ -285,7 +285,7 @@
         createdAt: new Date().toISOString(),
         sourceUrl: window.location.href
       }));
-      const siteUrl = (config.siteUrl || 'https://taploe.com').replace(/\/+$/, '');
+      const siteUrl = (config.siteUrl || 'https://www.taploe.com').replace(/\/+$/, '');
       const origin = /^https?:$/.test(window.location.protocol) && window.location.origin !== 'null'
         ? window.location.origin
         : siteUrl;

@@ -61,7 +61,7 @@
 
   window.TaploeEcommerce = {
     stripePublishableKey: 'pk_live_51U5WzpCYqBesDVNnAUgyv2VdrbB03erkKrp0Ly72WqXLvvO5sRis4GL9ifX8dexot95ChJg7EjlZFNPQKhYu2cXz00Ve41uvrD',
-    siteUrl: 'https://taploe.com',
+    siteUrl: 'https://www.taploe.com',
     supabaseUrl: 'https://gmpiygcnzlxllnablxmk.supabase.co',
     supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtcGl5Z2Nuemx4bGxuYWJseG1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2MTE1NjUsImV4cCI6MjA5OTE4NzU2NX0.3xYOvjvjuoNJW5DXemn0VaNUnC1IifluBjHVSa_uKBs',
     market,

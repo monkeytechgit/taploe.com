@@ -162,7 +162,7 @@ Deno.serve(async (request) => {
     const locale = String(payload.locale || 'en-US');
     const checkoutRef = String(payload.checkout_ref || '');
     const cart = Array.isArray(payload.cart) ? payload.cart as CartItem[] : [];
-    const pageBase = cleanUrl(String(payload.page_url || '')) || 'https://taploe.com';
+    const pageBase = cleanUrl(String(payload.page_url || '')) || 'https://www.taploe.com';
 
     if (!checkoutRef || !cart.length) {
       return json(
