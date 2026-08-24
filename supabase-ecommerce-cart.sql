@@ -136,7 +136,7 @@ insert into public.ecommerce_products
   (code, market, locale, name, description, product_kind, material, stripe_product_id, default_stripe_price_id, image_url, metadata)
 values
   ('nfc', 'us', 'en-US', 'NFC Business Card', 'A lightweight, customizable card that opens your digital profile via NFC or QR code.', 'nfc_card', 'PVC', 'prod_V5o0MjNQkWGr8u', 'price_1U5cO2CYqBesDVNn7vyKC7z8', '/assets/images/product-nfc-business-card.webp', '{"ecommerce": true}'::jsonb),
-  ('nfc_metalica', 'us', 'en-US', 'Metal NFC Business Card', 'A premium black metal card with built-in NFC and an included digital profile.', 'nfc_card', 'Metal', 'prod_V5nw7Hi1qhMHAT', 'price_1U7nt4CYqBesDVNnVMWVRGZh', '/assets/images/product-metal-nfc-business-card.webp', '{"ecommerce": true}'::jsonb),
+  ('nfc_metalica', 'us', 'en-US', 'Metal NFC Business Card', 'A premium black metal card with built-in NFC and an included digital profile.', 'nfc_card', 'Metal', 'prod_V5nw7Hi1qhMHAT', 'price_1U5cKCCYqBesDVNniGjy9CAa', '/assets/images/product-metal-nfc-business-card.webp', '{"ecommerce": true}'::jsonb),
   ('google_reviews', 'us', 'en-US', 'Google Reviews NFC Card', 'A custom NFC card that opens your business Google review link via NFC or QR code.', 'review_card', 'PVC', 'prod_V5o9lNsKaIyuCf', 'price_1U7mkUCYqBesDVNnd33qMRAm', '/assets/images/product-google-reviews-nfc-card.webp', '{"ecommerce": true}'::jsonb),
   ('instagram', 'us', 'en-US', 'Instagram Profile NFC Card', 'A personalized NFC card that opens your Instagram profile via NFC or QR code.', 'qr_card', 'PVC', 'prod_V5oDgZ9AEISKtq', 'price_1U5cb1CYqBesDVNnnhrx79Qj', '/assets/images/product-instagram-nfc-card.webp', '{"ecommerce": true}'::jsonb),
   ('facebook', 'us', 'en-US', 'Facebook NFC Card', 'A personalized NFC card that opens your Facebook page via NFC or QR code.', 'qr_card', 'PVC', 'prod_V5oBRHsDEGUXL2', 'price_1U5cYsCYqBesDVNnIwX53lOD', '/assets/images/product-facebook-nfc-card.webp', '{"ecommerce": true}'::jsonb),
@@ -161,7 +161,7 @@ set package_key = updates.package_key,
 from (
   values
     ('price_1U5cO2CYqBesDVNn7vyKC7z8', 'unit'),
-    ('price_1U7nt4CYqBesDVNnVMWVRGZh', 'unit'),
+    ('price_1U5cKCCYqBesDVNniGjy9CAa', 'unit'),
     ('price_1U7mkUCYqBesDVNnd33qMRAm', 'single'),
     ('price_1U5cWnCYqBesDVNnNApHtHAC', 'double'),
     ('price_1U5cWnCYqBesDVNngDEj99vR', 'pack'),
@@ -188,7 +188,7 @@ select p.id, v.market, v.package_key, v.package_label, v.stripe_price_id, v.curr
 from (
   values
     ('us', 'nfc', 'unit', 'NFC Business Card', 'price_1U5cO2CYqBesDVNn7vyKC7z8', 'USD', 44.99::numeric, 44.99::numeric, 1, true, '{}'::jsonb),
-    ('us', 'nfc_metalica', 'unit', 'Metal NFC Business Card', 'price_1U7nt4CYqBesDVNnVMWVRGZh', 'USD', 0.50::numeric, 0.50::numeric, 1, true, '{}'::jsonb),
+    ('us', 'nfc_metalica', 'unit', 'Metal NFC Business Card', 'price_1U5cKCCYqBesDVNniGjy9CAa', 'USD', 64.99::numeric, 64.99::numeric, 1, true, '{}'::jsonb),
     ('us', 'google_reviews', 'single', 'Single', 'price_1U7mkUCYqBesDVNnd33qMRAm', 'USD', 34.99::numeric, 34.99::numeric, 1, true, '{}'::jsonb),
     ('us', 'google_reviews', 'double', 'Double', 'price_1U5cWnCYqBesDVNnNApHtHAC', 'USD', 25.00::numeric, 49.99::numeric, 2, false, '{"discount": "-29%"}'::jsonb),
     ('us', 'google_reviews', 'pack', 'Pack', 'price_1U5cWnCYqBesDVNngDEj99vR', 'USD', 16.00::numeric, 79.99::numeric, 5, false, '{"discount": "-54%"}'::jsonb),
@@ -229,7 +229,7 @@ where prices.ecommerce_product_id = products.id
   and products.code in ('nfc', 'nfc_metalica', 'google_reviews', 'instagram', 'facebook', 'tripadvisor')
   and prices.stripe_price_id not in (
     'price_1U5cO2CYqBesDVNn7vyKC7z8',
-    'price_1U7nt4CYqBesDVNnVMWVRGZh',
+    'price_1U5cKCCYqBesDVNniGjy9CAa',
     'price_1U7mkUCYqBesDVNnd33qMRAm',
     'price_1U5cWnCYqBesDVNnNApHtHAC',
     'price_1U5cWnCYqBesDVNngDEj99vR',
