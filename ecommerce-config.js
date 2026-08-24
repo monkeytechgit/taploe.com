@@ -20,7 +20,7 @@
         productId: 'prod_V5o9lNsKaIyuCf',
         quantityMode: 'package',
         packages: {
-          single: { priceId: 'price_1U7mkUCYqBesDVNnd33qMRAm', totalPrice: 34.99, unitPrice: 34.99, quantity: 1 },
+          single: { priceId: 'price_1U5cWnCYqBesDVNnEfju1Nez', totalPrice: 34.99, unitPrice: 34.99, quantity: 1 },
           double: { priceId: 'price_1U5cWnCYqBesDVNnNApHtHAC', totalPrice: 49.99, unitPrice: 25.00, quantity: 2 },
           pack: { priceId: 'price_1U5cWnCYqBesDVNngDEj99vR', totalPrice: 79.99, unitPrice: 16.00, quantity: 5 },
           'mega-pack': { priceId: 'price_1U5cWnCYqBesDVNnfu5s4jEb', totalPrice: 129.99, unitPrice: 13.00, quantity: 10 }

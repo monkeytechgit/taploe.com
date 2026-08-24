@@ -13,7 +13,7 @@ const readSupabaseSecretKey = () => {
 const supabaseSecretKey = readSupabaseSecretKey();
 
 const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: '2024-06-20',
+  apiVersion: '2024-11-20.acacia' as any,
 });
 
 const corsHeaders = {
@@ -33,6 +33,9 @@ type CartItem = {
 };
 type TaploeCheckoutSessionCreateParams = Stripe.Checkout.SessionCreateParams & {
   managed_payments?: {
+    enabled: boolean;
+  };
+  adaptive_pricing?: {
     enabled: boolean;
   };
 };
@@ -239,6 +242,8 @@ Deno.serve(async (request) => {
       const sessionParams: TaploeCheckoutSessionCreateParams = {
         mode: 'payment',
         managed_payments: { enabled: false },
+        adaptive_pricing: { enabled: false },
+        locale: 'en',
         line_items: lineItems,
         client_reference_id: checkoutRef,
         billing_address_collection: 'required',
