@@ -1,13 +1,4 @@
-# Taploe robots.txt
-# Single English storefront: https://www.taploe.com/
-
 User-agent: *
 Allow: /
-
-# Keep implementation and source files out of crawlable search results.
-Disallow: /supabase/
-Disallow: /.git/
-Disallow: /.DS_Store
-Disallow: /*.sql$
 
 Sitemap: https://www.taploe.com/sitemap.xml
