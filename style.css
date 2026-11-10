@@ -8121,3 +8121,30 @@ button {
   .accent { animation: none !important; }
   .back-top { transition: none; }
 }
+
+/* Larger product tile text and images */
+.shop-tile__media img { width: 94%; height: 94%; }
+.shop-tile__body { gap: 8px; padding-top: 16px; }
+.shop-tile__cat { font-size: 13px; }
+.shop-tile__name { font-size: 22px; }
+.shop-tile__rating { font-size: 15.5px; }
+.shop-tile__rating .stars { font-size: 17px; }
+.shop-tile__price strong { font-size: 24px; }
+.shop-tile__price del { font-size: 17px; }
+.shop-tile__note { font-size: 15px; }
+.shop-tile__save,
+.shop-tile__gift { font-size: 13px; padding: 6px 10px; }
+@media (max-width: 640px) {
+  .shop-tile__media img { width: 96%; height: 96%; }
+  .shop-tile__cat { font-size: 11.5px; }
+  .shop-tile__name { font-size: 17px; }
+  .shop-tile__rating { font-size: 14px; }
+  .shop-tile__price strong { font-size: 19px; }
+  .shop-tile__price del { font-size: 14px; }
+}
+
+/* Smaller home hero image */
+.hero-product-image { max-width: 400px; }
+@media (max-width: 900px) {
+  .hero-product-image { max-width: 380px; margin-inline: auto; }
+}

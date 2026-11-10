@@ -240,7 +240,7 @@
   }
 
   // ---------- Count-up numbers when they scroll into view ----------
-  const counters = [...document.querySelectorAll('.blog-count, .pdp-rating strong, .shop-tile__rating strong')];
+  const counters = [...document.querySelectorAll('.blog-count')]; // ratings stay static
   const countObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
