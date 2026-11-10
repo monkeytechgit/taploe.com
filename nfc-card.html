@@ -409,7 +409,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="product-page product-page--nfc">
+<body class="product-page pdp-page product-page--nfc">
   <a class="skip-link" href="#contenido">Skip to content</a>
 
   <header class="site-header">
@@ -484,25 +484,42 @@
     </nav>
   </header>
   <main id="contenido">
-    <section class="product-detail">
-      <div class="container product-detail__grid">
-        <div class="product-gallery" data-gallery>
-          <div class="product-gallery__stage" data-gallery-stage>
-            <img class="product-gallery__main" data-gallery-main src="assets/images/product-nfc-business-card.webp" alt="NFC Business Card and digital profile on a phone">
-            <span class="product-gallery__caption">Reference preview</span>
+    <section class="product-detail pdp">
+      <div class="container">
+        <nav class="pdp-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="catalog.html">NFC cards</a><span aria-hidden="true">/</span><span>NFC Business Card</span></nav>
+        <div class="product-detail__grid pdp-grid">
+          <div class="product-gallery pdp-gallery" data-gallery>
+            <div class="product-gallery__stage" data-gallery-stage>
+              <img class="product-gallery__main" data-gallery-main src="assets/images/product-nfc-business-card.webp" alt="NFC Business Card with digital profile">
+              <button class="pdp-gallery__nav pdp-gallery__nav--prev" type="button" data-gallery-prev aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+              <button class="pdp-gallery__nav pdp-gallery__nav--next" type="button" data-gallery-next aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              <button class="pdp-gallery__zoom" type="button" data-gallery-zoom aria-label="View image full screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button>
+              <span class="pdp-gallery__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free card in 2026</span>
+            </div>
+            <div class="product-gallery__thumbs"><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/product-nfc-business-card.webp" data-gallery-alt="NFC Business Card and digital profile on a phone" aria-label="Show image 1" aria-current="true"><img src="assets/images/product-nfc-business-card.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/nfc-card-sample.webp" data-gallery-alt="Sample Taploe NFC card" aria-label="Show image 2" aria-current="false"><img src="assets/images/nfc-card-sample.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/production-delivery-step-2.webp" data-gallery-alt="Production and delivery of a Taploe card" aria-label="Show image 3" aria-current="false"><img src="assets/images/production-delivery-step-2.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/share-contact-step-3.webp" data-gallery-alt="Person sharing a Taploe profile with an NFC card" aria-label="Show image 4" aria-current="false"><img src="assets/images/share-contact-step-3.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/nfc-card-custom-logo.webp" data-gallery-alt="Custom NFC Business Card with your logo" aria-label="Show image 5" aria-current="false" data-custom-logo-reference><img src="assets/images/nfc-card-custom-logo.webp" alt=""></button><button class="product-gallery__thumb product-gallery__thumb--video" type="button" data-gallery-video="assets/video/pvc-nfc.MP4" data-gallery-alt="Video of Taploe PVC NFC Business Card in the USA" aria-label="Show PVC NFC Business Card video" aria-current="false"><video src="assets/video/pvc-nfc.MP4" poster="assets/images/product-nfc-business-card.webp" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video><span>Video</span></button></div>
           </div>
-          <div class="product-gallery__thumbs"><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/product-nfc-business-card.webp" data-gallery-alt="NFC Business Card and digital profile on a phone" aria-label="Show image 1" aria-current="true"><img src="assets/images/product-nfc-business-card.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/nfc-card-sample.webp" data-gallery-alt="Sample Taploe NFC card" aria-label="Show image 2" aria-current="false"><img src="assets/images/nfc-card-sample.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/production-delivery-step-2.webp" data-gallery-alt="Production and delivery of a Taploe card" aria-label="Show image 3" aria-current="false"><img src="assets/images/production-delivery-step-2.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/share-contact-step-3.webp" data-gallery-alt="Person sharing a Taploe profile with an NFC card" aria-label="Show image 4" aria-current="false"><img src="assets/images/share-contact-step-3.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/nfc-card-custom-logo.webp" data-gallery-alt="Custom NFC Business Card with your logo" aria-label="Show image 5" aria-current="false" data-custom-logo-reference><img src="assets/images/nfc-card-custom-logo.webp" alt=""></button><button class="product-gallery__thumb product-gallery__thumb--video" type="button" data-gallery-video="assets/video/pvc-nfc.MP4" data-gallery-alt="Video of Taploe PVC NFC Business Card in the USA" aria-label="Show PVC NFC Business Card video" aria-current="false"><video src="assets/video/pvc-nfc.MP4" poster="assets/images/product-nfc-business-card.webp" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video><span>Video</span></button></div>
-        </div>
-        <aside class="product-configurator" data-product-configurator data-product-code="nfc" data-product-name="NFC Business Card" data-product-price="44.99" data-stripe-product-id="prod_V5o0MjNQkWGr8u" data-stripe-price-id="price_1U5cO2CYqBesDVNn7vyKC7z8">
-          <div class="product-configurator__heading">
-            <p class="product-configurator__eyebrow">Digital business card</p>
-            <div class="product-configurator__title-row"><h1>NFC Business Card</h1><div class="product-configurator__price"><span class="product-configurator__price-note">One-time payment</span><strong>$44.99 USD</strong><del>$59.99 USD</del></div></div>
-            <p class="product-configurator__description">A lightweight, customizable card that opens your digital profile with NFC or QR code.</p>
-            <div class="product-rating" aria-label="Customer rating"><span class="product-rating__stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
-            <div class="product-shipping-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg><span>Free shipping</span></div>
-          </div>
-          <form class="product-form" data-product-form>
-            <fieldset class="config-group" data-design-group>
+
+          <aside class="product-configurator pdp-buy" data-product-configurator data-product-code="nfc" data-product-name="NFC Business Card" data-product-price="44.99" data-stripe-product-id="prod_V5o0MjNQkWGr8u" data-stripe-price-id="price_1U5cO2CYqBesDVNn7vyKC7z8">
+            <p class="pdp-ship"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg><span>Free shipping across the USA 🇺🇸</span></p>
+            <h1>NFC Business Card</h1>
+            <div class="pdp-rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9/5</strong><span>· Verified customers</span></div>
+            <div class="pdp-price">
+              <strong data-product-price-display>$44.99 USD</strong>
+              <del data-product-compare-display>$59.99 USD</del>
+              <span class="pdp-price__save"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8Z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg><span data-product-save-display>Save 25%</span></span>
+            </div>
+            <p class="pdp-price__note">One-time payment · Free shipping included</p>
+            <ul class="pdp-checks">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.2 3 3 6-6.4"/></svg><span>Share your contact <strong>with one tap</strong></span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.2 3 3 6-6.4"/></svg><span>One-time payment, <strong>no subscriptions</strong></span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.2 3 3 6-6.4"/></svg><span>Card size: <strong>85.6 mm × 54 mm</strong> (standard)</span></li>
+            </ul>
+            <div class="pdp-gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg><div><strong>+1 free card with every order in 2026</strong><span>Through December 31, 2026 we add one extra card to every order at no cost. Same design, ready to use.</span></div></div>
+
+            <form class="product-form" data-product-form>
+              <div class="pdp-divider pdp-divider--plain"><span>Customize your card 👇</span></div>
+              <div class="pdp-custom">
+                <fieldset class="config-group" data-design-group>
               <legend>Choose the design</legend>
               <div class="config-choice-grid">
                 <label class="config-choice">
@@ -517,8 +534,7 @@
                 </label>
               </div>
             </fieldset>
-
-            <div class="config-group logo-upload-panel" data-upload-panel>
+                <div class="config-group logo-upload-panel" data-upload-panel>
               <span class="config-label">Upload your logo</span>
               <label class="logo-dropzone" data-dropzone>
                 <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-logo-input>
@@ -530,44 +546,121 @@
                 <button class="logo-upload-remove" type="button" data-upload-remove aria-label="Remove logo">✕</button>
               </div>
             </div>
-            <div class="config-group"><label class="config-label" for="quantity">Quantity</label><div class="quantity-control"><button type="button" data-quantity-minus aria-label="Decrease quantity">−</button><input id="quantity" name="quantity" type="number" value="1" min="1" max="99" inputmode="numeric" data-quantity><button type="button" data-quantity-plus aria-label="Increase quantity">+</button></div></div>
-            <button class="product-submit" type="submit">Add to cart</button>
-            <p class="product-form__status" role="status" aria-live="polite" data-form-status></p>
-            <p class="product-form__note">Includes a digital profile and access to Taploe’s free platform to connect your card.</p>
-            <p class="product-summary">Includes an editable digital profile, NFC + QR and free access to the Taploe platform.</p>
-            <ul class="product-feature-list"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span>Digital profile included</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span>No expiration</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span>Compatible with iPhone and Android</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span>NFC and dynamic QR code</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span>No app required</span></li></ul>
-            <div class="product-accordions" aria-label="Product information">
-              <details class="product-accordion product-accordion--details">
-                <summary><span class="product-accordion__icon" aria-hidden="true">i</span><span>Details</span></summary>
-                <div class="product-accordion__content">
-                  <p>Premium PVC card with NFC and QR code to share your digital profile instantly.</p>
-                  <h3>Includes:</h3>
-                  <ul>
-                    <li>Personalization with logo, name, role and colors.</li>
-                    <li>Digital profile editable.</li>
-                    <li>Button to save contact details, WhatsApp, social links and websites.</li>
-                    <li>Compatible with iPhone and Android.</li>
-                    <li>Free access to the Taploe platform.</li>
-                    <li>Unlimited updates to your design and profile details.</li>
-                    <li>No apps required to share your information.</li>
-                  </ul>
-                </div>
-              </details>
-              <details class="product-accordion product-accordion--shipping">
-                <summary><span class="product-accordion__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg></span><span>Shipping</span></summary>
-                <div class="product-accordion__content">
-                  <p>We ship across the United States. Estimated delivery is 5-7 business days. You receive tracking details and support to get your card ready.</p>
-                </div>
-              </details>
-            </div>
-          </form>
-        </aside>
+              </div>
+
+              <div class="pdp-actions">
+                <div class="quantity-control pdp-qty"><button type="button" data-quantity-minus aria-label="Decrease quantity">−</button><input id="quantity" name="quantity" type="number" value="1" min="1" max="99" inputmode="numeric" aria-label="Quantity" data-quantity><button type="button" data-quantity-plus aria-label="Increase quantity">+</button></div>
+                <button class="product-submit pdp-add" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 6h15l-1.9 8.2a2 2 0 0 1-2 1.6H8.1a2 2 0 0 1-2-1.7L4.7 3.8H2.8"/><path d="M9.2 20.2h.1M17.4 20.2h.1"/></svg><span>Add to cart · <span data-submit-price>$44.99 USD</span></span></button>
+              </div>
+              <button class="pdp-buy-now" type="submit" data-buy-now><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Buy now · secure checkout</span></button>
+              <p class="product-form__status" role="status" aria-live="polite" data-form-status></p>
+
+              <div class="pdp-trust">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg>Free shipping across the USA</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>Set up and ready to use</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.4 8 9 4.6-.6 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg>No apps or subscriptions</span>
+              </div>
+
+              <div class="pdp-ideal">
+                <strong>Ideal for:</strong>
+                <ul><li>Sales reps, realtors and consultants</li><li>Founders and freelancers</li><li>Networking events and trade shows</li><li>Anyone tired of reprinting paper cards</li></ul>
+              </div>
+
+              <div class="pdp-accordions">
+                <details class="pdp-accordion"><summary>How does it work?</summary><p>Choose the Taploe design or upload your logo. We produce and ship your card, you connect it to your free Taploe profile, and from then on anyone can tap their phone on it (or scan the QR code) to open your contact, links and socials.</p></details>
+                <details class="pdp-accordion"><summary>Compatibility</summary><p>Works with iPhone XR and newer and virtually every Android phone with NFC. Phones that can’t tap simply scan the printed QR code with the camera. No app required.</p></details>
+                <details class="pdp-accordion"><summary>Specifications</summary><ul><li>Premium PVC, matte finish</li><li>NFC chip + printed dynamic QR code</li><li>85.6 × 54 mm, 0.8 mm thick</li><li>No battery or charging needed</li></ul></details>
+                <details class="pdp-accordion"><summary>Shipping and delivery</summary><p>Free shipping across the United States. Estimated delivery is 5-7 business days after your order is confirmed, with tracking details by email. Through 2026, every order includes one extra card at no cost.</p></details>
+              </div>
+            </form>
+          </aside>
+        </div>
       </div>
     </section>
-    <section class="product-included"><div class="container"><div class="product-included__grid"><article class="product-included__item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><div><h2>Digital profile included</h2><p>Update your details anytime without replacing the card.</p></div></article><article class="product-included__item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><div><h2>NFC + QR</h2><p>Two simple ways to open your profile.</p></div></article><article class="product-included__item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><div><h2>No apps</h2><p>The other person does not need to install anything.</p></div></article><article class="product-included__item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><div><h2>Production and shipping</h2><p>Your order is prepared and shipped in 5-7 business days.</p></div></article></div></div></section>
+
+    <section class="pdp-guide">
+      <div class="container pdp-guide__inner">
+        <span class="pdp-guide__kicker">Complete guide</span>
+        <h2>NFC business cards: the last business card you’ll need to order</h2>
+        <p>Paper business cards have a short life. They get lost in pockets, go out of date the moment your phone number or job title changes, and most of them end up in a drawer. An NFC business card fixes all three problems at once: you keep the card, the other person gets your details on their phone, and you can update those details whenever you want.</p>
+<p>Every Taploe card includes an editable digital profile. Add your phone, email, WhatsApp, website, booking link and social profiles. When someone taps, their phone opens your profile with a button to save your contact. Nothing to install, on iPhone or Android.</p>
+<h3>Why a QR code too?</h3>
+<p>Most modern phones read NFC, but not everyone knows where to tap. The printed QR code gives people a second, familiar option, so no connection is ever lost.</p>
+<p>Want to go deeper? Read <a href="blog/how-do-nfc-business-cards-work.html">how NFC business cards work</a> or <a href="blog/what-to-put-on-a-digital-business-card.html">what to put on a digital business card</a>.</p>
+      </div>
+    </section>
+
     <section class="section section-bordered product-steps" id="how-it-works"><div class="container"><div class="section-heading"><h2>How it works</h2><p>Order, receive, connect and start sharing your profile in 4 steps</p></div><div class="steps-grid"><article class="step-card"><div class="step-copy"><span class="step-number">Step 1</span><h3>Buy your card</h3><p>Choose the Taploe design or personalize it with your logo.</p></div><img class="step-image-small" src="assets/images/order-card-step-1.webp" alt="Taploe card ready to order"></article><article class="step-card"><div class="step-copy"><span class="step-number">Step 2</span><h3>Production and delivery</h3><p>We prepare your order and ship it in 5-7 business days.</p></div><img class="step-image-small" src="assets/images/production-delivery-step-2.webp" alt="Production and delivery of a Taploe card"></article><article class="step-card"><div class="step-copy"><span class="step-number">Step 3</span><h3>Connect your card</h3><p>Connect the card to your profile in Taploe’s free platform.</p></div><img class="step-image-crop" src="assets/images/activate-card-step-1.webp" alt="Activation screen for a Taploe card"></article><article class="step-card"><div class="step-copy"><span class="step-number">Step 4</span><h3>Update it and start using it</h3><p>Complete your profile and share your information instantly.</p></div><img class="step-image-hands" src="assets/images/share-contact-step-3.webp" alt="Person sharing a Taploe profile with an NFC card"></article></div></div></section>
     <section class="section section-bordered product-faq" id="faq"><div class="container faq-container"><div class="section-heading"><h2>FAQ</h2><p>The essentials before placing your order.</p></div><div class="faq-grid"><div class="faq-column"><details class="faq-item"><summary>Does it include the digital profile?</summary><p>Yes. The card includes an editable Taploe profile connected to NFC and QR.</p></details><details class="faq-item"><summary>Can I change my information later?</summary><p>Yes. You can update phone numbers, email, social links and websites without producing a new card.</p></details><details class="faq-item"><summary>Can I use my own logo?</summary><p>Yes. Select “With my logo” and upload the file from the configurator.</p></details></div><div class="faq-column"><details class="faq-item"><summary>Does the card need a battery?</summary><p>No. NFC works without a battery or charging.</p></details><details class="faq-item"><summary>How is the card connected?</summary><p>Connect the card to your profile from Taploe’s free platform.</p></details><details class="faq-item"><summary>How long does production take?</summary><p>Estimated delivery is 5-7 business days after the order is confirmed.</p></details></div></div></div></section>
-    <section class="section section-bordered related-products"><div class="container"><div class="section-heading"><h2>You may also like</h2><p>Explore other ways to share your information.</p></div><div class="related-products__grid"><article class="related-product"><img src="assets/images/product-metal-nfc-business-card.webp" alt="Metal NFC Business Card"><div><h3>Metal NFC Business Card</h3><p>Premium finish with metallic gray engraving.</p><a class="related-product__link" href="metal-nfc-card.html">View product <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article></div></div></section>
+    <!-- related:start -->
+    <section class="section section-bordered shop-related">
+      <div class="container">
+        <div class="section-heading"><h2>You may also like</h2><p>More ways to connect with customers in one tap.</p></div>
+        <div class="shop-grid shop-grid--four">
+          <article class="shop-tile" data-category="cards" data-search="metal nfc business card nfc cards nfc qr">
+            <a class="shop-tile__media" href="metal-nfc-card.html" aria-label="View Metal NFC Business Card">
+              <span class="shop-tile__save">Save 28%</span>
+              <span class="shop-tile__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free</span>
+              <img src="assets/images/product-metal-nfc-business-card.webp" alt="Metal NFC Business Card with digital profile" loading="lazy" width="600" height="600">
+              <span class="shop-tile__cta">View product <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <div class="shop-tile__body">
+              <span class="shop-tile__cat">NFC cards</span>
+              <h3 class="shop-tile__name"><a href="metal-nfc-card.html">Metal NFC Business Card</a></h3>
+              <div class="shop-tile__rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
+              <div class="shop-tile__price"><strong>$64.99 USD</strong><del>$89.99 USD</del></div>
+              <p class="shop-tile__note">Digital profile included · Free shipping</p>
+            </div>
+          </article>
+          <article class="shop-tile" data-category="reviews" data-search="google reviews nfc card reviews nfc qr">
+            <a class="shop-tile__media" href="google-reviews-nfc-card.html" aria-label="View Google Reviews NFC Card">
+              <span class="shop-tile__save">Save 30%</span>
+              <span class="shop-tile__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free</span>
+              <img src="assets/images/product-google-reviews-nfc-card.webp" alt="NFC card for collecting Google reviews" loading="lazy" width="600" height="600">
+              <span class="shop-tile__cta">View product <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <div class="shop-tile__body">
+              <span class="shop-tile__cat">Reviews</span>
+              <h3 class="shop-tile__name"><a href="google-reviews-nfc-card.html">Google Reviews NFC Card</a></h3>
+              <div class="shop-tile__rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
+              <div class="shop-tile__price"><strong>$34.99 USD</strong><del>$49.99 USD</del></div>
+              <p class="shop-tile__note">Tap or scan · Free shipping</p>
+            </div>
+          </article>
+          <article class="shop-tile" data-category="social" data-search="instagram nfc card social networks nfc qr">
+            <a class="shop-tile__media" href="instagram-nfc-card.html" aria-label="View Instagram NFC Card">
+              <span class="shop-tile__save">Save 30%</span>
+              <span class="shop-tile__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free</span>
+              <img src="assets/images/product-instagram-nfc-card.webp" alt="NFC card that opens an Instagram profile" loading="lazy" width="600" height="600">
+              <span class="shop-tile__cta">View product <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <div class="shop-tile__body">
+              <span class="shop-tile__cat">Social networks</span>
+              <h3 class="shop-tile__name"><a href="instagram-nfc-card.html">Instagram NFC Card</a></h3>
+              <div class="shop-tile__rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
+              <div class="shop-tile__price"><strong>$34.99 USD</strong><del>$49.99 USD</del></div>
+              <p class="shop-tile__note">Tap or scan · Free shipping</p>
+            </div>
+          </article>
+          <article class="shop-tile" data-category="social" data-search="facebook nfc card social networks nfc qr">
+            <a class="shop-tile__media" href="facebook-nfc-card.html" aria-label="View Facebook NFC Card">
+              <span class="shop-tile__save">Save 30%</span>
+              <span class="shop-tile__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free</span>
+              <img src="assets/images/product-facebook-nfc-card.webp" alt="NFC card that opens a Facebook page" loading="lazy" width="600" height="600">
+              <span class="shop-tile__cta">View product <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <div class="shop-tile__body">
+              <span class="shop-tile__cat">Social networks</span>
+              <h3 class="shop-tile__name"><a href="facebook-nfc-card.html">Facebook NFC Card</a></h3>
+              <div class="shop-tile__rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
+              <div class="shop-tile__price"><strong>$34.99 USD</strong><del>$49.99 USD</del></div>
+              <p class="shop-tile__note">Tap or scan · Free shipping</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- related:end -->
   </main>
   <footer class="site-footer">
     <div class="container footer-grid">

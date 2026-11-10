@@ -59,6 +59,7 @@
   const fallbackImage = 'assets/images/taploe-logo.webp';
   const shippingIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg>';
   const shippingMarkup = `<strong class="cart-summary__shipping">${shippingIcon}<span>${copy.shippingNote}</span></strong>`;
+  const giftRow = `<div class="cart-summary__row cart-summary__gift"><span>2026 bonus</span><strong>🎁 +1 free card</strong></div>`;
   const normalizeImageUrl = (url) => {
     if (!url) return fallbackImage;
     if (/^(https?:|data:|blob:)/.test(url)) return url;
@@ -91,6 +92,7 @@
         <div class="cart-drawer__footer">
           <div class="cart-summary__row"><span>${copy.subtotal}</span><strong data-cart-subtotal>${money(0)}</strong></div>
           <div class="cart-summary__row"><span>${copy.shipping}</span>${shippingMarkup}</div>
+          ${giftRow}
           <div class="cart-summary__total"><span>${copy.total}</span><strong data-cart-total>${money(0)}</strong></div>
           <a class="cart-drawer__view" href="${cartPageUrl}">${copy.viewCart}</a>
           <button class="product-submit" type="button" data-cart-checkout>${copy.buy}</button>
@@ -232,6 +234,7 @@
               <h2>${copy.total}</h2>
               <div class="cart-summary__row"><span>${copy.subtotal}</span><strong data-cart-subtotal>${money(0)}</strong></div>
               <div class="cart-summary__row"><span>${copy.shipping}</span>${shippingMarkup}</div>
+          ${giftRow}
               <div class="cart-summary__total"><span>${copy.total}</span><strong data-cart-total>${money(0)}</strong></div>
               <button class="product-submit" type="button" data-cart-checkout>${copy.buy}</button>
               <a class="cart-drawer__continue" href="index.html">${copy.continue}</a>

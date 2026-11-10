@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "build:blog": "node scripts/blog/build-blog.mjs",
+    "build:products": "node scripts/products/build-products.mjs",
+    "build": "node scripts/products/build-products.mjs && node scripts/blog/build-blog.mjs"
+  },
   "devDependencies": {
     "supabase": "^2.115.0"
   }

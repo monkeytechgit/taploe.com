@@ -51,6 +51,30 @@
     const loginLink = mobileNavInner.querySelector(`a[href="${appLoginUrl}"], a[href="iniciar-sesion.html"], a[href="login.html"]`);
     mobileNavInner.insertBefore(link, loginLink || null);
   }
+  // Announcement ticker under the navbar.
+  const siteHeader = document.querySelector('.site-header');
+  if (siteHeader && !document.querySelector('.announce-bar')) {
+    const messages = [
+      '<strong>🎁 +1 free card on every order through 2026</strong>',
+      'We set up your card before it ships',
+      'Works with NFC and QR code',
+      'One-time payment, no subscriptions',
+      'Compatible with iPhone and Android',
+      'Cards for Google, Instagram, Facebook, TripAdvisor and more',
+      'Free shipping across the USA'
+    ];
+    const run = messages.map((text) => `<span>${text}</span><i aria-hidden="true">•</i>`).join('');
+    const bar = document.createElement('div');
+    bar.className = 'announce-bar';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'Store announcements');
+    bar.innerHTML = `
+      <p class="sr-only">${messages.map((m) => m.replace(/<[^>]+>/g, '')).join('. ')}.</p>
+      <div class="announce-bar__track" aria-hidden="true"><div class="announce-bar__run">${run}</div><div class="announce-bar__run">${run}</div></div>
+    `;
+    siteHeader.insertAdjacentElement('afterend', bar);
+  }
+
   updateCartBadges();
   window.addEventListener('storage', updateCartBadges);
   window.addEventListener('taploe:cart-updated', updateCartBadges);
@@ -128,7 +152,7 @@
 
   const setupScrollReveal = () => {
     const blockedTags = new Set(['SCRIPT', 'STYLE', 'TEMPLATE', 'NOSCRIPT']);
-    const blockedSelectors = '.site-header, .mobile-nav, .dropdown-menu, .quote-dialog, .cart-drawer, .cart-loading';
+    const blockedSelectors = '.site-header, .announce-bar, .mobile-nav, .dropdown-menu, .quote-dialog, .cart-drawer, .cart-loading';
     let revealOrder = 0;
 
     document.documentElement.classList.add('taploe-motion-ready');

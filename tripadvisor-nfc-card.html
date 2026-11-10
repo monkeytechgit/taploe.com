@@ -330,7 +330,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="product-page product-page--reviews">
+<body class="product-page pdp-page product-page--reviews">
   <a class="skip-link" href="#contenido">Skip to content</a>
 
   <header class="site-header">
@@ -406,96 +406,194 @@
   </header>
 
   <main id="contenido">
-    <section class="product-detail">
-      <div class="container product-detail__grid">
-        <div class="product-gallery" data-gallery>
-          <div class="product-gallery__stage" data-gallery-stage>
-            <img class="product-gallery__main" data-gallery-main src="assets/images/product-tripadvisor-nfc-card.webp" alt="NFC Business Card for collecting TripAdvisor reviews">
-            <span class="product-gallery__caption">Reference preview</span>
-          </div>
-          <div class="product-gallery__thumbs"><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/product-tripadvisor-nfc-card.webp" data-gallery-alt="NFC Business Card for collecting TripAdvisor reviews" aria-label="Show image 1" aria-current="true"><img src="assets/images/product-tripadvisor-nfc-card.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/tripadvisor-step-1.webp" data-gallery-alt="TripAdvisor logo and link upload" aria-label="Show image 2" aria-current="false"><img src="assets/images/tripadvisor-step-1.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/tripadvisor-step-2.webp" data-gallery-alt="Production and delivery of TripAdvisor card" aria-label="Show image 3" aria-current="false"><img src="assets/images/tripadvisor-step-2.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/tripadvisor-step-4.webp" data-gallery-alt="TripAdvisor NFC Card in use" aria-label="Show image 4" aria-current="false"><img src="assets/images/tripadvisor-step-4.webp" alt=""></button></div>
-        </div>
-
-        <aside class="product-configurator" data-product-configurator data-product-code="tripadvisor" data-product-name="TripAdvisor NFC Card" data-product-price="34.99" data-stripe-product-id="prod_V5oFgBe2iIiA06">
-          <div class="product-configurator__heading">
-            <p class="product-configurator__eyebrow">TripAdvisor</p>
-            <div class="product-configurator__title-row"><h1>TripAdvisor NFC Card</h1><div class="product-configurator__price"><span class="product-configurator__price-note">One-time payment</span><strong data-product-price-display>$34.99 USD</strong><del>$49.99 USD</del></div></div>
-            <p class="product-configurator__description">Custom card that opens the TripAdvisor review link directly with NFC or QR code.</p>
-            <div class="product-rating" aria-label="Customer rating"><span class="product-rating__stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
-            <div class="product-shipping-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg><span>Free shipping</span></div>
-          </div>
-
-          <form class="product-form" data-product-form>
-            <div class="config-group">
-              <label class="config-label" for="review-link">TripAdvisor link</label>
-              <span class="config-help config-help-row"><span>Paste the direct link for collecting TripAdvisor reviews. <strong>If you have more than one link, separate them with commas (,).</strong></span><a href="https://www.tripadvisor.com/Owners" target="_blank" rel="noopener">Find link</a></span>
-              <input class="product-text-input" id="review-link" name="review-link" type="text" placeholder="https://www.tripadvisor.com/..." required data-review-link>
+    <section class="product-detail pdp">
+      <div class="container">
+        <nav class="pdp-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="catalog.html">Reviews</a><span aria-hidden="true">/</span><span>TripAdvisor NFC Card</span></nav>
+        <div class="product-detail__grid pdp-grid">
+          <div class="product-gallery pdp-gallery" data-gallery>
+            <div class="product-gallery__stage" data-gallery-stage>
+              <img class="product-gallery__main" data-gallery-main src="assets/images/product-tripadvisor-nfc-card.webp" alt="NFC card for collecting TripAdvisor reviews">
+              <button class="pdp-gallery__nav pdp-gallery__nav--prev" type="button" data-gallery-prev aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+              <button class="pdp-gallery__nav pdp-gallery__nav--next" type="button" data-gallery-next aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              <button class="pdp-gallery__zoom" type="button" data-gallery-zoom aria-label="View image full screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button>
+              <span class="pdp-gallery__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free card in 2026</span>
             </div>
+            <div class="product-gallery__thumbs"><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/product-tripadvisor-nfc-card.webp" data-gallery-alt="NFC Business Card for collecting TripAdvisor reviews" aria-label="Show image 1" aria-current="true"><img src="assets/images/product-tripadvisor-nfc-card.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/tripadvisor-step-1.webp" data-gallery-alt="TripAdvisor logo and link upload" aria-label="Show image 2" aria-current="false"><img src="assets/images/tripadvisor-step-1.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/tripadvisor-step-2.webp" data-gallery-alt="Production and delivery of TripAdvisor card" aria-label="Show image 3" aria-current="false"><img src="assets/images/tripadvisor-step-2.webp" alt=""></button><button class="product-gallery__thumb" type="button" data-gallery-image="assets/images/tripadvisor-step-4.webp" data-gallery-alt="TripAdvisor NFC Card in use" aria-label="Show image 4" aria-current="false"><img src="assets/images/tripadvisor-step-4.webp" alt=""></button></div>
+          </div>
 
-            <fieldset class="config-group">
-              <legend>Choose your pack</legend>
-              <div class="review-package-grid">
-                <label class="review-package-option">
-                  <input type="radio" name="review-package" value="single" data-package-option data-package-label="Single" data-package-quantity="1" data-package-price="34.99" data-package-unit-price="34.99" data-stripe-price-id="price_1U5cdLCYqBesDVNnsOgoyAtu" checked>
-                  <span class="review-package-card"><strong>Single</strong><small>1 card</small><b>$34.99 USD</b><em>Base price</em></span>
-                  <span class="review-package-check">✓</span>
+          <aside class="product-configurator pdp-buy" data-product-configurator data-product-code="tripadvisor" data-product-name="TripAdvisor NFC Card" data-product-price="34.99" data-stripe-product-id="prod_V5oFgBe2iIiA06">
+            <p class="pdp-ship"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg><span>Free shipping across the USA 🇺🇸</span></p>
+            <h1>TripAdvisor NFC Card</h1>
+            <div class="pdp-rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9/5</strong><span>· Verified customers</span></div>
+            <div class="pdp-price">
+              <strong data-product-price-display>$34.99 USD</strong>
+              <del data-product-compare-display>$49.99 USD</del>
+              <span class="pdp-price__save"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8Z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg><span data-product-save-display>Save 30%</span></span>
+            </div>
+            <p class="pdp-price__note">One-time payment · Free shipping included</p>
+            <ul class="pdp-checks">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.2 3 3 6-6.4"/></svg><span>More guest reviews <strong>in seconds</strong></span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.2 3 3 6-6.4"/></svg><span>One-time payment, <strong>no subscriptions</strong></span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.2 3 3 6-6.4"/></svg><span>Card size: <strong>85.6 mm × 54 mm</strong></span></li>
+            </ul>
+            <div class="pdp-gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg><div><strong>+1 free card with every order in 2026</strong><span>Through December 31, 2026 we add one extra card to every order at no cost. Same design, ready to use.</span></div></div>
+
+            <form class="product-form" data-product-form>
+              <div class="pdp-divider"><span>Buy more, save more</span></div>
+              <fieldset class="pdp-packs">
+                <legend class="sr-only">Choose your pack</legend>
+                <label class="pdp-pack">
+                  <input type="radio" name="review-package" value="single" data-package-option data-package-compare="49.99" data-package-label="Single" data-package-quantity="1" data-package-price="34.99" data-package-unit-price="34.99" data-stripe-price-id="price_1U5cdLCYqBesDVNnsOgoyAtu" checked>
+                  
+                  <span class="pdp-pack__radio" aria-hidden="true"></span>
+                  <span class="pdp-pack__info"><strong>1 card </strong><small>Free shipping included</small></span>
+                  <span class="pdp-pack__price"><strong>$34.99 USD</strong><del>$49.99 USD</del></span>
                 </label>
-                <label class="review-package-option">
-                  <input type="radio" name="review-package" value="double" data-package-option data-package-label="Double" data-package-quantity="2" data-package-price="49.99" data-package-unit-price="25.00" data-stripe-price-id="price_1U5ce6CYqBesDVNnRWAdd9mU">
-                  <span class="review-package-card"><strong>Double</strong><small>2 cards · $25.00 each</small><b>$49.99 USD</b><em>-29%</em></span>
-                  <span class="review-package-check">✓</span>
+                <label class="pdp-pack">
+                  <input type="radio" name="review-package" value="double" data-package-option data-package-compare="69.98" data-package-label="Double" data-package-quantity="2" data-package-price="49.99" data-package-unit-price="25.00" data-stripe-price-id="price_1U5ce6CYqBesDVNnRWAdd9mU">
+                  
+                  <span class="pdp-pack__radio" aria-hidden="true"></span>
+                  <span class="pdp-pack__info"><strong>2 cards <span class="pdp-pack__off">29% off</span></strong><small>$25.00 USD each</small></span>
+                  <span class="pdp-pack__price"><strong>$49.99 USD</strong><del>$69.98 USD</del></span>
                 </label>
-                <label class="review-package-option">
-                  <input type="radio" name="review-package" value="pack" data-package-option data-package-label="Pack" data-package-quantity="5" data-package-price="79.99" data-package-unit-price="16.00" data-stripe-price-id="price_1U5ce6CYqBesDVNnpE8vN6Dx">
-                  <span class="review-package-card"><strong>Pack</strong><small>5 cards · $16.00 each</small><b>$79.99 USD</b><em>-54%</em></span>
-                  <span class="review-package-check">✓</span>
+                <label class="pdp-pack pdp-pack--flag">
+                  <input type="radio" name="review-package" value="pack" data-package-option data-package-compare="174.95" data-package-label="Pack" data-package-quantity="5" data-package-price="79.99" data-package-unit-price="16.00" data-stripe-price-id="price_1U5ce6CYqBesDVNnpE8vN6Dx">
+                  <span class="pdp-pack__flag">🔥 Most popular</span>
+                  <span class="pdp-pack__radio" aria-hidden="true"></span>
+                  <span class="pdp-pack__info"><strong>5 cards <span class="pdp-pack__off">54% off</span></strong><small>$16.00 USD each</small></span>
+                  <span class="pdp-pack__price"><strong>$79.99 USD</strong><del>$174.95 USD</del></span>
                 </label>
-                <label class="review-package-option review-package-option--offer">
-                  <input type="radio" name="review-package" value="mega-pack" data-package-option data-package-label="Mega pack" data-package-quantity="10" data-package-price="129.99" data-package-unit-price="13.00" data-stripe-price-id="price_1U5ce5CYqBesDVNnoltXVDB2">
-                  <span class="review-package-card"><strong>Mega pack</strong><small>10 cards · $13.00 each</small><b>$129.99 USD</b><em>-63% · Best value</em></span>
-                  <span class="review-package-check">✓</span>
+                <label class="pdp-pack pdp-pack--flag">
+                  <input type="radio" name="review-package" value="mega-pack" data-package-option data-package-compare="349.90" data-package-label="Mega pack" data-package-quantity="10" data-package-price="129.99" data-package-unit-price="13.00" data-stripe-price-id="price_1U5ce5CYqBesDVNnoltXVDB2">
+                  <span class="pdp-pack__flag pdp-pack__flag--best">Best value</span>
+                  <span class="pdp-pack__radio" aria-hidden="true"></span>
+                  <span class="pdp-pack__info"><strong>10 cards <span class="pdp-pack__off">63% off</span></strong><small>$13.00 USD each</small></span>
+                  <span class="pdp-pack__price"><strong>$129.99 USD</strong><del>$349.90 USD</del></span>
                 </label>
+              </fieldset>
+              <div class="pdp-divider pdp-divider--plain"><span>Customize your card 👇</span></div>
+              <div class="pdp-custom">
+                <div class="pdp-custom__field">
+                  <img src="assets/images/product-tripadvisor-nfc-card.webp" alt="" width="44" height="44">
+                  <label class="sr-only" for="review-link">Your TripAdvisor review link</label>
+                  <input class="product-text-input" id="review-link" name="review-link" type="text" placeholder="https://www.tripadvisor.com/..." required data-review-link>
+                </div>
+                <p class="pdp-custom__help"><strong>Your TripAdvisor review link.</strong> Paste the link to your TripAdvisor review page. More than one listing? Separate links with a comma (,).</p>
+                <a class="pdp-custom__find" href="https://www.tripadvisor.com/Owners" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>How do I find my review link?</a>
+                <a class="pdp-custom__guide" href="blog/how-to-get-more-tripadvisor-reviews.html">Read our step-by-step guide</a>
               </div>
-            </fieldset>
 
-            <button class="product-submit" type="submit">Add to cart</button>
-            <p class="product-form__status" role="status" aria-live="polite" data-form-status></p>
-            <p class="product-form__note">Your card is prepared with the TripAdvisor link you add to this order.</p>
-            <p class="product-summary">This is not a business card: it is designed to collect TripAdvisor reviews.</p>
-            <ul class="product-feature-list"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span>Direct link a TripAdvisor</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span>NFC access</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span>Built-in QR code</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span>Design with your brand</span></li></ul>
+              <div class="pdp-actions">
+                
+                <button class="product-submit pdp-add" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 6h15l-1.9 8.2a2 2 0 0 1-2 1.6H8.1a2 2 0 0 1-2-1.7L4.7 3.8H2.8"/><path d="M9.2 20.2h.1M17.4 20.2h.1"/></svg><span>Add to cart · <span data-submit-price>$34.99 USD</span></span></button>
+              </div>
+              <button class="pdp-buy-now" type="submit" data-buy-now><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Buy now · secure checkout</span></button>
+              <p class="product-form__status" role="status" aria-live="polite" data-form-status></p>
 
-            <div class="product-accordions" aria-label="Product information">
-              <details class="product-accordion product-accordion--details">
-                <summary><span class="product-accordion__icon" aria-hidden="true">i</span><span>Details</span></summary>
-                <div class="product-accordion__content">
-                  <p>Custom NFC Business Card that sends customers to your business TripAdvisor review link. Includes access through NFC and QR code.</p>
-                  <h3>Includes:</h3>
-                  <ul>
-                    <li>Personalization with your logo and brand.</li>
-                    <li>Direct link a TripAdvisor.</li>
-                    <li>NFC access.</li>
-                    <li>Built-in QR code.</li>
-                    <li>It does not work as a business card.</li>
-                  </ul>
-                </div>
-              </details>
-              <details class="product-accordion product-accordion--shipping">
-                <summary><span class="product-accordion__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg></span><span>Shipping</span></summary>
-                <div class="product-accordion__content">
-                  <p>We ship across the United States. Estimated delivery is 5-7 business days. You receive tracking details and support to get your card ready.</p>
-                </div>
-              </details>
-            </div>
-          </form>
-        </aside>
+              <div class="pdp-trust">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><path d="M5 17a2 2 0 1 0 4 0M16 17a2 2 0 1 0 4 0"/></svg>Free shipping across the USA</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>Set up and ready to use</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.4 8 9 4.6-.6 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg>No apps or subscriptions</span>
+              </div>
+
+              <div class="pdp-ideal">
+                <strong>Ideal for:</strong>
+                <ul><li>Hotels, B&amp;Bs and vacation rentals</li><li>Restaurants and bars</li><li>Tours and experiences</li><li>Attractions and museums</li></ul>
+              </div>
+
+              <div class="pdp-accordions">
+                <details class="pdp-accordion"><summary>How does it work?</summary><p>Paste your TripAdvisor link when you order. We configure and ship your card. Place it at the front desk, in rooms or with the check: guests tap or scan and your review page opens.</p></details>
+                <details class="pdp-accordion"><summary>Compatibility</summary><p>Works with iPhone XR and newer and virtually every Android phone with NFC. Phones that can’t tap simply scan the printed QR code with the camera. No app required.</p></details>
+                <details class="pdp-accordion"><summary>Specifications</summary><ul><li>Premium PVC, matte finish</li><li>NFC chip + printed QR code</li><li>85.6 × 54 mm, 0.8 mm thick</li><li>Configured with your link before shipping</li></ul></details>
+                <details class="pdp-accordion"><summary>Shipping and delivery</summary><p>Free shipping across the United States. Estimated delivery is 5-7 business days after your order is confirmed, with tracking details by email. Through 2026, every order includes one extra card at no cost.</p></details>
+              </div>
+            </form>
+          </aside>
+        </div>
       </div>
     </section>
 
-    <section class="product-included"><div class="container"><div class="product-included__grid"><article class="product-included__item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><div><h2>Direct link</h2><p>Opens the TripAdvisor review flow.</p></div></article><article class="product-included__item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><div><h2>NFC + QR</h2><p>Two simple ways for customers to interact.</p></div></article><article class="product-included__item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><div><h2>Design with your brand</h2><p>Personalize the card with your visual identity.</p></div></article></div></div></section>
+    <section class="pdp-guide">
+      <div class="container pdp-guide__inner">
+        <span class="pdp-guide__kicker">Complete guide</span>
+        <h2>Make every great stay show up on TripAdvisor</h2>
+        <p>Travelers read TripAdvisor long before they book. Your happiest guests are the ones most likely to forget to review once they’re home. A TripAdvisor card at checkout or in the room catches them while the memory is fresh.</p>
+<p>See <a href="blog/hotel-checkout-review-strategy.html">how hotels turn checkout into their best review moment</a>.</p>
+      </div>
+    </section>
 
     <section class="section section-bordered product-steps google-review-steps" id="how-it-works"><div class="container"><div class="section-heading"><h2>How it works</h2><p>Order and start collecting reviews in a few steps.</p></div><div class="steps-grid"><article class="step-card"><div class="step-copy"><span class="step-number">Step 1</span><h3>Buy your card</h3><p>Add your logo and your TripAdvisor review link.</p></div><img src="assets/images/tripadvisor-step-1.webp" alt="TripAdvisor logo and link upload"></article><article class="step-card"><div class="step-copy"><span class="step-number">Step 2</span><h3>Production and delivery</h3><p>We prepare your order and ship it in 5-7 business days.</p></div><img src="assets/images/tripadvisor-step-2.webp" alt="Production and delivery of TripAdvisor card"></article><article class="step-card"><div class="step-copy"><span class="step-number">Step 3</span><h3>Start using it</h3><p>Place it in your business and send your customers to TripAdvisor.</p></div><img src="assets/images/tripadvisor-step-4.webp" alt="TripAdvisor NFC Card in use"></article></div></div></section>
 
     <section class="section section-bordered product-faq" id="faq"><div class="container faq-container"><div class="section-heading"><h2>FAQ</h2><p>The essentials before placing your order.</p></div><div class="faq-grid"><div class="faq-column"><details class="faq-item"><summary>Is it a business card?</summary><p>No. This card is designed to open your business TripAdvisor link.</p></details><details class="faq-item"><summary>Can I change the link later?</summary><p>If you need to change it, contact us so we can review the update.</p></details><details class="faq-item"><summary>Does it include a QR code?</summary><p>Yes. It includes NFC access and a built-in QR code.</p></details></div><div class="faq-column"><details class="faq-item"><summary>Which link should I send?</summary><p>The direct link for your customers to leave a review on TripAdvisor.</p></details><details class="faq-item"><summary>Can I use my logo?</summary><p>Yes. The card is personalized with your brand.</p></details><details class="faq-item"><summary>How long does delivery take?</summary><p>Estimated delivery is 5-7 business days after the order is confirmed.</p></details></div></div></div></section>
+    <!-- related:start -->
+    <section class="section section-bordered shop-related">
+      <div class="container">
+        <div class="section-heading"><h2>You may also like</h2><p>More ways to connect with customers in one tap.</p></div>
+        <div class="shop-grid shop-grid--four">
+          <article class="shop-tile" data-category="cards" data-search="nfc business card nfc cards nfc qr">
+            <a class="shop-tile__media" href="nfc-card.html" aria-label="View NFC Business Card">
+              <span class="shop-tile__save">Save 25%</span>
+              <span class="shop-tile__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free</span>
+              <img src="assets/images/product-nfc-business-card.webp" alt="NFC Business Card with digital profile" loading="lazy" width="600" height="600">
+              <span class="shop-tile__cta">View product <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <div class="shop-tile__body">
+              <span class="shop-tile__cat">NFC cards</span>
+              <h3 class="shop-tile__name"><a href="nfc-card.html">NFC Business Card</a></h3>
+              <div class="shop-tile__rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
+              <div class="shop-tile__price"><strong>$44.99 USD</strong><del>$59.99 USD</del></div>
+              <p class="shop-tile__note">Digital profile included · Free shipping</p>
+            </div>
+          </article>
+          <article class="shop-tile" data-category="cards" data-search="metal nfc business card nfc cards nfc qr">
+            <a class="shop-tile__media" href="metal-nfc-card.html" aria-label="View Metal NFC Business Card">
+              <span class="shop-tile__save">Save 28%</span>
+              <span class="shop-tile__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free</span>
+              <img src="assets/images/product-metal-nfc-business-card.webp" alt="Metal NFC Business Card with digital profile" loading="lazy" width="600" height="600">
+              <span class="shop-tile__cta">View product <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <div class="shop-tile__body">
+              <span class="shop-tile__cat">NFC cards</span>
+              <h3 class="shop-tile__name"><a href="metal-nfc-card.html">Metal NFC Business Card</a></h3>
+              <div class="shop-tile__rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
+              <div class="shop-tile__price"><strong>$64.99 USD</strong><del>$89.99 USD</del></div>
+              <p class="shop-tile__note">Digital profile included · Free shipping</p>
+            </div>
+          </article>
+          <article class="shop-tile" data-category="reviews" data-search="google reviews nfc card reviews nfc qr">
+            <a class="shop-tile__media" href="google-reviews-nfc-card.html" aria-label="View Google Reviews NFC Card">
+              <span class="shop-tile__save">Save 30%</span>
+              <span class="shop-tile__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free</span>
+              <img src="assets/images/product-google-reviews-nfc-card.webp" alt="NFC card for collecting Google reviews" loading="lazy" width="600" height="600">
+              <span class="shop-tile__cta">View product <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <div class="shop-tile__body">
+              <span class="shop-tile__cat">Reviews</span>
+              <h3 class="shop-tile__name"><a href="google-reviews-nfc-card.html">Google Reviews NFC Card</a></h3>
+              <div class="shop-tile__rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
+              <div class="shop-tile__price"><strong>$34.99 USD</strong><del>$49.99 USD</del></div>
+              <p class="shop-tile__note">Tap or scan · Free shipping</p>
+            </div>
+          </article>
+          <article class="shop-tile" data-category="social" data-search="instagram nfc card social networks nfc qr">
+            <a class="shop-tile__media" href="instagram-nfc-card.html" aria-label="View Instagram NFC Card">
+              <span class="shop-tile__save">Save 30%</span>
+              <span class="shop-tile__gift"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14"/><path d="M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z"/></svg>+1 free</span>
+              <img src="assets/images/product-instagram-nfc-card.webp" alt="NFC card that opens an Instagram profile" loading="lazy" width="600" height="600">
+              <span class="shop-tile__cta">View product <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <div class="shop-tile__body">
+              <span class="shop-tile__cat">Social networks</span>
+              <h3 class="shop-tile__name"><a href="instagram-nfc-card.html">Instagram NFC Card</a></h3>
+              <div class="shop-tile__rating" aria-label="Rated 4.9 out of 5 by verified customers"><span class="stars" aria-hidden="true">★★★★★</span><strong>4.9</strong><span>· Verified customers</span></div>
+              <div class="shop-tile__price"><strong>$34.99 USD</strong><del>$49.99 USD</del></div>
+              <p class="shop-tile__note">Tap or scan · Free shipping</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- related:end -->
   </main>
 
   <footer class="site-footer">

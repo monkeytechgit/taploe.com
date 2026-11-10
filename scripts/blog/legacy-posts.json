@@ -1,0 +1,410 @@
+[
+  {
+    "slug": "are-nfc-business-cards-safe",
+    "metaTitle": "Are NFC Business Cards Safe? Privacy &amp; Security Explained",
+    "description": "Are NFC business cards safe? Learn what data an NFC card stores, whether it can be hacked or cloned, and how to protect your privacy.",
+    "title": "Are NFC Business Cards Safe? Privacy and Security Explained",
+    "intro": "Tap-to-share sounds like magic, so it is fair to ask how safe it is. In short: a well-designed NFC business card stores only a public link, and you control what that link shows.",
+    "legacyCategory": "NFC Basics",
+    "readTime": 5,
+    "legacyImage": "/assets/images/nfc-card-custom-logo.webp",
+    "faq": [
+      {
+        "q": "Can someone steal my information by tapping my card?",
+        "a": "They can only open the public profile link. Do not include private data on it."
+      },
+      {
+        "q": "Do NFC cards track me?",
+        "a": "The card itself is a passive chip. It does not track location."
+      },
+      {
+        "q": "Is NFC safer than QR?",
+        "a": "Both point to a link. Safety depends on what your profile shows and where the link goes."
+      }
+    ]
+  },
+  {
+    "slug": "digital-business-cards-vs-paper-business-cards",
+    "metaTitle": "Digital vs Paper Business Cards: Costs, Reach &amp; ROI",
+    "description": "Digital vs paper business cards compared on cost, updates, tracking, sustainability and networking impact, with advice on when to use each.",
+    "title": "Digital vs Paper Business Cards: Which Wins in 2026?",
+    "intro": "Paper cards are familiar. Digital cards are flexible. The real answer for most professionals is a smart card that combines both.",
+    "legacyCategory": "Digital Cards",
+    "readTime": 6,
+    "legacyImage": "/assets/images/digital-profile-benefits.webp",
+    "faq": [
+      {
+        "q": "Are digital business cards professional?",
+        "a": "Yes, especially when paired with a physical NFC card. They are now common in sales, real estate, consulting and hospitality."
+      },
+      {
+        "q": "Do digital cards replace paper cards completely?",
+        "a": "Many people still keep a physical card for in-person moments. Smart cards give you both."
+      },
+      {
+        "q": "Are NFC cards more sustainable?",
+        "a": "A reusable card with an editable profile avoids repeated print runs when your details change."
+      }
+    ]
+  },
+  {
+    "slug": "google-business-profile-checklist",
+    "metaTitle": "Google Business Profile Checklist: 15 Steps to Rank Higher",
+    "description": "A 15-step Google Business Profile checklist for local SEO: categories, photos, services, reviews, posts and more to rank higher in Google Maps.",
+    "title": "Google Business Profile Checklist: 15 Steps to Rank Higher Locally",
+    "intro": "Your Google Business Profile is often the first thing customers see. Complete every section and keep it active to improve your visibility in Maps and local search.",
+    "legacyCategory": "Local SEO",
+    "readTime": 7,
+    "legacyImage": "/assets/images/google-reviews-step-2.webp",
+    "faq": [
+      {
+        "q": "How long does it take to rank in Google Maps?",
+        "a": "It varies by competition. Consistent activity and reviews over weeks and months matter most."
+      },
+      {
+        "q": "Do reviews affect local ranking?",
+        "a": "Yes. Review quantity, quality, recency and your replies are considered important signals."
+      },
+      {
+        "q": "Should I use keywords in my business name?",
+        "a": "No. Use your real name. Keyword stuffing violates Google guidelines."
+      }
+    ]
+  },
+  {
+    "slug": "google-review-link-and-qr-code",
+    "metaTitle": "Google Review Link &amp; QR Code: How to Create Yours",
+    "description": "How to find your Google review link and turn it into a QR code or NFC card so customers can leave a review in one tap. Step-by-step guide.",
+    "title": "How to Find Your Google Review Link and Make a QR Code",
+    "intro": "A direct Google review link sends customers straight to the review form for your business. Turn it into a QR code or NFC card and asking for reviews takes seconds.",
+    "legacyCategory": "Google Reviews",
+    "readTime": 4,
+    "legacyImage": "/assets/images/google-reviews-step-1.webp",
+    "faq": [
+      {
+        "q": "Where do I find my Google review link?",
+        "a": "In your Google Business Profile, use the option to ask for reviews to copy your direct review link."
+      },
+      {
+        "q": "Can I put my review link on an NFC card?",
+        "a": "Yes. An NFC chip can store the link so customers open the review form by tapping their phone."
+      },
+      {
+        "q": "Is a QR code enough?",
+        "a": "QR works on any smartphone camera. Adding NFC makes it even faster for phones that support it."
+      }
+    ]
+  },
+  {
+    "slug": "how-do-nfc-business-cards-work",
+    "metaTitle": "How Do NFC Business Cards Work? A Simple Guide",
+    "description": "How do NFC business cards work? Learn how tap and QR sharing works, which phones are compatible, and why no app is needed to receive a digital profile.",
+    "title": "How Do NFC Business Cards Work?",
+    "intro": "An NFC business card lets someone open your contact details by tapping their phone on the card. No app, no typing, no lost paper. Here is exactly what happens behind the tap.",
+    "legacyCategory": "NFC Basics",
+    "readTime": 5,
+    "legacyImage": "/assets/images/nfc-card-sample.webp",
+    "faq": [
+      {
+        "q": "Do NFC business cards need a battery?",
+        "a": "No. The NFC chip is passive and is powered by the phone that taps it."
+      },
+      {
+        "q": "Can I change the information after printing?",
+        "a": "Yes. The card stores a link to your digital profile, so you can update the profile anytime without reprinting."
+      },
+      {
+        "q": "Do I need an app to receive an NFC card?",
+        "a": "No. Compatible phones open the profile in the browser. A QR code is included as a backup."
+      }
+    ]
+  },
+  {
+    "slug": "how-to-create-a-digital-business-card",
+    "metaTitle": "How to Create a Digital Business Card in 5 Minutes",
+    "description": "Step-by-step guide to creating a free digital business card with QR code, contact button and social links, then sharing it by link, QR or NFC.",
+    "title": "How to Create a Digital Business Card in 5 Minutes",
+    "intro": "You do not need a designer or developer. A digital business card is a mobile profile page that you can share by link, QR code or NFC tap. Here is how to build one quickly.",
+    "legacyCategory": "Digital Cards",
+    "readTime": 4,
+    "legacyImage": "/assets/images/digital-profile-2.webp",
+    "faq": [
+      {
+        "q": "Is a digital business card really free?",
+        "a": "Taploe lets you start with a free digital profile. Physical cards are optional and sold separately."
+      },
+      {
+        "q": "Do people need to download anything?",
+        "a": "No. Your profile opens in the phone browser."
+      },
+      {
+        "q": "Can I use it for my whole team?",
+        "a": "Yes. See Taploe for teams to manage many profiles from one place."
+      }
+    ]
+  },
+  {
+    "slug": "how-to-get-more-google-reviews",
+    "metaTitle": "How to Get More Google Reviews: 9 Ways That Work",
+    "description": "How to get more Google reviews for your local business: 9 practical, policy-safe tactics, including QR codes and NFC review cards that open your review page.",
+    "title": "How to Get More Google Reviews for Your Business",
+    "intro": "Reviews are one of the strongest local ranking and conversion signals. Most happy customers never leave one simply because it takes too many steps. These nine tactics remove that friction while staying inside Google's rules.",
+    "legacyCategory": "Google Reviews",
+    "readTime": 7,
+    "legacyImage": "/assets/images/product-google-reviews-nfc-card.webp",
+    "faq": [
+      {
+        "q": "Is it allowed to ask customers for Google reviews?",
+        "a": "Yes. Google allows you to ask customers for reviews. It does not allow incentives or selectively asking only satisfied customers."
+      },
+      {
+        "q": "How many Google reviews do I need?",
+        "a": "There is no fixed number. A steady flow of recent, genuine reviews matters more than a single big batch."
+      },
+      {
+        "q": "Do NFC review cards work without an app?",
+        "a": "Yes. Compatible phones open your review link in the browser when tapped, and a QR code covers other phones."
+      }
+    ]
+  },
+  {
+    "slug": "how-to-get-more-tripadvisor-reviews",
+    "metaTitle": "How to Get More TripAdvisor Reviews for Your Business",
+    "description": "How to get more TripAdvisor reviews for hotels, restaurants and tours: practical tips, the right way to ask, and how NFC and QR review cards help.",
+    "title": "How to Get More TripAdvisor Reviews for Your Hotel, Restaurant or Tour",
+    "intro": "For hospitality businesses, TripAdvisor reviews influence booking decisions long before a guest arrives. Here is how to earn more of them the right way.",
+    "legacyCategory": "TripAdvisor",
+    "readTime": 5,
+    "legacyImage": "/assets/images/product-tripadvisor-nfc-card.webp",
+    "faq": [
+      {
+        "q": "Can I offer a discount for a TripAdvisor review?",
+        "a": "No. TripAdvisor does not allow incentives for reviews."
+      },
+      {
+        "q": "Where should I place a review card?",
+        "a": "On tables, at reception, in rooms, or handed out at the end of a tour."
+      },
+      {
+        "q": "Do guests need an app to open the card?",
+        "a": "No. The card opens your TripAdvisor page in the phone browser."
+      }
+    ]
+  },
+  {
+    "slug": "how-to-respond-to-negative-google-reviews",
+    "metaTitle": "How to Respond to Negative Google Reviews (With Templates)",
+    "description": "How to respond to negative Google reviews professionally, with 4 copy-and-paste reply templates and tips to turn unhappy customers into loyal ones.",
+    "title": "How to Respond to Negative Google Reviews (With Templates)",
+    "intro": "A bad review feels personal, but your reply is written for every future customer who reads it. Handle it well and it can help you.",
+    "legacyCategory": "Google Reviews",
+    "readTime": 6,
+    "legacyImage": "/assets/images/google-reviews-step-3.webp",
+    "faq": [
+      {
+        "q": "Should I respond to every negative review?",
+        "a": "Yes. A prompt, professional reply shows future customers that you care."
+      },
+      {
+        "q": "Can I delete a bad review?",
+        "a": "Only if it violates Google policy. Otherwise reply professionally."
+      },
+      {
+        "q": "How fast should I reply?",
+        "a": "Within a day or two is a good target."
+      }
+    ]
+  },
+  {
+    "slug": "instagram-nfc-card-how-to-grow-followers",
+    "metaTitle": "Instagram NFC Card: How to Grow Followers in Person",
+    "description": "How to use an Instagram NFC card and QR code to turn real-world customers and event visitors into followers. Ideas for shops, creators and restaurants.",
+    "title": "Instagram NFC Card: How to Turn Customers into Followers",
+    "intro": "Every customer who walks into your shop or event is a potential follower. An Instagram NFC card takes them to your profile in a single tap.",
+    "legacyCategory": "Social Media",
+    "readTime": 4,
+    "legacyImage": "/assets/images/instagram-step-1.webp",
+    "faq": [
+      {
+        "q": "Does the card open the Instagram app?",
+        "a": "On most phones, tapping opens the Instagram profile link in the app or browser."
+      },
+      {
+        "q": "Can I change the Instagram account later?",
+        "a": "With a Taploe profile, yes. Update your links at any time."
+      },
+      {
+        "q": "Is it good for creators?",
+        "a": "Yes. It works well at events, pop-ups and collaborations."
+      }
+    ]
+  },
+  {
+    "slug": "metal-vs-pvc-nfc-business-cards",
+    "metaTitle": "Metal vs PVC NFC Business Cards: Which Should You Buy?",
+    "description": "Metal vs PVC NFC business cards compared: look, feel, durability, NFC performance and price. Find out which smart business card is right for you.",
+    "title": "Metal vs PVC NFC Business Cards: Which One Is Right for You?",
+    "intro": "Both card types share the same technology. The difference is how they look, feel and last. Here is how to choose.",
+    "legacyCategory": "Buying Guide",
+    "readTime": 5,
+    "legacyImage": "/assets/images/product-metal-nfc-business-card.webp",
+    "faq": [
+      {
+        "q": "Are metal NFC business cards worth it?",
+        "a": "If your card is part of your brand image, yes. For high volume team orders, PVC usually makes more sense."
+      },
+      {
+        "q": "Do metal NFC cards scan reliably?",
+        "a": "Well-designed metal cards do. Choose a provider that engineers the chip placement for metal."
+      },
+      {
+        "q": "Can I use my logo on both?",
+        "a": "Yes. Both card types can be customized with your logo and brand colors."
+      }
+    ]
+  },
+  {
+    "slug": "nfc-business-cards-for-networking-events",
+    "metaTitle": "NFC Business Cards for Networking Events &amp; Conferences",
+    "description": "How to network smarter at conferences and trade shows using NFC business cards: what to prepare, how to follow up and how to stand out.",
+    "title": "NFC Business Cards for Networking Events and Conferences",
+    "intro": "You may meet 50 people in one day and remember a handful. A smart business card helps you be one of the ones they remember.",
+    "legacyCategory": "Industries",
+    "readTime": 5,
+    "legacyImage": "/assets/images/nfc-card-sample.webp",
+    "faq": [
+      {
+        "q": "Do I still need paper cards at events?",
+        "a": "A smart card with NFC and QR usually replaces them. Some people bring both."
+      },
+      {
+        "q": "What if the other person has an older phone?",
+        "a": "Show the QR code on your card. Any smartphone camera can scan it."
+      },
+      {
+        "q": "Can my whole booth team use them?",
+        "a": "Yes. Team orders give each person a branded profile."
+      }
+    ]
+  },
+  {
+    "slug": "nfc-business-cards-for-real-estate-agents",
+    "metaTitle": "NFC Business Cards for Real Estate Agents: 7 Uses",
+    "description": "How real estate agents use NFC business cards to share listings, book showings, collect Google reviews and stand out at open houses. 7 practical ideas.",
+    "title": "NFC Business Cards for Real Estate Agents: 7 Smart Uses",
+    "intro": "Real estate runs on first impressions and follow-up. A tap-to-share card helps with both.",
+    "legacyCategory": "Industries",
+    "readTime": 5,
+    "legacyImage": "/assets/images/metal-nfc-card-in-use.webp",
+    "faq": [
+      {
+        "q": "Can I show listings on my digital card?",
+        "a": "Yes. Add links to your listings page or specific properties and update them any time."
+      },
+      {
+        "q": "Which card is best for luxury agents?",
+        "a": "A metal NFC card is a popular choice for premium presentation."
+      },
+      {
+        "q": "Can a brokerage order for all agents?",
+        "a": "Yes. Taploe supports bulk and team orders."
+      }
+    ]
+  },
+  {
+    "slug": "nfc-business-cards-for-sales-teams",
+    "metaTitle": "NFC Business Cards for Sales Teams: Setup, Cost &amp; Benefits",
+    "description": "Why sales teams use NFC business cards: consistent branding, faster follow-up, centralized management and lower reprint costs. Setup guide included.",
+    "title": "NFC Business Cards for Sales Teams: Setup, Cost and Benefits",
+    "intro": "Sales teams live on first impressions and follow-up speed. Standardized smart cards make every rep look sharp and every lead easier to convert.",
+    "legacyCategory": "Teams",
+    "readTime": 6,
+    "legacyImage": "/assets/images/nfc-card-custom-logo.webp",
+    "faq": [
+      {
+        "q": "Is there a bulk discount?",
+        "a": "Request a quote for volume pricing on the contact page."
+      },
+      {
+        "q": "Can we manage all profiles centrally?",
+        "a": "Yes. Taploe for teams is built for centralized management."
+      },
+      {
+        "q": "What happens when an employee leaves?",
+        "a": "You can update or deactivate the profile without reprinting cards."
+      }
+    ]
+  },
+  {
+    "slug": "nfc-review-cards-for-restaurants",
+    "metaTitle": "NFC Review Cards for Restaurants: Get More 5-Star Reviews",
+    "description": "How restaurants use NFC and QR review cards to get more Google and TripAdvisor reviews: placement tips, staff scripts and mistakes to avoid.",
+    "title": "NFC Review Cards for Restaurants: How to Get More Reviews",
+    "intro": "Diners decide where to eat on their phones. Reviews are what they read first. A review card on the table makes leaving one nearly effortless.",
+    "legacyCategory": "Industries",
+    "readTime": 6,
+    "legacyImage": "/assets/images/product-google-reviews-nfc-card.webp",
+    "faq": [
+      {
+        "q": "How many review cards does a restaurant need?",
+        "a": "Usually one per table plus a few for the counter and takeout. Larger venues order more."
+      },
+      {
+        "q": "Can each location have its own review link?",
+        "a": "Yes. Each card can point to a specific location review page."
+      },
+      {
+        "q": "Do diners need an app?",
+        "a": "No. NFC phones open the link in the browser and QR works with any camera."
+      }
+    ]
+  },
+  {
+    "slug": "nfc-vs-qr-code-business-cards",
+    "metaTitle": "NFC vs QR Code Business Cards: Differences &amp; When to Use Each",
+    "description": "NFC vs QR code business cards: how each works, speed, compatibility and cost. Learn why the best smart business cards include both.",
+    "title": "NFC vs QR Code Business Cards: What Is the Difference?",
+    "intro": "NFC and QR codes both send someone to your digital profile. They work differently, and the best cards use both.",
+    "legacyCategory": "NFC Basics",
+    "readTime": 4,
+    "legacyImage": "/assets/images/connection-methods.webp",
+    "faq": [
+      {
+        "q": "Is NFC better than QR?",
+        "a": "NFC is faster, QR is more universal. Cards with both give the best coverage."
+      },
+      {
+        "q": "Can I share my digital card without a physical card?",
+        "a": "Yes. You can share your profile link or QR code from your phone."
+      },
+      {
+        "q": "Do QR codes on cards expire?",
+        "a": "Not if they point to a permanent profile link that you control."
+      }
+    ]
+  },
+  {
+    "slug": "what-to-put-on-a-digital-business-card",
+    "metaTitle": "What to Put on a Digital Business Card: 12 Must-Haves",
+    "description": "What to include on a digital business card: 12 essentials from photo and job title to booking links and reviews, plus what to leave off.",
+    "title": "What to Put on a Digital Business Card: 12 Must-Haves",
+    "intro": "A digital business card can hold far more than a paper one, but more is not always better. Here are the items that earn their place, and what to leave out.",
+    "legacyCategory": "Digital Cards",
+    "readTime": 5,
+    "legacyImage": "/assets/images/digital-profile-3.webp",
+    "faq": [
+      {
+        "q": "How many links should a digital business card have?",
+        "a": "Between 4 and 8 works well. Prioritize contact, booking, website and one or two social profiles."
+      },
+      {
+        "q": "Should I add a photo?",
+        "a": "Yes. Profiles with a photo or logo feel more trustworthy and are easier to remember."
+      },
+      {
+        "q": "Can I change my digital card later?",
+        "a": "Yes. Edits go live immediately for anyone who opens your link, QR or NFC card."
+      }
+    ]
+  }
+]
