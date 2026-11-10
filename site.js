@@ -150,65 +150,6 @@
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const setupScrollReveal = () => {
-    const blockedTags = new Set(['SCRIPT', 'STYLE', 'TEMPLATE', 'NOSCRIPT']);
-    const blockedSelectors = '.site-header, .announce-bar, .mobile-nav, .dropdown-menu, .quote-dialog, .cart-drawer, .cart-loading';
-    let revealOrder = 0;
-
-    document.documentElement.classList.add('taploe-motion-ready');
-
-    const shouldPrepare = (element) => (
-      element instanceof Element
-      && !blockedTags.has(element.tagName)
-      && !element.closest(blockedSelectors)
-      && !element.hasAttribute('data-taploe-reveal')
-    );
-
-    const prepareElement = (element, observer) => {
-      element.dataset.taploeReveal = '';
-      element.style.setProperty('--taploe-reveal-delay', `${Math.min(revealOrder * 8, 220)}ms`);
-      revealOrder += 1;
-      if (observer) {
-        observer.observe(element);
-      } else {
-        element.classList.add('is-revealed');
-      }
-    };
-
-    const elements = Array.from(document.body.querySelectorAll('*')).filter(shouldPrepare);
-
-    if (!('IntersectionObserver' in window)) {
-      elements.forEach((element) => prepareElement(element, null));
-      return;
-    }
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-revealed');
-        observer.unobserve(entry.target);
-      });
-    }, {
-      rootMargin: '0px 0px -6% 0px',
-      threshold: 0.01
-    });
-
-    elements.forEach((element) => prepareElement(element, revealObserver));
-
-    const mutationObserver = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (!(node instanceof Element)) return;
-          [node, ...node.querySelectorAll('*')]
-            .filter(shouldPrepare)
-            .forEach((element) => prepareElement(element, revealObserver));
-        });
-      });
-    });
-
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
-  };
-
   const setupPageTransitions = () => {
     window.addEventListener('pageshow', () => {
       document.body.classList.remove('is-page-leaving');
@@ -234,8 +175,10 @@
     });
   };
 
-  if (!reduceMotion) {
-    setupScrollReveal();
+  // Scroll reveals now live in motion.js. Browsers with cross-document view
+  // transitions animate navigation natively; others get the fade-out below.
+  const nativePageTransitions = 'onpagereveal' in window && CSS.supports('view-transition-name: none');
+  if (!reduceMotion && !nativePageTransitions) {
     setupPageTransitions();
   }
 

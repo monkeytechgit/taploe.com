@@ -157,6 +157,7 @@ ${footer}
   <script src="/cart.js"></script>
   <script src="/quote-requests.js"></script>
   <script src="/site.js"></script>
+  <script src="/motion.js"></script>
   <script src="/blog/blog.js"></script>${extraScripts}
 </body>
 </html>
